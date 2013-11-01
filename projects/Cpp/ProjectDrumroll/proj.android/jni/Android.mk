@@ -19,7 +19,7 @@ LOCAL_SRC_FILES := projectdrumroll/main.cpp \
                    ../../Classes/HUD.cpp 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
-/Users/akinlin/Desktop/TBDEntertainment/Cocos2d/cocos2d-2.1rc0-x-2.1.3/external/Box2D
+C:\Users\user\Desktop\TBDEntertainment\Games\external\Box2D
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocosdenshion_static cocos_extension_static box2d_static
 

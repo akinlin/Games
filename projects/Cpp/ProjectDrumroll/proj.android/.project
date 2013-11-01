@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>HelloCpp</name>
+	<name>ProjectDrumroll</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -120,17 +120,27 @@
 		<link>
 			<name>Classes</name>
 			<type>2</type>
-			<locationURI>COCOS2DX/samples/Cpp/HelloCpp/Classes</locationURI>
+			<location>C:/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/Classes</location>
+		</link>
+		<link>
+			<name>androidjava_src</name>
+			<type>2</type>
+			<location>C:/Users/user/Desktop/TBDEntertainment/Games/cocos2dx/platform/android/java/src</location>
 		</link>
 		<link>
 			<name>cocos2dx</name>
 			<type>2</type>
-			<locationURI>COCOS2DX/cocos2dx</locationURI>
+			<location>C:/Users/user/Desktop/TBDEntertainment/Games/cocos2dx</location>
 		</link>
 		<link>
 			<name>extensions</name>
 			<type>2</type>
-			<locationURI>COCOS2DX/extensions</locationURI>
+			<location>C:/Users/user/Desktop/TBDEntertainment/Games/extensions</location>
+		</link>
+		<link>
+			<name>java</name>
+			<type>2</type>
+			<location>C:/Users/user/Desktop/TBDEntertainment/Games/cocos2dx/platform/android/java</location>
 		</link>
 	</linkedResources>
 </projectDescription>
