@@ -111,11 +111,11 @@ bool GameScene::init()
     m_touchStateMenu->setContentSize(CCSizeMake(CCDirector::sharedDirector()->getWinSize().width, VisibleRect::getScaledFont(100)));
     m_touchStateMenu->setAnchorPoint(CCPointZero);
     m_touchStateMenu->setPosition(CCPointZero);
-    addChild(m_touchStateMenu, kTagButtonMenu);
+    //addChild(m_touchStateMenu, kTagButtonMenu);
     
     // Add the goals tab
     m_goalsTab = new Goals();
-    addChild(m_goalsTab, kTagGoalstab);
+    //addChild(m_goalsTab, kTagGoalstab);
     
     // schedule the update check
     schedule( schedule_selector(GameScene::updateAll), 0.2f);

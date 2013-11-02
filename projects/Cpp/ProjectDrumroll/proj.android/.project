@@ -123,11 +123,6 @@
 			<location>C:/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/Classes</location>
 		</link>
 		<link>
-			<name>androidjava_src</name>
-			<type>2</type>
-			<location>C:/Users/user/Desktop/TBDEntertainment/Games/cocos2dx/platform/android/java/src</location>
-		</link>
-		<link>
 			<name>cocos2dx</name>
 			<type>2</type>
 			<location>C:/Users/user/Desktop/TBDEntertainment/Games/cocos2dx</location>

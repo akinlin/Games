@@ -1,32 +1,32 @@
 obj/local/armeabi/objs/cocos2dx_static/support/tinyxml2/tinyxml2.o: \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/tinyxml2/tinyxml2.cpp \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/tinyxml2/tinyxml2.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cctype \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/climits \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstdio \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstdlib \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstring \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstdarg \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/new \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstddef
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/tinyxml2/tinyxml2.cpp \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/tinyxml2/tinyxml2.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cctype \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/climits \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdio \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdlib \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstring \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdarg \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/new \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstddef
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/tinyxml2/tinyxml2.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/tinyxml2/tinyxml2.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cctype:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cctype:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/climits:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/climits:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstdio:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdio:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstdlib:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdlib:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstring:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstring:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstdarg:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdarg:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/new:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/new:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/cstddef:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstddef:

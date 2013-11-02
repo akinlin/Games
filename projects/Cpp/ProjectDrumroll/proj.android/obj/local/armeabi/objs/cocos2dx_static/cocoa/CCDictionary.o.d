@@ -1,209 +1,209 @@
 obj/local/armeabi/objs/cocos2dx_static/cocoa/CCDictionary.o: \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCDictionary.cpp \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCDictionary.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/data_support/uthash.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/string.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/cdefs.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/cdefs_elf.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/android/api-level.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/malloc.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/stdlib.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/alloca.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/strings.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/types.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/stdint.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/_types.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/machine/_types.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/posix_types.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/stddef.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/compiler.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm/posix_types.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm/types.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/types.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/machine/kernel.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/sysmacros.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/memory.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/inttypes.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCPlatformDefine.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/android/log.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCArray.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/data_support/ccCArray.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccMacros.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCCommon.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCStdC.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/math.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/limits.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/limits.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/limits.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/machine/internal_types.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/machine/limits.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/syslimits.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm/page.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/stdio.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/time.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/time.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/time.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm/siginfo.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm-generic/siginfo.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCString.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/string \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/functional \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCInteger.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCFileUtils.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/vector \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/map \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccTypes.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCGeometry.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCGL.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/GLES2/gl2platform.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/KHR/khrplatform.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/GLES2/gl2.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/GLES2/gl2ext.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccTypeInfo.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/typeinfo
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCDictionary.cpp \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCDictionary.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/data_support/uthash.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/string.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/cdefs.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/cdefs_elf.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/android/api-level.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/malloc.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/stdlib.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/alloca.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/strings.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/types.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/stdint.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/_types.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/machine/_types.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/posix_types.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/stddef.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/compiler.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm/posix_types.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm/types.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/types.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/machine/kernel.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/sysmacros.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/memory.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/inttypes.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCPlatformDefine.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/android/log.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCArray.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/data_support/ccCArray.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccMacros.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCCommon.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCStdC.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/math.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/limits.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/limits.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/limits.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/machine/internal_types.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/machine/limits.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/syslimits.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm/page.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/stdio.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/time.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/time.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/time.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm/siginfo.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm-generic/siginfo.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCString.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/string \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/functional \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCInteger.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCFileUtils.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/vector \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/map \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccTypes.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCGeometry.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCGL.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/GLES2/gl2platform.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/KHR/khrplatform.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/GLES2/gl2.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/GLES2/gl2ext.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccTypeInfo.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/typeinfo
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCDictionary.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCDictionary.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/data_support/uthash.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/data_support/uthash.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/string.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/string.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/cdefs.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/cdefs.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/cdefs_elf.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/cdefs_elf.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/android/api-level.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/android/api-level.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/malloc.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/malloc.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/stdlib.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/stdlib.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/alloca.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/alloca.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/strings.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/strings.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/types.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/types.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/stdint.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/stdint.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/_types.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/_types.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/machine/_types.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/machine/_types.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/posix_types.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/posix_types.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/stddef.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/stddef.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/compiler.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/compiler.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm/posix_types.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm/posix_types.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm/types.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm/types.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/types.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/types.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/machine/kernel.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/machine/kernel.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/sysmacros.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/sysmacros.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/memory.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/memory.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/inttypes.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/inttypes.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCPlatformDefine.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCPlatformDefine.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/android/log.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/android/log.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCArray.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCArray.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/data_support/ccCArray.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/support/data_support/ccCArray.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccMacros.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccMacros.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCCommon.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCCommon.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCStdC.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCStdC.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/math.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/math.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/limits.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/limits.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/limits.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/limits.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/limits.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/limits.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/machine/internal_types.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/machine/internal_types.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/machine/limits.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/machine/limits.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/syslimits.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/syslimits.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm/page.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm/page.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/stdio.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/stdio.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/time.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/time.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/sys/time.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/sys/time.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/linux/time.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/linux/time.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm/siginfo.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm/siginfo.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/asm-generic/siginfo.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/asm-generic/siginfo.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCString.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCString.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/string:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/string:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/functional:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/functional:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCInteger.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCInteger.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCFileUtils.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCFileUtils.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/vector:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/vector:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/map:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/map:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccTypes.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccTypes.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCGeometry.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCGeometry.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCGL.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCGL.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/GLES2/gl2platform.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/GLES2/gl2platform.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/KHR/khrplatform.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/KHR/khrplatform.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/GLES2/gl2.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/GLES2/gl2.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/GLES2/gl2ext.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/GLES2/gl2ext.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccTypeInfo.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccTypeInfo.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/typeinfo:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/typeinfo:

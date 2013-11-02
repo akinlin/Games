@@ -1,44 +1,44 @@
 obj/local/armeabi/objs/cocos2dx_static/platform/android/jni/IMEJni.o: \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/IMEJni.cpp \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/IMEJni.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/text_input_node/CCIMEDispatcher.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/text_input_node/CCIMEDelegate.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCGeometry.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCPlatformDefine.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/android/log.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h \
- /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/JniHelper.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/jni.h \
- /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/string
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/IMEJni.cpp \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/IMEJni.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/text_input_node/CCIMEDispatcher.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/text_input_node/CCIMEDelegate.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCGeometry.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCPlatformDefine.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/android/log.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/JniHelper.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/jni.h \
+ /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/string
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/IMEJni.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/IMEJni.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/text_input_node/CCIMEDispatcher.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/text_input_node/CCIMEDispatcher.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/text_input_node/CCIMEDelegate.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/text_input_node/CCIMEDelegate.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCGeometry.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCGeometry.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformMacros.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/include/ccConfig.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/CCPlatformConfig.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCPlatformDefine.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/CCPlatformDefine.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/android/log.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/android/log.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/cocoa/CCObject.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/JniHelper.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../cocos2dx/platform/android/jni/JniHelper.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/platforms/android-8/arch-arm/usr/include/jni.h:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/platforms/android-8/arch-arm/usr/include/jni.h:
 
-/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d/sources/cxx-stl/gnu-libstdc++/4.6/include/string:
+/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/string:
