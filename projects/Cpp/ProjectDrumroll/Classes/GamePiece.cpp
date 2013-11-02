@@ -52,10 +52,10 @@ GamePiece::GamePiece()
     // set the active flag
     m_isActive = true;
     
-    s_color = arc4random() % gamePieceColorCount;
-    if (arc4random() % 10 == 1)
+    s_color = rand() % gamePieceColorCount;
+    if (rand() % 10 == 1)
     {
-        s_interactionType = arc4random() % pieceInteractionCount;
+        s_interactionType = rand() % pieceInteractionCount;
     }
     else
     {
@@ -174,7 +174,7 @@ void GamePiece::switchToRandomPiece()
 {
     if (this != NULL)
     {
-        s_color = arc4random() % gamePieceColorCount;
+        s_color = rand() % gamePieceColorCount;
         this->setTextureRect(m_BlocksSprite->getSpriteRect(s_color));
     }
 }

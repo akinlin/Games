@@ -118,7 +118,7 @@ bool GameScene::init()
     //addChild(m_goalsTab, kTagGoalstab);
     
     // schedule the update check
-    schedule( schedule_selector(GameScene::updateAll), 0.2f);
+//    schedule( schedule_selector(GameScene::updateAll), 0.2f);
     
     return true;
 }
