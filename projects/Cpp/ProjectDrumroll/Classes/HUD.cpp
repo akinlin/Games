@@ -49,7 +49,7 @@ HUD::HUD()
     m_levelDisplayString->setAnchorPoint(CCPointZero);
     // yeah yeah its hardcoded, i just didn't want to do that math right now
     m_levelDisplayString->setPosition(ccp(VisibleRect::getScaledFont(250), VisibleRect::getScaledFont(450)));
-    //addChild(m_levelDisplayString);
+    addChild(m_levelDisplayString);
     
     // display the quit button
     CCMenuItemImage* quitButton = CCMenuItemImage::create("CloseNormal.png", "CloseSelected.png", this, menu_selector(HUD::returnToMenu));

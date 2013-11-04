@@ -11,6 +11,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "ScreenHelper.h"
+#include "GamePiece.h"
 
 using namespace CocosDenshion;
 
@@ -33,8 +34,9 @@ enum SceneTags {
 
 enum ButtonMenuTags {
     kTagInteractButtonReference = 1,
-    kTagEliminationButtonReference = 2,
-    
+	kTagG_InteractButtonReference = 2,
+	kTagY_InteractButtonReference = 3,
+    kTagEliminationButtonReference
 };
 
 CCScene* GameScene::scene()
@@ -57,7 +59,7 @@ bool GameScene::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !CCLayer::init() )
+	if (!CCLayerColor::initWithColor(ccc4(255, 0, 0, 255)))
     {
         return false;
     }
@@ -75,11 +77,12 @@ bool GameScene::init()
     m_interactionCount = 0;
     
     // add background for the main screen"
-    m_backgroundReference = CCSprite::create("MainScreen.png");
+    m_backgroundReference = CCSprite::create("win32/MainScreen.png");
     m_backgroundReference->setScale(VisibleRect::getScale());
     // position the sprite on the center of the screen
     m_backgroundReference->setPosition( ccp(VisibleRect::getVisibleRect().size.width/2, VisibleRect::getVisibleRect().size.height/2) );
-    // add the sprite as a child to this layer
+	m_backgroundReference->setScale(VisibleRect::getScale());
+	// add the sprite as a child to this layer
     addChild(m_backgroundReference, kTagBackgroundReference);
         
     // create and add the grid
@@ -95,38 +98,54 @@ bool GameScene::init()
     
     // create and add the interact and eliminate buttons
     // should probably be in a HUD class
+	// blue interation button (pieceInteractionFlip)
     m_touchStateMenu = CCMenu::create();
-    CCMenuItemImage* interactButton = CCMenuItemImage::create("interactButton.png", "interactButton.png", this, menu_selector(GameScene::menuInteractionCallback));
+    CCMenuItemImage* interactButton = CCMenuItemImage::create("win32/interactButton.png", "win32/interactButton.png", this, menu_selector(GameScene::menuInteractionCallback));
     interactButton->setAnchorPoint(CCPointZero);
-    interactButton->setPosition(ccp(VisibleRect::getScaledFont(40), 0));
-    m_backgroundReference->setScale(VisibleRect::getScale());
+	interactButton->setPosition(ccp(0, (VisibleRect::getScreenHeight() / 2) + interactButton->getContentSize().height));
     m_touchStateMenu->addChild(interactButton, kTagInteractButtonReference);
+
+	// green interation button (pieceInteractionDPadFlip)
+	CCMenuItemImage* g_interactButton = CCMenuItemImage::create("win32/g_eliminateButton.png", "win32/g_eliminateButton.png", this, menu_selector(GameScene::menuInteractionCallback));
+	g_interactButton->setAnchorPoint(CCPointZero);
+	g_interactButton->setPosition(ccp(0, VisibleRect::getScreenHeight() / 2));
+	m_touchStateMenu->addChild(g_interactButton, kTagG_InteractButtonReference);
+
+	// yellow interation button (pieceInteractionSwitch)
+	CCMenuItemImage* y_interactButton = CCMenuItemImage::create("win32/y_eliminateButton.png", "win32/y_eliminateButton.png", this, menu_selector(GameScene::menuInteractionCallback));
+	y_interactButton->setAnchorPoint(CCPointZero);
+	y_interactButton->setPosition(ccp(0, (VisibleRect::getScreenHeight() / 2) - interactButton->getContentSize().height));
+	m_touchStateMenu->addChild(y_interactButton, kTagY_InteractButtonReference);
     
-    CCMenuItemImage* eliminateButton = CCMenuItemImage::create("eliminateButton.png", "eliminateButton.png", this, menu_selector(GameScene::menuEliminateCallback));
-    eliminateButton->setAnchorPoint(CCPointZero);
-    eliminateButton->setPosition(ccp(VisibleRect::getScaledFont(180), 0));
-    m_backgroundReference->setScale(VisibleRect::getScale());
+	// elimination button
+    CCMenuItemImage* eliminateButton = CCMenuItemImage::create("win32/eliminateButton.png", "win32/eliminateButton.png", this, menu_selector(GameScene::menuEliminateCallback));
+    //eliminateButton->setAnchorPoint(CCPointZero);
+    eliminateButton->setPosition(ccp(VisibleRect::getScreenWidth() / 2, eliminateButton->getContentSize().height / 2));
     m_touchStateMenu->addChild(eliminateButton, kTagEliminationButtonReference);
     
-    m_touchStateMenu->setContentSize(CCSizeMake(CCDirector::sharedDirector()->getWinSize().width, VisibleRect::getScaledFont(100)));
+	// clean up the menu position and such
+    m_touchStateMenu->setContentSize(CCSizeMake(CCDirector::sharedDirector()->getWinSize().width, VisibleRect::getScreenHeight()));
     m_touchStateMenu->setAnchorPoint(CCPointZero);
     m_touchStateMenu->setPosition(CCPointZero);
-    //addChild(m_touchStateMenu, kTagButtonMenu);
+    addChild(m_touchStateMenu, kTagButtonMenu);
     
     // Add the goals tab
     m_goalsTab = new Goals();
     //addChild(m_goalsTab, kTagGoalstab);
     
     // schedule the update check
-//    schedule( schedule_selector(GameScene::updateAll), 0.2f);
+    schedule( schedule_selector(GameScene::updateAll), 0.2f);
     
     return true;
 }
 
 void GameScene::menuCallback(CCObject* pSender)
 {
+	// stop all layer actions first
+	stopAllActions();
+
     // get the userdata, it's the index of the menu item clicked
-    CCMenuItem* pMenuItem = (CCMenuItem *)(pSender);
+    CCMenuItem* pMenuItem = (CCMenuItemImage *)(pSender);
     int nIdx = pMenuItem->getZOrder() - 10000;
     
     CCLog("Index = %d", nIdx);
@@ -149,17 +168,26 @@ void GameScene::menuCallback(CCObject* pSender)
             if (m_gridReference->getTouchState() == 0)
             {
                 // hard coded to be the interaction state so set to blue
-                m_backgroundReference->setColor(ccBLUE);
+                //m_backgroundReference->setColor(ccBLUE);
+				setColor(ccBLUE);
             }
             else if(m_gridReference->getTouchState() == 1)
             {
                 // hard coded to be the elimination state so set to red
-                m_backgroundReference->setColor(ccRED);
+                //m_backgroundReference->setColor(ccRED);
+				setColor(ccRED);
             }
             break;
         default:
             break;
     }
+
+	runAction(
+		CCRepeatForever::create(
+		CCSequence::create(
+		CCFadeTo::create(.25, 0),
+		CCFadeTo::create(.25, 255),
+		NULL)));
     
     // run
     if (pScene)
@@ -171,18 +199,64 @@ void GameScene::menuCallback(CCObject* pSender)
 
 void GameScene::menuInteractionCallback(CCObject* pSender)
 {
+	// stop all layer actions first
+	stopAllActions();
+
     // change the touch state
     m_gridReference->setInteractTouchType();
-    // hard coded to be the interaction state so set to blue
-    m_backgroundReference->setColor(ccBLUE);
+
+	// get the selected button
+	CCMenuItemImage* pMenuItem = (CCMenuItemImage *)(pSender);
+
+	// set the background color
+	switch (pMenuItem->getZOrder())
+	{
+	case kTagInteractButtonReference:
+		//m_backgroundReference->setColor(ccBLUE);
+		setColor(ccBLUE);
+		m_gridReference->setInteractionState(is_flip);
+		break;
+	case kTagG_InteractButtonReference:
+		//m_backgroundReference->setColor(ccGREEN);
+		setColor(ccGREEN);
+		m_gridReference->setInteractionState(is_switch);
+		break;
+	case kTagY_InteractButtonReference:
+		//m_backgroundReference->setColor(ccYELLOW);
+		setColor(ccYELLOW);
+		m_gridReference->setInteractionState(is_dpadflip);
+		break;
+	default:
+		//m_backgroundReference->setColor(ccBLACK);
+		setColor(ccBLACK);
+		break;
+	}
+
+	runAction(
+		CCRepeatForever::create(
+		CCSequence::create(
+		CCFadeTo::create(.25, 0),
+		CCFadeTo::create(.25, 255),
+		NULL)));
 }
 
 void GameScene::menuEliminateCallback(CCObject* pSender)
 {
+	// stop all layer actions first
+	stopAllActions();
+
     // change the touch state
     m_gridReference->setEliminateTouchType();
     // hard coded to be the elimination state so set to red
-    m_backgroundReference->setColor(ccRED);
+    //m_backgroundReference->setColor(ccRED);
+	setColor(ccRED);
+
+	runAction(
+		CCRepeatForever::create(
+		CCSequence::create(
+		CCFadeTo::create(.25, 0),
+		CCFadeTo::create(.25, 255),
+		NULL)));
 }
 
 void GameScene::checkForEndOfLevel()
@@ -278,13 +352,20 @@ void GameScene::updateGoals()
     }
 }
 
-void GameScene::updateAll()
+void GameScene::updateAll(float dx)
 {
     // update goals
     updateGoals();
     
     // update score
     refreshScore();
+
+	// check if interactions are done
+	if (m_gridReference->getInteractionState() == InteractionState::is_empty && m_gridReference->getTouchState() != TouchState::eliminate)
+	{
+		stopAllActions();
+		setColor(ccBLACK);
+	}
     
     // check for the end of the level (grid returns complete when all pieces are gone)
     checkForEndOfLevel();
@@ -296,9 +377,7 @@ void GameScene::createGrid()
     m_gridReference = new Grid();
     m_gridReference->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width/2 - m_gridReference->getWidth()/2, CCDirector::sharedDirector()->getWinSize().height/2 - m_gridReference->getHeight()/2));
     
-    // set the background tint to the color of the grid touch state
-    // assuming the interact state is set, should probably check the state and set the color accordingly
-    m_backgroundReference->setColor(ccBLUE);
+	setColor(ccBLACK);
 }
 
 void GameScene::nextLevel()

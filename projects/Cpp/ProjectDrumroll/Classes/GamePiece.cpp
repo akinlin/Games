@@ -35,15 +35,6 @@ enum gamePieceColor
 //    pieceInteractionCount = 5
 //};
 
-enum gamePieceInteractionType
-{
-    pieceInteractionEmpty = 0,
-    pieceInteractionFlip = 1,
-    pieceInteractionDPadFlip = 2,
-    pieceInteractionSwitch = 3,
-    pieceInteractionCount = 4
-};
-
 GamePiece::GamePiece()
 {
     // set elimination state flag
@@ -55,7 +46,7 @@ GamePiece::GamePiece()
     s_color = rand() % gamePieceColorCount;
     if (rand() % 10 == 1)
     {
-        s_interactionType = rand() % pieceInteractionCount;
+        //s_interactionType = rand() % pieceInteractionCount;
     }
     else
     {
@@ -154,6 +145,11 @@ int GamePiece::getPieceColor()
 int GamePiece::getInteractionType()
 {
     return s_interactionType;
+}
+
+void GamePiece::setInteractionType(int interactionIndex)
+{
+	s_interactionType = interactionIndex;
 }
 
 int GamePiece::getTextureWidth()

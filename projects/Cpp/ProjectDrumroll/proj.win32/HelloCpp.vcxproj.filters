@@ -44,6 +44,9 @@
     <ClCompile Include="..\Classes\TitleScene.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">

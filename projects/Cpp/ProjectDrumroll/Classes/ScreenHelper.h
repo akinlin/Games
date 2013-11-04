@@ -30,6 +30,10 @@ public:
     
     static int getScaledFont(int fontSize);
     static float getScale();
+
+	static CCSize getScreenSize();
+	static float getScreenWidth();
+	static float getScreenHeight();
 private:
     static void lazyInit();
     static CCRect s_visibleRect;

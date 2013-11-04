@@ -22,6 +22,7 @@ public:
     
     int getPieceColor();
     int getInteractionType();
+	void setInteractionType(int interactionIndex);
     
     int getTextureWidth();
     int getTextureHeight();
@@ -43,6 +44,15 @@ private:
     
     bool m_isInElinationCheck;
     bool m_isActive;
+};
+
+enum gamePieceInteractionType
+{
+	pieceInteractionEmpty = 0,
+	pieceInteractionFlip = 1,
+	pieceInteractionDPadFlip = 2,
+	pieceInteractionSwitch = 3,
+	pieceInteractionCount = 4
 };
 
 #endif /* defined(__ProjectDrumroll__GamePiece__) */

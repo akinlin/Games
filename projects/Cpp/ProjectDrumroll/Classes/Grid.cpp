@@ -10,23 +10,6 @@
 #include "GamePiece.h"
 #include "ScreenHelper.h"
 
-enum TouchState
-{
-    interact = 0,
-    eliminate = 1
-};
-
-enum InteractionState
-{
-    is_empty = 0,
-    is_slide = 1,
-    is_rotary = 2,
-    is_switch = 3,
-    is_dpadflip = 4,
-    is_flip = 5,
-    is_count = 6
-};
-
 const int GRID_SPACE = 10;
 
 Grid::Grid()
@@ -267,6 +250,16 @@ void Grid::toggleTouchType()
 void Grid::setInteractTouchType()
 {
     m_touchState = interact;
+}
+
+void Grid::setInteractionState(int interactionState)
+{
+	m_interactionState = interactionState;
+}
+
+int Grid::getInteractionState()
+{
+	return m_interactionState;
 }
 
 void Grid::setEliminateTouchType()
@@ -550,7 +543,8 @@ void Grid::ccTouchesBegan(CCSet *touches, CCEvent *event)
                         
                         // pieceInteractionFlip is case 3 and default
                     default:
-                        m_interactionState = is_empty;
+						// keep whatever was set previously
+                        //m_interactionState = is_empty;
                         break;
                 }
                 // piece found break the loop

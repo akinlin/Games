@@ -16,7 +16,7 @@
 #include "Goals.h"
 USING_NS_CC;
 
-class GameScene : public CCLayer
+class GameScene : public CCLayerColor
 {
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -68,7 +68,7 @@ private:
     // Touch state
     void refreshTouchState();
     // void update all
-    void updateAll();
+    void updateAll(float dx);
     
 // Member helper functions
     // create the gird

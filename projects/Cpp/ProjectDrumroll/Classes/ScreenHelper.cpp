@@ -113,3 +113,21 @@ float VisibleRect::getScale()
    
     return MIN(s_visibleRect.size.height / s_targetRect.size.height, s_visibleRect.size.width / s_targetRect.size.width);
 }
+
+CCSize VisibleRect::getScreenSize()
+{
+	lazyInit();
+	return s_visibleRect.size;
+}
+
+float VisibleRect::getScreenWidth()
+{
+	lazyInit();
+	return s_visibleRect.size.width;
+}
+
+float VisibleRect::getScreenHeight()
+{
+	lazyInit();
+	return s_visibleRect.size.height;
+}

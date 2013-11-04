@@ -11,15 +11,16 @@
 
 // When you import this file, you import all the cocos2d classes
 #include "cocos2d.h"
+USING_NS_CC;
 
-class TitleScene : public cocos2d::CCLayer
+class TitleScene : public CCLayer
 {
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
     
     // there's no 'id' in cpp, so we recommand to return the exactly class pointer
-    static cocos2d::CCScene* scene();
+    static CCScene* scene();
     
     // a selector callback
     void menuCallback(CCObject* pSender);
@@ -28,7 +29,16 @@ public:
     CREATE_FUNC(TitleScene);
     
 private:
-    cocos2d::CCMenu* m_pItemMenu;
-};
+	// CCMenu object for the title menu
+    CCMenu* m_TitleMenu;
+	// CCSprite object for the title background image
+	CCSprite*  m_TitleBGSprite;
+	// CCSprite object for the title background lable
+	CCLabelTTF*  m_TitleLabel;
 
+	// creates and initalizes the m_TitleMenu
+	void createTitleMenu();
+	// creates and initalizes the m_TitleBGSprite
+	void createTitleBG();
+};
 #endif /* defined(__ProjectDrumroll__TitleScene__) */

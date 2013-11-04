@@ -33,6 +33,8 @@ public:
     
     void toggleTouchType();
     void setInteractTouchType();
+	void setInteractionState(int interactionState);
+	int getInteractionState();
     void setEliminateTouchType();
     int getTouchState();
     int eliminateGamePieces(GamePiece* basePiece, int comboCount);
@@ -78,6 +80,23 @@ private:
     void handleSwitchInteraction(GamePiece* gamePieceSprite);
     void handleFlipInteraction(GamePiece* gamePieceSprite);
     void handleDPadFlipInteraction(GamePiece* gamePieceSprite);
+};
+
+enum InteractionState
+{
+	is_empty = 0,
+	is_slide = 1,
+	is_rotary = 2,
+	is_switch = 3,
+	is_dpadflip = 4,
+	is_flip = 5,
+	is_count = 6
+};
+
+enum TouchState
+{
+	interact = 0,
+	eliminate = 1
 };
 
 #endif /* defined(__ProjectDrumroll__Grid__) */
