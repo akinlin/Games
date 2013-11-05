@@ -44,16 +44,41 @@ HUD::HUD()
     
     // display the score value
     char levelDisplayString[100];
-    sprintf(scoreDisplayString, "Level: 1");
+	sprintf(levelDisplayString, "Level: 1");
     m_levelDisplayString = CCLabelTTF::create(levelDisplayString, "Arial", VisibleRect::getScaledFont(15));
     m_levelDisplayString->setAnchorPoint(CCPointZero);
     // yeah yeah its hardcoded, i just didn't want to do that math right now
     m_levelDisplayString->setPosition(ccp(VisibleRect::getScaledFont(250), VisibleRect::getScaledFont(450)));
     addChild(m_levelDisplayString);
-    
+
+	// display the interaction values
+	char flipDisplayString[100];
+	sprintf(flipDisplayString, "Flip Level:");
+	m_flipDisplayString = CCLabelTTF::create(flipDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	m_flipDisplayString->setAnchorPoint(CCPointZero);
+	// yeah yeah its hardcoded, i just didn't want to do that math right now
+	m_flipDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(450)));
+	addChild(m_flipDisplayString);
+
+	char switchDisplayString[100];
+	sprintf(switchDisplayString, "Switch Level:");
+	m_switchDisplayString = CCLabelTTF::create(switchDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	m_switchDisplayString->setAnchorPoint(CCPointZero);
+	// yeah yeah its hardcoded, i just didn't want to do that math right now
+	m_switchDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(425)));
+	addChild(m_switchDisplayString);
+
+	char dpadDisplayString[100];
+	sprintf(dpadDisplayString, "DPad Level:");
+	m_dpadDisplayString = CCLabelTTF::create(dpadDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	m_dpadDisplayString->setAnchorPoint(CCPointZero);
+	// yeah yeah its hardcoded, i just didn't want to do that math right now
+	m_dpadDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(400)));
+	addChild(m_dpadDisplayString);
+
     // display the quit button
     CCMenuItemImage* quitButton = CCMenuItemImage::create("CloseNormal.png", "CloseSelected.png", this, menu_selector(HUD::returnToMenu));
-    quitButton->setPosition(ccp(VisibleRect::getScaledFont(300),VisibleRect::getScaledFont(30)));
+    quitButton->setPosition(ccp(VisibleRect::getScreenWidth() - 70, VisibleRect::getScreenHeight() - 70));
     // create menu, it's an autorelease object
     CCMenu* pMenu = CCMenu::create(quitButton, NULL);
     pMenu->setPosition( CCPointZero );
@@ -110,4 +135,19 @@ void HUD::updateLevel(int level)
     char levelDisplayString[100];
     sprintf(levelDisplayString, "Level: %d", level);
     m_levelDisplayString->setString(levelDisplayString);
+}
+
+void HUD::updateBars(int flipbar, int switchbar, int dpadbar)
+{
+	char flipDisplayString[100];
+	sprintf(flipDisplayString, "Flip Level: %d", flipbar);
+	m_flipDisplayString->setString(flipDisplayString);
+
+	char switchDisplayString[100];
+	sprintf(switchDisplayString, "Switch Level: %d", switchbar);
+	m_switchDisplayString->setString(switchDisplayString);
+
+	char dpadDisplayString[100];
+	sprintf(dpadDisplayString, "DPad Level: %d", dpadbar);
+	m_dpadDisplayString->setString(dpadDisplayString);
 }

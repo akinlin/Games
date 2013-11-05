@@ -55,4 +55,14 @@ enum gamePieceInteractionType
 	pieceInteractionCount = 4
 };
 
+// TODO: review if this should be part of the spritehelper class
+enum gamePieceColor
+{
+	pieceColorYellow = 0,
+	pieceColorPurple = 1,
+	pieceColorRed = 2,
+	pieceColorGreen = 3,
+	gamePieceColorCount = 4
+};
+
 #endif /* defined(__ProjectDrumroll__GamePiece__) */

@@ -29,6 +29,10 @@ public:
     void menuCallback(CCObject* pSender);
     void menuInteractionCallback(CCObject* pSender);
     void menuEliminateCallback(CCObject* pSender);
+
+	void addToFlipBar(int addition);
+	void addToSwitchBar(int addition);
+	void addToDPadBar(int addition);
     
     // implement the "static node()" method manually
     CREATE_FUNC(GameScene);
@@ -47,6 +51,11 @@ private:
     CCSprite* m_backgroundReference;
     // goals tab reference
     Goals* m_goalsTab;
+
+	// interaction button values
+	int m_flipBar;
+	int m_dpadBar;
+	int m_switchBar;
     
     // Level
     int m_currentLevel;

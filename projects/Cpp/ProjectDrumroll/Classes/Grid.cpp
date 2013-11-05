@@ -8,6 +8,7 @@
 
 #include "Grid.h"
 #include "GamePiece.h"
+#include "GameScene.h"
 #include "ScreenHelper.h"
 
 const int GRID_SPACE = 10;
@@ -143,8 +144,8 @@ float Grid::getHeight()
 
 void Grid::handleTouch(CCPoint p)
 {
-    CCLog("Touch_X = %d", p.x);
-    CCLog("Touch_Y = %d", p.y);
+    //CCLog("Touch_X = %d", p.x);
+    //CCLog("Touch_Y = %d", p.y);
             
     // find the piece selected
     GamePiece* gamePieceSprite = getGamePieceAtLocation(p);
@@ -222,6 +223,23 @@ void Grid::handleTouch(CCPoint p)
                 {
                     // a combo of two or more was created
                     m_score = m_score + (100*(comboCount+1));
+
+					// fill the interaction bar with the comboCount/2 * 2
+					int barAddition = (comboCount / 2) * 2;
+					int pieceColor = gamePieceSprite->getPieceColor();
+					GameScene* parent = (GameScene*)this->getParent();
+					if (pieceColor == pieceColorYellow)
+					{
+						parent->addToDPadBar(barAddition);
+					}
+					else if (pieceColor == pieceColorPurple) // we'll call this blue
+					{
+						parent->addToFlipBar(barAddition);
+					}
+					else if (pieceColor == pieceColorGreen)
+					{
+						parent->addToSwitchBar(barAddition);
+					}
                 }
                 
                 // set the high combo
@@ -231,7 +249,7 @@ void Grid::handleTouch(CCPoint p)
                 }
             }
         }
-        CCLog("Touch handled");
+        //CCLog("Touch handled");
     }
 }
 
@@ -304,32 +322,33 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
             {
                 CCPoint abovePieceLocation = abovePiece->getPosition();
                 CCLog("Actual above piece row:%f col:%f", abovePieceLocation.y, abovePieceLocation.x);
-                if (!abovePiece->isInElinationCheck())
+                if (!abovePiece->isInElinationCheck() && abovePiece->isActive())
                 {
                     if (basePiece->getPieceColor() == abovePiece->getPieceColor())
                     {
-                        CCLog("FOUND MATCH");
+                        CCLog("UFOUND MATCH");
                         // piece above matches trigger recursive check with this as a the base piece
-                        comboCount = MAX(comboCount, eliminateGamePieces(abovePiece, comboCount+1));
+						int returnedCombo = eliminateGamePieces(abovePiece, comboCount + 1);
+						comboCount = MAX(comboCount, returnedCombo);
                     }
                     else
                     {
-                        CCLog("NO MATCH FOUND");
+                        CCLog("UNO MATCH FOUND");
                     }
                 }
                 else
                 {
-                    CCLog("PIECE ALREADY CHECKED");
+                    CCLog("UPIECE ALREADY CHECKED");
                 }
             }
             else
             {
-                CCLog("PIECE NOT VALID");
+                CCLog("UPIECE NOT VALID");
             }
         }
         else
         {
-            CCLog("PIECE OUT OF BOUNDS");
+            CCLog("UPIECE OUT OF BOUNDS");
         }
         
         // check right
@@ -348,38 +367,39 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
             // first make sure the piece hasn't already been checked
             if (rightPiece != NULL)
             {
-                if (!rightPiece->isInElinationCheck())
+				if (!rightPiece->isInElinationCheck() && rightPiece->isActive())
                 {
                     if (basePiece->getPieceColor() == rightPiece->getPieceColor())
                     {
-                        CCLog("FOUND MATCH");
+                        CCLog("RFOUND MATCH");
                         // piece above matches trigger recursive check with this as a the base piece
-                        comboCount = MAX(comboCount, eliminateGamePieces(rightPiece,comboCount+1));
+						int returnedCombo = eliminateGamePieces(rightPiece, comboCount + 1);
+						comboCount = MAX(comboCount, returnedCombo);
                     }
                     else
                     {
-                        CCLog("NO MATCH FOUND");
+                        CCLog("RNO MATCH FOUND");
                     }
                 }
                 else
                 {
-                    CCLog("PIECE ALREADY CHECKED");
+                    CCLog("RPIECE ALREADY CHECKED");
                 }
             }
             else
             {
-                CCLog("PIECE NOT VALID");
+                CCLog("RPIECE NOT VALID");
             }
         }
         else
         {
-            CCLog("PIECE OUT OF BOUNDS");
+            CCLog("RPIECE OUT OF BOUNDS");
         }
         
         // check down
         float downRow = basePieceindex.y - 1.0f;
-        CCLog("Check piece row:%f col:%f", basePieceindex.y, basePieceindex.x);
-        CCLog("Down piece row:%f col:%f", downRow, basePieceindex.x);
+        //CCLog("Check piece row:%f col:%f", basePieceindex.y, basePieceindex.x);
+        //CCLog("Down piece row:%f col:%f", downRow, basePieceindex.x);
         
         // really only need to check if the index is out of bounds in one direction since the
         // basePieceindex is assumed to be valid, but checking both for completeness.
@@ -388,42 +408,43 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
         {
             GamePiece* downPiece = getGamePieceAtIndex(downRow, basePieceindex.x);
             CCPoint downPieceLocation = downPiece->getPosition();
-            CCLog("Actual down piece row:%f col:%f", downPieceLocation.y, downPieceLocation.x);
+            //CCLog("Actual down piece row:%f col:%f", downPieceLocation.y, downPieceLocation.x);
             // first make sure the piece hasn't already been checked
             if (downPiece != NULL)
             {
-                if (!downPiece->isInElinationCheck())
+				if (!downPiece->isInElinationCheck() && downPiece->isActive())
                 {
                     if (basePiece->getPieceColor() == downPiece->getPieceColor())
                     {
-                        CCLog("FOUND MATCH");
+                        //CCLog("FOUND MATCH");
                         // piece above matches trigger recursive check with this as a the base piece
-                        comboCount = MAX(comboCount, eliminateGamePieces(downPiece,comboCount+1));
+						int returnedCombo = eliminateGamePieces(downPiece, comboCount + 1);
+						comboCount = MAX(comboCount, returnedCombo);
                     }
                     else
                     {
-                        CCLog("NO MATCH FOUND");
+                        //CCLog("NO MATCH FOUND");
                     }
                 }
                 else
                 {
-                    CCLog("PIECE ALREADY CHECKED");
+                    //CCLog("PIECE ALREADY CHECKED");
                 }
             }
             else
             {
-                CCLog("PIECE NOT VALID");
+                //CCLog("PIECE NOT VALID");
             }
         }
         else
         {
-            CCLog("PIECE OUT OF BOUNDS");
+            //CCLog("PIECE OUT OF BOUNDS");
         }
         
         // check left
         float leftCol = basePieceindex.x - 1.0f;
-        CCLog("Check piece row:%f col:%f", basePieceindex.y, basePieceindex.x);
-        CCLog("Piece to the left row:%f col:%f", basePieceindex.y, leftCol);
+        //CCLog("Check piece row:%f col:%f", basePieceindex.y, basePieceindex.x);
+        //CCLog("Piece to the left row:%f col:%f", basePieceindex.y, leftCol);
         
         // really only need to check if the index is out of bounds in one direction since the
         // basePieceindex is assumed to be valid, but checking both for completeness.
@@ -432,36 +453,37 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
         {
             GamePiece* leftPiece = getGamePieceAtIndex(basePieceindex.y, leftCol);
             CCPoint leftPieceLocation = leftPiece->getPosition();
-            CCLog("Actual right piece row:%f col:%f", leftPieceLocation.y, leftPieceLocation.x);
+            //CCLog("Actual right piece row:%f col:%f", leftPieceLocation.y, leftPieceLocation.x);
             // first make sure the piece hasn't already been checked
             if (leftPiece != NULL)
             {
-                if (!leftPiece->isInElinationCheck())
+				if (!leftPiece->isInElinationCheck() && leftPiece->isActive())
                 {
                     if (basePiece->getPieceColor() == leftPiece->getPieceColor())
                     {
-                        CCLog("FOUND MATCH");
+                        //CCLog("FOUND MATCH");
                         // piece above matches trigger recursive check with this as a the base piece
-                        comboCount = MAX(comboCount, eliminateGamePieces(leftPiece,comboCount+1));
+						int returnedCombo = eliminateGamePieces(leftPiece, comboCount + 1);
+						comboCount = MAX(comboCount, returnedCombo);
                     }
                     else
                     {
-                        CCLog("NO MATCH FOUND");
+                        //CCLog("NO MATCH FOUND");
                     }
                 }
                 else
                 {
-                    CCLog("PIECE ALREADY CHECKED");
+                    //CCLog("PIECE ALREADY CHECKED");
                 }
             }
             else
             {
-                CCLog("PIECE NOT VALID");
+                //CCLog("PIECE NOT VALID");
             }
         }
         else
         {
-            CCLog("PIECE OUT OF BOUNDS");
+            //CCLog("PIECE OUT OF BOUNDS");
         }
 
         // reset the flag to indicate the piece is in an eliminate loop check
@@ -473,13 +495,13 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
         basePiece->setVisible(false);
         basePiece->setActive(false);
         
-        CCLog("COMBO COUNT: %d", comboCount);
+        //CCLog("COMBO COUNT: %d", comboCount);
     }
     else
     {
-        CCLog("BASE NOT VALID");
+        //CCLog("BASE NOT VALID");
     }
-    CCLog("XX^^^^^^^^^^^^^XX");
+    //CCLog("XX^^^^^^^^^^^^^XX");
     
     return comboCount;
 }

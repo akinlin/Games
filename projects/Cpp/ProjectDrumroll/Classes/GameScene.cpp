@@ -15,6 +15,14 @@
 
 using namespace CocosDenshion;
 
+//
+// testing variables not meant to stay in
+//
+bool interactionFlipOn = false;
+bool interactionSwitchOn = false;
+bool interactionDPadOn = false;
+
+
 const int LINE_SPACE = 50;
 const int ITEM_COUNT = 4;
 const std::string menuItem[ITEM_COUNT] =
@@ -95,7 +103,7 @@ bool GameScene::init()
     m_hudReference->setPosition(CCPointZero);
     m_hudReference->updateLevel(m_currentLevel);
     this->addChild(m_hudReference, kTagHUDReference);
-    
+
     // create and add the interact and eliminate buttons
     // should probably be in a HUD class
 	// blue interation button (pieceInteractionFlip)
@@ -104,18 +112,21 @@ bool GameScene::init()
     interactButton->setAnchorPoint(CCPointZero);
 	interactButton->setPosition(ccp(0, (VisibleRect::getScreenHeight() / 2) + interactButton->getContentSize().height));
     m_touchStateMenu->addChild(interactButton, kTagInteractButtonReference);
+	m_flipBar = 50;
 
 	// green interation button (pieceInteractionDPadFlip)
 	CCMenuItemImage* g_interactButton = CCMenuItemImage::create("win32/g_eliminateButton.png", "win32/g_eliminateButton.png", this, menu_selector(GameScene::menuInteractionCallback));
 	g_interactButton->setAnchorPoint(CCPointZero);
 	g_interactButton->setPosition(ccp(0, VisibleRect::getScreenHeight() / 2));
 	m_touchStateMenu->addChild(g_interactButton, kTagG_InteractButtonReference);
+	m_dpadBar = 50;
 
 	// yellow interation button (pieceInteractionSwitch)
 	CCMenuItemImage* y_interactButton = CCMenuItemImage::create("win32/y_eliminateButton.png", "win32/y_eliminateButton.png", this, menu_selector(GameScene::menuInteractionCallback));
 	y_interactButton->setAnchorPoint(CCPointZero);
 	y_interactButton->setPosition(ccp(0, (VisibleRect::getScreenHeight() / 2) - interactButton->getContentSize().height));
 	m_touchStateMenu->addChild(y_interactButton, kTagY_InteractButtonReference);
+	m_switchBar = 50;
     
 	// elimination button
     CCMenuItemImage* eliminateButton = CCMenuItemImage::create("win32/eliminateButton.png", "win32/eliminateButton.png", this, menu_selector(GameScene::menuEliminateCallback));
@@ -212,22 +223,31 @@ void GameScene::menuInteractionCallback(CCObject* pSender)
 	switch (pMenuItem->getZOrder())
 	{
 	case kTagInteractButtonReference:
-		//m_backgroundReference->setColor(ccBLUE);
-		setColor(ccBLUE);
-		m_gridReference->setInteractionState(is_flip);
+		if (m_flipBar > 0)
+		{
+			interactionFlipOn = true;
+			setColor(ccBLUE);
+			m_gridReference->setInteractionState(is_flip);
+		}
 		break;
 	case kTagG_InteractButtonReference:
-		//m_backgroundReference->setColor(ccGREEN);
-		setColor(ccGREEN);
-		m_gridReference->setInteractionState(is_switch);
+		if (m_switchBar > 0)
+		{
+			interactionSwitchOn = true;
+			setColor(ccGREEN);
+			m_gridReference->setInteractionState(is_switch);
+		}
+		
 		break;
 	case kTagY_InteractButtonReference:
-		//m_backgroundReference->setColor(ccYELLOW);
-		setColor(ccYELLOW);
-		m_gridReference->setInteractionState(is_dpadflip);
+		if (m_dpadBar > 0)
+		{
+			interactionDPadOn = true;
+			setColor(ccYELLOW);
+			m_gridReference->setInteractionState(is_dpadflip);
+		}
 		break;
 	default:
-		//m_backgroundReference->setColor(ccBLACK);
 		setColor(ccBLACK);
 		break;
 	}
@@ -257,6 +277,21 @@ void GameScene::menuEliminateCallback(CCObject* pSender)
 		CCFadeTo::create(.25, 0),
 		CCFadeTo::create(.25, 255),
 		NULL)));
+}
+
+void GameScene::addToFlipBar(int addition)
+{
+	m_flipBar += addition;
+}
+
+void GameScene::addToSwitchBar(int addition)
+{
+	m_switchBar += addition;
+}
+
+void GameScene::addToDPadBar(int addition)
+{
+	m_dpadBar += addition;
 }
 
 void GameScene::checkForEndOfLevel()
@@ -293,63 +328,78 @@ void GameScene::updateGoals()
 {
     // check each of the goals and update state
     // hard coded checks
-    if (m_goalsTab->getGoalStatus(0))
-    {
-        //CCLog("Interaction Count: %d", m_gridReference->getInteractionCount());
-        // icon is green
-        if (m_gridReference->getInteractionCount() > 40)
-        {
-            // strong coupling with the knowledge that this is the '0' index should change
-            m_goalsTab->setGoalStatus(false, 0);
-        }
-    }
-    else
-    {
-        // icon is red
-        if (m_gridReference->getInteractionCount() <= 40)
-        {
-            // strong coupling with the knowledge that this is the '0' index should change
-            m_goalsTab->setGoalStatus(true, 0);
-        }
-    }
-    
-    if (m_goalsTab->getGoalStatus(1))
-    {
-        // icon is green
-        if (m_gridReference->getCurrentScore() < 1000)
-        {
-            // strong coupling with the knowledge that this is the '0' index should change
-            m_goalsTab->setGoalStatus(false, 1);
-        }
-    }
-    else
-    {
-        // icon is red
-        if (m_gridReference->getCurrentScore() >= 1000)
-        {
-            // strong coupling with the knowledge that this is the '0' index should change
-            m_goalsTab->setGoalStatus(true, 1);
-        }
-    }
-    
-    if (m_goalsTab->getGoalStatus(2))
-    {
-        // icon is green
-        if (m_gridReference->getComboCount() < 5)
-        {
-            // strong coupling with the knowledge that this is the '0' index should change
-            m_goalsTab->setGoalStatus(false, 2);
-        }
-    }
-    else
-    {
-        // icon is red
-        if (m_gridReference->getComboCount() > 5)
-        {
-            // strong coupling with the knowledge that this is the '0' index should change
-            m_goalsTab->setGoalStatus(true, 2);
-        }
-    }
+	// TAKEING OUT GOAL CHECKS TO TEST NEW GAMEPLAY
+    //if (m_goalsTab->getGoalStatus(0))
+    //{
+    //    //CCLog("Interaction Count: %d", m_gridReference->getInteractionCount());
+    //    // icon is green
+    //    if (m_gridReference->getInteractionCount() > 40)
+    //    {
+    //        // strong coupling with the knowledge that this is the '0' index should change
+    //        m_goalsTab->setGoalStatus(false, 0);
+    //    }
+    //}
+    //else
+    //{
+    //    // icon is red
+    //    if (m_gridReference->getInteractionCount() <= 40)
+    //    {
+    //        // strong coupling with the knowledge that this is the '0' index should change
+    //        m_goalsTab->setGoalStatus(true, 0);
+    //    }
+    //}
+    //
+    //if (m_goalsTab->getGoalStatus(1))
+    //{
+    //    // icon is green
+    //    if (m_gridReference->getCurrentScore() < 1000)
+    //    {
+    //        // strong coupling with the knowledge that this is the '0' index should change
+    //        m_goalsTab->setGoalStatus(false, 1);
+    //    }
+    //}
+    //else
+    //{
+    //    // icon is red
+    //    if (m_gridReference->getCurrentScore() >= 1000)
+    //    {
+    //        // strong coupling with the knowledge that this is the '0' index should change
+    //        m_goalsTab->setGoalStatus(true, 1);
+    //    }
+    //}
+    //
+    //if (m_goalsTab->getGoalStatus(2))
+    //{
+    //    // icon is green
+    //    if (m_gridReference->getComboCount() < 5)
+    //    {
+    //        // strong coupling with the knowledge that this is the '0' index should change
+    //        m_goalsTab->setGoalStatus(false, 2);
+    //    }
+    //}
+    //else
+    //{
+    //    // icon is red
+    //    if (m_gridReference->getComboCount() > 5)
+    //    {
+    //        // strong coupling with the knowledge that this is the '0' index should change
+    //        m_goalsTab->setGoalStatus(true, 2);
+    //    }
+    //}
+
+	// only goal is score 1000 pts per level
+	if (m_currentScore >= m_currentLevel * 1000)
+	{
+		m_goalsTab->setGoalStatus(true, 0);
+	}
+	else
+	{
+		// score is not high enough to pass this level
+		m_goalsTab->setGoalStatus(false, 0);
+	}
+	// always set the other two goals to true
+	m_goalsTab->setGoalStatus(true, 1);
+	m_goalsTab->setGoalStatus(true, 2);
 }
 
 void GameScene::updateAll(float dx)
@@ -363,9 +413,26 @@ void GameScene::updateAll(float dx)
 	// check if interactions are done
 	if (m_gridReference->getInteractionState() == InteractionState::is_empty && m_gridReference->getTouchState() != TouchState::eliminate)
 	{
+		if (interactionFlipOn)
+		{
+			interactionFlipOn = false;
+			m_flipBar -= 5;
+		}
+		if (interactionSwitchOn)
+		{
+			interactionSwitchOn = false;
+			m_switchBar -= 5;
+		}
+		if (interactionDPadOn)
+		{
+			interactionDPadOn = false;
+			m_dpadBar -= 5;
+		}
 		stopAllActions();
 		setColor(ccBLACK);
 	}
+
+	m_hudReference->updateBars(m_flipBar, m_switchBar, m_dpadBar);
     
     // check for the end of the level (grid returns complete when all pieces are gone)
     checkForEndOfLevel();
