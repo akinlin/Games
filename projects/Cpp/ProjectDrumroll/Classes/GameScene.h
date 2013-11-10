@@ -33,6 +33,10 @@ public:
 	void addToFlipBar(int addition);
 	void addToSwitchBar(int addition);
 	void addToDPadBar(int addition);
+	void addToSlideBar(int addition);
+	void addToRotaryBar(int addition);
+
+	CCDrawNode* shape(int barLevel);
     
     // implement the "static node()" method manually
     CREATE_FUNC(GameScene);
@@ -53,9 +57,11 @@ private:
     Goals* m_goalsTab;
 
 	// interaction button values
-	int m_flipBar;
+	float m_flipBar;
 	int m_dpadBar;
 	int m_switchBar;
+	int m_slideBar;
+	int m_rotaryBar;
     
     // Level
     int m_currentLevel;
@@ -66,6 +72,8 @@ private:
     int m_highestCombo;
     // Interaction count
     int m_interactionCount;
+
+	CCNode *stencil;
     
 // Member Management
     // Level state

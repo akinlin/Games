@@ -64,6 +64,9 @@ private:
     int m_pieceTextureHeight;
     int m_highComboCount;
     int m_interactionCount;
+
+	int m_slideMoves;
+	int m_slideLastPoint;
     
     void setPieceLocaiton(int row, int col);
     // returns the width of the piece referenced with grid padding
@@ -75,8 +78,10 @@ private:
     void recalculateGrid();
     
     // interaction handling functions
-    void handleSlideMove(CCPoint location);
-    void handleRotaryMove(CCPoint location);
+	void handleSlideMove(CCPoint location);
+	void handleSlideComplete();
+	void handleRotaryMove(CCPoint location);
+	void handleRotaryComplete();
     void handleSwitchInteraction(GamePiece* gamePieceSprite);
     void handleFlipInteraction(GamePiece* gamePieceSprite);
     void handleDPadFlipInteraction(GamePiece* gamePieceSprite);

@@ -76,6 +76,22 @@ HUD::HUD()
 	m_dpadDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(400)));
 	addChild(m_dpadDisplayString);
 
+	char slideDisplayString[100];
+	sprintf(slideDisplayString, "Slide Level:");
+	m_slideDisplayString = CCLabelTTF::create(slideDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	m_slideDisplayString->setAnchorPoint(CCPointZero);
+	// yeah yeah its hardcoded, i just didn't want to do that math right now
+	m_slideDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(375)));
+	addChild(m_slideDisplayString);
+
+	char rotaryDisplayString[100];
+	sprintf(rotaryDisplayString, "Rotary Level:");
+	m_rotaryDisplayString = CCLabelTTF::create(rotaryDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	m_rotaryDisplayString->setAnchorPoint(CCPointZero);
+	// yeah yeah its hardcoded, i just didn't want to do that math right now
+	m_rotaryDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(350)));
+	//addChild(m_rotaryDisplayString);
+
     // display the quit button
     CCMenuItemImage* quitButton = CCMenuItemImage::create("CloseNormal.png", "CloseSelected.png", this, menu_selector(HUD::returnToMenu));
     quitButton->setPosition(ccp(VisibleRect::getScreenWidth() - 70, VisibleRect::getScreenHeight() - 70));
@@ -137,7 +153,7 @@ void HUD::updateLevel(int level)
     m_levelDisplayString->setString(levelDisplayString);
 }
 
-void HUD::updateBars(int flipbar, int switchbar, int dpadbar)
+void HUD::updateBars(int flipbar, int switchbar, int dpadbar, int slidebar, int rotarybar)
 {
 	char flipDisplayString[100];
 	sprintf(flipDisplayString, "Flip Level: %d", flipbar);
@@ -150,4 +166,12 @@ void HUD::updateBars(int flipbar, int switchbar, int dpadbar)
 	char dpadDisplayString[100];
 	sprintf(dpadDisplayString, "DPad Level: %d", dpadbar);
 	m_dpadDisplayString->setString(dpadDisplayString);
+
+	char slideDisplayString[100];
+	sprintf(slideDisplayString, "Slide Level: %d", slidebar);
+	m_slideDisplayString->setString(slideDisplayString);
+
+	char rotaryDisplayString[100];
+	sprintf(rotaryDisplayString, "Rotary Level: %d", rotarybar);
+	//m_rotaryDisplayString->setString(rotaryDisplayString);
 }

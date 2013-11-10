@@ -24,7 +24,7 @@ public:
     
     void updateScore(int score);
     void updateLevel(int level);
-	void updateBars(int flipbar, int switchbar, int dpadbar);
+	void updateBars(int flipbar, int switchbar, int dpadbar, int slidebar, int rotarybar);
     
 private:
     CCLabelTTF* m_scoreDisplayString;
@@ -33,6 +33,8 @@ private:
 	CCLabelTTF* m_flipDisplayString;
 	CCLabelTTF* m_switchDisplayString;
 	CCLabelTTF* m_dpadDisplayString;
+	CCLabelTTF* m_slideDisplayString;
+	CCLabelTTF* m_rotaryDisplayString;
     
 //    GameScene* m_parentScene;
     

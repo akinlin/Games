@@ -98,6 +98,20 @@ GamePiece::GamePiece()
         m_interactionSprite->setColor(ccBLACK);
         this->addChild(m_interactionSprite);
     }
+	else if (s_interactionType == pieceInteractionSlide)
+	{
+		m_interactionSprite = CCLabelTTF::create("Slide", "Arial", VisibleRect::getScaledFont(5));
+		m_interactionSprite->setPosition(ccp((getTextureWidth() / 2) / 2, (getTextureHeight() / 2) / 2));
+		m_interactionSprite->setColor(ccBLACK);
+		this->addChild(m_interactionSprite);
+	}
+	else if (s_interactionType == pieceInteractionRotary)
+	{
+		m_interactionSprite = CCLabelTTF::create("Rotary", "Arial", VisibleRect::getScaledFont(5));
+		m_interactionSprite->setPosition(ccp((getTextureWidth() / 2) / 2, (getTextureHeight() / 2) / 2));
+		m_interactionSprite->setColor(ccBLACK);
+		this->addChild(m_interactionSprite);
+	}
     
     this->autorelease();
 }
