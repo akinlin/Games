@@ -15,20 +15,6 @@
 
 using namespace CocosDenshion;
 
-//
-// testing variables not meant to stay in
-//
-bool interactionFlipOn = false;
-bool interactionSwitchOn = false;
-bool interactionDPadOn = false;
-bool interactionSlideOn = false;
-bool interactionRotaryOn = false;
-
-const int MAX_BAR_LEVEL = 50;
-const int INTERACTION_BAR_COST = 5;
-const int BUTTON_TEXTURE_HEIGHT = 250;
-const int BUTTON_TEXTURE_WIDTH = 250;
-
 const int LINE_SPACE = 50;
 const int ITEM_COUNT = 4;
 const std::string menuItem[ITEM_COUNT] =
@@ -45,15 +31,6 @@ enum SceneTags {
     kTagButtonMenu,
 	kTagClippingButton,
     kTagGoalstab
-};
-
-enum ButtonMenuTags {
-    kTagInteractButtonReference,
-	kTagG_InteractButtonReference,
-	kTagY_InteractButtonReference,
-	kTagP_InteractButtonReference,
-	kTagO_InteractButtonReference,
-    kTagEliminationButtonReference
 };
 
 CCScene* GameScene::scene()
@@ -114,90 +91,8 @@ bool GameScene::init()
     this->addChild(m_hudReference, kTagHUDReference);
 
     // create and add the interact and eliminate buttons
-    // should probably be in a HUD class
-	// blue interation button (pieceInteractionFlip)
-	// set the stencil
-	m_flipBar = 20;
-	float percentage = m_flipBar / MAX_BAR_LEVEL;
-	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	stencil = shape(m_flipBar);
-	stencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
-	stencil->setAnchorPoint(CCPointZero);
-
-	//// set the clipper
-	CCClippingNode *interactButtonClipper = CCClippingNode::create();
-	interactButtonClipper->setAnchorPoint(CCPointZero);
-	//interactButtonClipper->setPosition(ccp(0, 1 + BUTTON_TEXTURE_HEIGHT));
-	interactButtonClipper->setStencil(stencil);
-	addChild(interactButtonClipper, kTagClippingButton);
-
-	CCSprite* interactButton = CCSprite::create("win32/interactButton.png");// , "win32/interactButton.png", this, menu_selector(GameScene::menuInteractionCallback));
-    interactButton->setAnchorPoint(CCPointZero);
-	//interactButton->setPosition(ccp(0, 1 + BUTTON_TEXTURE_HEIGHT));
-	interactButtonClipper->addChild(interactButton);
-
-	m_touchStateMenu = CCMenu::create();
-	//m_touchStateMenu->addChild(interactButton, kTagInteractButtonReference);
-
-	
-
-	// Clipping test
-	//CCNode *stencil = shape();
-	////stencil->setPosition(ccp(VisibleRect::getScreenWidth() / 2, VisibleRect::getScreenHeight() / 2));
-	//stencil->setAnchorPoint(CCPointZero);
-
-	//CCClippingNode *clipper = CCClippingNode::create();
-	//clipper->setAnchorPoint(CCPointZero);
-	////clipper->setAlphaThreshold(0.05f);
-	////clipper->setPosition(ccp(VisibleRect::getScreenWidth() / 2, VisibleRect::getScreenHeight() / 2));
-	//clipper->setStencil(stencil);
-	//this->addChild(clipper);
-
-	//CCNode *content = CCSprite::create("win32/interactButton.png");
-	////content->setPosition(ccp(VisibleRect::getScreenWidth() / 2, VisibleRect::getScreenHeight() / 2));
-	//content->setAnchorPoint(CCPointZero);
-	//clipper->addChild(content);
-
-
-	// green interation button (pieceInteractionSwitch)
-	CCMenuItemImage* g_interactButton = CCMenuItemImage::create("win32/g_eliminateButton.png", "win32/g_eliminateButton.png", this, menu_selector(GameScene::menuInteractionCallback));
-	g_interactButton->setAnchorPoint(CCPointZero);
-	g_interactButton->setPosition(ccp(0, VisibleRect::getScreenHeight() / 2));
-	m_touchStateMenu->addChild(g_interactButton, kTagG_InteractButtonReference);
-	m_dpadBar = 20;
-
-	// yellow interation button (pieceInteractionDPad)
-	CCMenuItemImage* y_interactButton = CCMenuItemImage::create("win32/y_eliminateButton.png", "win32/y_eliminateButton.png", this, menu_selector(GameScene::menuInteractionCallback));
-	y_interactButton->setAnchorPoint(CCPointZero);
-	y_interactButton->setPosition(ccp(0, (VisibleRect::getScreenHeight() / 2) - BUTTON_TEXTURE_HEIGHT));
-	m_touchStateMenu->addChild(y_interactButton, kTagY_InteractButtonReference);
-	m_switchBar = 20;
-
-	// purple interation button (pieceInteractionSlide)
-	CCMenuItemImage* p_interactButton = CCMenuItemImage::create("win32/p_eliminateButton.png", "win32/p_eliminateButton.png", this, menu_selector(GameScene::menuInteractionCallback));
-	p_interactButton->setAnchorPoint(CCPointZero);
-	p_interactButton->setPosition(ccp(0, (VisibleRect::getScreenHeight() / 2) - (BUTTON_TEXTURE_HEIGHT * 2)));
-	m_touchStateMenu->addChild(p_interactButton, kTagP_InteractButtonReference);
-	m_slideBar = 20;
-
-	// orange interation button (pieceInteractionRotary)
-	CCMenuItemImage* o_interactButton = CCMenuItemImage::create("win32/o_eliminateButton.png", "win32/o_eliminateButton.png", this, menu_selector(GameScene::menuInteractionCallback));
-	o_interactButton->setAnchorPoint(CCPointZero);
-	o_interactButton->setPosition(ccp(0, (VisibleRect::getScreenHeight() / 2) - (BUTTON_TEXTURE_HEIGHT * 3)));
-	//m_touchStateMenu->addChild(o_interactButton, kTagO_InteractButtonReference);
-	m_rotaryBar = 20;
-    
-	// elimination button
-    CCMenuItemImage* eliminateButton = CCMenuItemImage::create("win32/eliminateButton.png", "win32/eliminateButton.png", this, menu_selector(GameScene::menuEliminateCallback));
-    //eliminateButton->setAnchorPoint(CCPointZero);
-    eliminateButton->setPosition(ccp(VisibleRect::getScreenWidth() / 2, eliminateButton->getContentSize().height / 2));
-    m_touchStateMenu->addChild(eliminateButton, kTagEliminationButtonReference);
-    
-	// clean up the menu position and such
-    m_touchStateMenu->setContentSize(CCSizeMake(CCDirector::sharedDirector()->getWinSize().width, VisibleRect::getScreenHeight()));
-    m_touchStateMenu->setAnchorPoint(CCPointZero);
-    m_touchStateMenu->setPosition(CCPointZero);
-    addChild(m_touchStateMenu, kTagButtonMenu);
+	m_interactionReference = new InteractionMenu();
+	addChild(m_interactionReference, kTagClippingButton);
     
     // Add the goals tab
     m_goalsTab = new Goals();
@@ -210,23 +105,6 @@ bool GameScene::init()
     schedule( schedule_selector(GameScene::updateAll), 0.2f);
     
     return true;
-}
-
-CCDrawNode* GameScene::shape(int barLevel)
-{
-	float percentage = barLevel / MAX_BAR_LEVEL;
-	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-
-	CCDrawNode *shape = CCDrawNode::create();
-	static CCPoint rect[4];
-	rect[0] = ccp(-250, -250);
-	rect[1] = ccp(250, -250);
-	rect[2] = ccp(250, 250);
-	rect[3] = ccp(-250, 250);
-
-	static ccColor4F green = { 0, 1, 0, 1 };
-	shape->drawPolygon(rect, 4, green, 0, green);
-	return shape;
 }
 
 void GameScene::menuCallback(CCObject* pSender)
@@ -287,131 +165,35 @@ void GameScene::menuCallback(CCObject* pSender)
     
 }
 
-void GameScene::menuInteractionCallback(CCObject* pSender)
+void GameScene::interactionSelected(ccColor3B color, int interactionState)
 {
 	// stop all layer actions first
 	stopAllActions();
 
-    // change the touch state
-    m_gridReference->setInteractTouchType();
+	// need to call back to gamescene reference
+	setColor(color);
 
-	// get the selected button
-	CCMenuItemImage* pMenuItem = (CCMenuItemImage *)(pSender);
-
-	// set the background color
-	switch (pMenuItem->getZOrder())
+	if (interactionState == is_elimination)
 	{
-	case kTagInteractButtonReference:
-		if (m_flipBar >= INTERACTION_BAR_COST)
-		{
-			interactionFlipOn = true;
-			setColor(ccBLUE);
-			m_gridReference->setInteractionState(is_flip);
-		}
-		break;
-	case kTagG_InteractButtonReference:
-		if (m_switchBar >= INTERACTION_BAR_COST)
-		{
-			interactionSwitchOn = true;
-			setColor(ccGREEN);
-			m_gridReference->setInteractionState(is_switch);
-		}
-		
-		break;
-	case kTagY_InteractButtonReference:
-		if (m_dpadBar >= INTERACTION_BAR_COST)
-		{
-			interactionDPadOn = true;
-			setColor(ccYELLOW);
-			m_gridReference->setInteractionState(is_dpadflip);
-		}
-		break;
-	case kTagP_InteractButtonReference:
-		if (m_slideBar >= INTERACTION_BAR_COST)
-		{
-			interactionSlideOn = true;
-			setColor(ccc3(255,0,255));
-			m_gridReference->setInteractionState(is_slide);
-		}
-		break;
-	case kTagO_InteractButtonReference:
-		if (m_rotaryBar >= INTERACTION_BAR_COST)
-		{
-			interactionRotaryOn = true;
-			setColor(ccc3(255, 165, 0));
-			m_gridReference->setInteractionState(is_rotary);
-		}
-		break;
-	default:
-		setColor(ccBLACK);
-		break;
+		m_gridReference->setEliminateTouchType();
+	}
+	else
+	{
+		m_gridReference->setInteractTouchType();
+		m_gridReference->setInteractionState(interactionState);
 	}
 
 	runAction(
-		CCRepeatForever::create(
-		CCSequence::create(
-		CCFadeTo::create(.25, 0),
-		CCFadeTo::create(.25, 255),
-		NULL)));
+	CCRepeatForever::create(
+	CCSequence::create(
+	CCFadeTo::create(.25, 0),
+	CCFadeTo::create(.25, 255),
+	NULL)));
 }
 
-void GameScene::menuEliminateCallback(CCObject* pSender)
+void GameScene::addToBar(int pieceColor, int valueToAdd)
 {
-	// stop all layer actions first
-	stopAllActions();
-
-    // change the touch state
-    m_gridReference->setEliminateTouchType();
-    // hard coded to be the elimination state so set to red
-    //m_backgroundReference->setColor(ccRED);
-	setColor(ccRED);
-
-	runAction(
-		CCRepeatForever::create(
-		CCSequence::create(
-		CCFadeTo::create(.25, 0),
-		CCFadeTo::create(.25, 255),
-		NULL)));
-}
-
-void GameScene::addToFlipBar(int addition)
-{
-	m_flipBar += addition;
-	if (m_flipBar > MAX_BAR_LEVEL)
-	{
-		m_flipBar = MAX_BAR_LEVEL;
-	}
-
-	float percentage = m_flipBar / MAX_BAR_LEVEL;
-	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	stencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
-}
-
-void GameScene::addToSwitchBar(int addition)
-{
-	m_switchBar += addition;
-	if (m_switchBar > MAX_BAR_LEVEL)
-	{
-		m_switchBar = MAX_BAR_LEVEL;
-	}
-}
-
-void GameScene::addToDPadBar(int addition)
-{
-	m_dpadBar += addition;
-	if (m_dpadBar > MAX_BAR_LEVEL)
-	{
-		m_dpadBar = MAX_BAR_LEVEL;
-	}
-}
-
-void GameScene::addToSlideBar(int addition)
-{
-	m_slideBar += addition;
-	if (m_slideBar > MAX_BAR_LEVEL)
-	{
-		m_slideBar = MAX_BAR_LEVEL;
-	}
+	m_interactionReference->addToBarLevel(pieceColor, valueToAdd);
 }
 
 void GameScene::checkForEndOfLevel()
@@ -531,43 +313,17 @@ void GameScene::updateAll(float dx)
     updateGoals();
 
 	// check if interactions are done
+	// needs a callback from the interaction menu to execute
 	if (m_gridReference->getInteractionState() == InteractionState::is_empty && 
 		m_gridReference->getTouchState() != TouchState::eliminate)
 	{
-		if (interactionFlipOn)
-		{
-			interactionFlipOn = false;
-			m_flipBar -= INTERACTION_BAR_COST;
-
-			float percentage = m_flipBar / MAX_BAR_LEVEL;
-			float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-			stencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
-		}
-		if (interactionSwitchOn)
-		{
-			interactionSwitchOn = false;
-			m_switchBar -= INTERACTION_BAR_COST;
-		}
-		if (interactionDPadOn)
-		{
-			interactionDPadOn = false;
-			m_dpadBar -= INTERACTION_BAR_COST;
-		}
-		if (interactionSlideOn)
-		{
-			interactionSlideOn = false;
-			m_slideBar -= INTERACTION_BAR_COST;
-		}
-		if (interactionRotaryOn)
-		{
-			interactionRotaryOn = false;
-			m_rotaryBar -= INTERACTION_BAR_COST;
-		}
+		// tell the interactionmenu the interaction is compelte
+		m_interactionReference->interactionComplete();
 		stopAllActions();
 		setColor(ccBLACK);
 	}
 
-	m_hudReference->updateBars(m_flipBar, m_switchBar, m_dpadBar, m_slideBar, m_rotaryBar);
+	//m_hudReference->updateBars(m_flipBar, m_switchBar, m_dpadBar, m_slideBar, m_rotaryBar);
     
     // check for the end of the level (grid returns complete when all pieces are gone)
     checkForEndOfLevel();

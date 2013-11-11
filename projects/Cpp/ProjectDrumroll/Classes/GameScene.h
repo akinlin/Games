@@ -14,6 +14,7 @@
 #include "Grid.h"
 #include "HUD.h"
 #include "Goals.h"
+#include "InteractionMenu.h"
 USING_NS_CC;
 
 class GameScene : public CCLayerColor
@@ -27,16 +28,10 @@ public:
     
     // a selector callback
     void menuCallback(CCObject* pSender);
-    void menuInteractionCallback(CCObject* pSender);
-    void menuEliminateCallback(CCObject* pSender);
 
-	void addToFlipBar(int addition);
-	void addToSwitchBar(int addition);
-	void addToDPadBar(int addition);
-	void addToSlideBar(int addition);
-	void addToRotaryBar(int addition);
-
-	CCDrawNode* shape(int barLevel);
+	// callback to set interaction selected state
+	void interactionSelected(ccColor3B color, int interactionState);
+	void addToBar(int pieceColor, int valueToAdd);
     
     // implement the "static node()" method manually
     CREATE_FUNC(GameScene);
@@ -47,21 +42,14 @@ private:
     CCMenu* m_pItemMenu;
     // Grid where all the gameplay happens
     Grid* m_gridReference;
-        // Eliminate and Interact Buttons (should be in the HUD)
-        CCMenu* m_touchStateMenu;
     // HUD for displaying information
     HUD* m_hudReference;
     // Background (Should probably be its own class)
     CCSprite* m_backgroundReference;
+	// InteractionMenu handles user selected interactions
+	InteractionMenu* m_interactionReference;
     // goals tab reference
     Goals* m_goalsTab;
-
-	// interaction button values
-	float m_flipBar;
-	int m_dpadBar;
-	int m_switchBar;
-	int m_slideBar;
-	int m_rotaryBar;
     
     // Level
     int m_currentLevel;
@@ -73,7 +61,6 @@ private:
     // Interaction count
     int m_interactionCount;
 
-	CCNode *stencil;
     
 // Member Management
     // Level state

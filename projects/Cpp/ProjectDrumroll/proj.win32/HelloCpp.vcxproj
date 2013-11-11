@@ -129,6 +129,7 @@
     <ClCompile Include="..\Classes\Grid.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\HUD.cpp" />
+    <ClCompile Include="..\Classes\InteractionMenu.cpp" />
     <ClCompile Include="..\Classes\ScreenHelper.cpp" />
     <ClCompile Include="..\Classes\SpritHelper.cpp" />
     <ClCompile Include="..\Classes\TitleScene.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="..\Classes\Grid.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\HUD.h" />
+    <ClInclude Include="..\Classes\InteractionMenu.h" />
     <ClInclude Include="..\Classes\ScreenHelper.h" />
     <ClInclude Include="..\Classes\SpritHelper.h" />
     <ClInclude Include="..\Classes\TitleScene.h" />

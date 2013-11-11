@@ -220,23 +220,7 @@ void Grid::handleTouch(CCPoint p)
 					int barAddition = comboCount;
 					int pieceColor = gamePieceSprite->getPieceColor();
 					GameScene* parent = (GameScene*)this->getParent();
-					if (pieceColor == pieceColorYellow)
-					{
-						parent->addToDPadBar(barAddition);
-					}
-					else if (pieceColor == pieceColorPurple) // we'll call this blue
-					{
-						parent->addToFlipBar(barAddition);
-						parent->addToSlideBar(barAddition); // double up purple for fun
-					}
-					else if (pieceColor == pieceColorGreen)
-					{
-						parent->addToSwitchBar(barAddition);
-					}
-					else if (pieceColor == pieceColorRed) // well, really its orange
-					{
-						//parent->addToRotaryBar(barAddition);
-					}
+					parent->addToBar(pieceColor, barAddition);
                 }
                 
                 // set the high combo
@@ -562,6 +546,8 @@ void Grid::ccTouchesBegan(CCSet *touches, CCEvent *event)
             }
         }
     }
+
+	CCLog("Grid ccTouchesBegan");
 }
 
 void Grid::ccTouchesMoved(CCSet *touches, CCEvent *event)
@@ -598,6 +584,8 @@ void Grid::ccTouchesMoved(CCSet *touches, CCEvent *event)
                 break;
         }
     }
+
+	CCLog("Grid ccTouchesMoved");
 }
 
 void Grid::ccTouchesEnded(CCSet* touches, CCEvent* event)
@@ -628,11 +616,13 @@ void Grid::ccTouchesEnded(CCSet* touches, CCEvent* event)
 			m_interactionGamePiece = NULL;
 		}
     }
+
+	CCLog("Grid ccTouchesEnded");
 }
 
 void Grid::ccTouchesCancelled(CCSet *touches, CCEvent *event)
 {
-    CCLog("Touch Cancelled");
+	CCLog("Grid ccTouchesCancelled");
 }
 
 bool Grid::isLevelComplete()

@@ -89,13 +89,14 @@ private:
 
 enum InteractionState
 {
-	is_empty = 0,
-	is_slide = 1,
-	is_rotary = 2,
-	is_switch = 3,
-	is_dpadflip = 4,
-	is_flip = 5,
-	is_count = 6
+	is_empty,
+	is_slide,
+	is_rotary,
+	is_switch,
+	is_dpadflip,
+	is_flip,
+	is_count,
+	is_elimination
 };
 
 enum TouchState
