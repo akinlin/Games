@@ -31,6 +31,7 @@ public:
 
 	// callback to set interaction selected state
 	void interactionSelected(ccColor3B color, int interactionState);
+	void interactionCancelled();
 	void addToBar(int pieceColor, int valueToAdd);
     
     // implement the "static node()" method manually

@@ -51,50 +51,56 @@ HUD::HUD()
     m_levelDisplayString->setPosition(ccp(VisibleRect::getScaledFont(250), VisibleRect::getScaledFont(450)));
     addChild(m_levelDisplayString);
 
+	// color key
+	CCSprite* colorKey = CCSprite::create("win32/color_key.png");
+	colorKey->setAnchorPoint(CCPointZero);
+	colorKey->setPosition(ccp(VisibleRect::getScreenWidth() - 60, VisibleRect::getScreenHeight() - 188));
+	addChild(colorKey);
+
 	// display the interaction values
-	char flipDisplayString[100];
-	sprintf(flipDisplayString, "Flip Level:");
-	m_flipDisplayString = CCLabelTTF::create(flipDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	m_flipDisplayString->setAnchorPoint(CCPointZero);
-	// yeah yeah its hardcoded, i just didn't want to do that math right now
-	m_flipDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(450)));
-	addChild(m_flipDisplayString);
+	//char flipDisplayString[100];
+	//sprintf(flipDisplayString, "Flip Level:");
+	//m_flipDisplayString = CCLabelTTF::create(flipDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	//m_flipDisplayString->setAnchorPoint(CCPointZero);
+	//// yeah yeah its hardcoded, i just didn't want to do that math right now
+	//m_flipDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(450)));
+	//addChild(m_flipDisplayString);
 
-	char switchDisplayString[100];
-	sprintf(switchDisplayString, "Switch Level:");
-	m_switchDisplayString = CCLabelTTF::create(switchDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	m_switchDisplayString->setAnchorPoint(CCPointZero);
-	// yeah yeah its hardcoded, i just didn't want to do that math right now
-	m_switchDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(425)));
-	addChild(m_switchDisplayString);
+	//char switchDisplayString[100];
+	//sprintf(switchDisplayString, "Switch Level:");
+	//m_switchDisplayString = CCLabelTTF::create(switchDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	//m_switchDisplayString->setAnchorPoint(CCPointZero);
+	//// yeah yeah its hardcoded, i just didn't want to do that math right now
+	//m_switchDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(425)));
+	//addChild(m_switchDisplayString);
 
-	char dpadDisplayString[100];
-	sprintf(dpadDisplayString, "DPad Level:");
-	m_dpadDisplayString = CCLabelTTF::create(dpadDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	m_dpadDisplayString->setAnchorPoint(CCPointZero);
-	// yeah yeah its hardcoded, i just didn't want to do that math right now
-	m_dpadDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(400)));
-	addChild(m_dpadDisplayString);
+	//char dpadDisplayString[100];
+	//sprintf(dpadDisplayString, "DPad Level:");
+	//m_dpadDisplayString = CCLabelTTF::create(dpadDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	//m_dpadDisplayString->setAnchorPoint(CCPointZero);
+	//// yeah yeah its hardcoded, i just didn't want to do that math right now
+	//m_dpadDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(400)));
+	//addChild(m_dpadDisplayString);
 
-	char slideDisplayString[100];
-	sprintf(slideDisplayString, "Slide Level:");
-	m_slideDisplayString = CCLabelTTF::create(slideDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	m_slideDisplayString->setAnchorPoint(CCPointZero);
-	// yeah yeah its hardcoded, i just didn't want to do that math right now
-	m_slideDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(375)));
-	addChild(m_slideDisplayString);
+	//char slideDisplayString[100];
+	//sprintf(slideDisplayString, "Slide Level:");
+	//m_slideDisplayString = CCLabelTTF::create(slideDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	//m_slideDisplayString->setAnchorPoint(CCPointZero);
+	//// yeah yeah its hardcoded, i just didn't want to do that math right now
+	//m_slideDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(375)));
+	//addChild(m_slideDisplayString);
 
-	char rotaryDisplayString[100];
-	sprintf(rotaryDisplayString, "Rotary Level:");
-	m_rotaryDisplayString = CCLabelTTF::create(rotaryDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	m_rotaryDisplayString->setAnchorPoint(CCPointZero);
-	// yeah yeah its hardcoded, i just didn't want to do that math right now
-	m_rotaryDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(350)));
-	//addChild(m_rotaryDisplayString);
+	//char rotaryDisplayString[100];
+	//sprintf(rotaryDisplayString, "Rotary Level:");
+	//m_rotaryDisplayString = CCLabelTTF::create(rotaryDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	//m_rotaryDisplayString->setAnchorPoint(CCPointZero);
+	//// yeah yeah its hardcoded, i just didn't want to do that math right now
+	//m_rotaryDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(350)));
+	////addChild(m_rotaryDisplayString);
 
     // display the quit button
     CCMenuItemImage* quitButton = CCMenuItemImage::create("CloseNormal.png", "CloseSelected.png", this, menu_selector(HUD::returnToMenu));
-    quitButton->setPosition(ccp(VisibleRect::getScreenWidth() - 70, VisibleRect::getScreenHeight() - 70));
+    quitButton->setPosition(ccp(VisibleRect::getScreenWidth() - 70, 70));
     // create menu, it's an autorelease object
     CCMenu* pMenu = CCMenu::create(quitButton, NULL);
     pMenu->setPosition( CCPointZero );

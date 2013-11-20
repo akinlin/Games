@@ -40,7 +40,7 @@ private:
     int s_color;
     int s_interactionType;
     Blocks* m_BlocksSprite;
-    CCLabelTTF* m_interactionSprite;
+    CCSprite* m_interactionSprite;
     
     bool m_isInElinationCheck;
     bool m_isActive;

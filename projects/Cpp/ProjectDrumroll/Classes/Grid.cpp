@@ -16,6 +16,13 @@ const int INTERACTION_USE_DEDUCTION = 20;
 const int SINGLE_PIECE_ELIMINATION_DEDUCTION = 150;
 const int COMBO_ELIMINATION_ADDITION = 50;
 
+CCPoint blueLocation = ccp(-575, 650);
+CCPoint greenLocation = ccp(-575, 400);
+CCPoint yellowLocation = ccp(-575, 150);
+CCPoint purpleLocation = ccp(-575, -100);
+
+#define CCCA(x)   (x->copy()->autorelease())
+
 Grid::Grid()
 {
     // reset score
@@ -23,6 +30,8 @@ Grid::Grid()
     m_highComboCount  = 0;
     m_interactionCount = 0;
 	m_slideMoves = 0;
+	m_actionReset = false;
+	m_switchGamePieceFirstSelection = false;
     
     // turn on touch events
     setTouchEnabled( true );
@@ -80,6 +89,63 @@ Grid::~Grid()
             }
         }
     }
+}
+
+void Grid::startParticleAnim(CCPoint location, int color)
+{
+	// get the end point
+	CCPoint endLocation;
+	if (color == pieceColorPurple)
+	{
+		endLocation = blueLocation;
+	}
+	else if (color == pieceColorGreen)
+	{
+		endLocation = greenLocation;
+	}
+	else if (color == pieceColorYellow)
+	{
+		endLocation = yellowLocation;
+	}
+	else
+	{
+		// pieceColorRed
+		endLocation = purpleLocation;
+	}
+
+	CCParticleSystem* emitter = CCParticleMeteor::create();
+	addChild(emitter, 100);
+
+	emitter->setTexture(CCTextureCache::sharedTextureCache()->addImage("fire.png"));
+	emitter->setPosition(location);
+
+	// delta point
+	CCPoint dxPoint = ccp(endLocation.x - location.x, endLocation.y - location.y);
+	CCActionInterval* move_ease_in = CCEaseIn::create(CCMoveTo::create(1, endLocation), 2.5f);
+	int *colour = new int(color);
+	emitter->runAction(CCSequence::create(move_ease_in, CCCallFuncND::create(this, callfuncND_selector(Grid::callback1), (void*)colour), NULL));
+}
+
+void Grid::callback1(CCNode* pTarget, void* data)
+{
+	// get the emitter
+	CCParticleSystem* emitter = (CCParticleSystem *)(pTarget);
+	emitter->stopSystem();
+
+	CCPoint placement = emitter->getPosition();
+
+	emitter = CCParticleExplosion::create();
+	addChild(emitter, 100);
+
+	emitter->setTexture(CCTextureCache::sharedTextureCache()->addImage("fire.png"));
+	emitter->setAutoRemoveOnFinish(true);
+	emitter->setPosition(placement);
+
+	// add to the bar level
+	GameScene* parent = (GameScene*)this->getParent();
+	int *color = (int*)data;
+	parent->addToBar(*color, 1);
+	delete color;
 }
 
 GamePiece* Grid::getGamePieceAtIndex(int row, int col)
@@ -173,7 +239,7 @@ void Grid::handleTouch(CCPoint p)
                 {
                     // pieceInteractionSwitch
                     case is_switch:
-                        if (m_interactionGamePiece != NULL)
+						if (m_interactionGamePiece != NULL && !m_switchGamePieceFirstSelection)
                         {
                             handleSwitchInteraction(gamePieceSprite);
                             m_interactionState = is_empty;
@@ -194,7 +260,6 @@ void Grid::handleTouch(CCPoint p)
                         handleDPadFlipInteraction(gamePieceSprite);
                         break;
                       
-                    // pieceInteractionFlip is case 3 and default
                     default:
                         break;
                 }
@@ -204,8 +269,6 @@ void Grid::handleTouch(CCPoint p)
             {
                 // do something with it to test the touch location
                 int comboCount = eliminateGamePieces(gamePieceSprite,0);
-                // reset the pieces in the grid
-                recalculateGrid();
                 if (comboCount == 0)
                 {
                     // only one piece was eliminated
@@ -216,11 +279,13 @@ void Grid::handleTouch(CCPoint p)
                     // a combo of two or more was created
 					m_score += (COMBO_ELIMINATION_ADDITION*(comboCount + 1));
 
+					startParticleAnim(gamePieceSprite->getPosition(), gamePieceSprite->getPieceColor());
+
 					// fill the interaction bar with the comboCount/2 * 2
-					int barAddition = comboCount;
+					/*int barAddition = comboCount;
 					int pieceColor = gamePieceSprite->getPieceColor();
 					GameScene* parent = (GameScene*)this->getParent();
-					parent->addToBar(pieceColor, barAddition);
+					parent->addToBar(pieceColor, barAddition);*/
                 }
                 
                 // set the high combo
@@ -228,20 +293,36 @@ void Grid::handleTouch(CCPoint p)
                 {
                     m_highComboCount = comboCount;
                 }
+
+				// reset the pieces in the grid
+				recalculateGrid();
+
+				m_interactionState = is_empty;
             }
         }
+		// action occured points/values need to be adjusted
+		m_actionReset = false;
     }
+	else
+	{
+		// piece is NULL assuming this is because the location was outside of the grid
+		// this assumption is based on the fact the getGamePieceAtLocation returns NULL in that case
+		// reset the touch state
+		m_interactionState = is_empty;
+		// no action occured dont reduce points/values
+		m_actionReset = true;
+	}
 }
 
 void Grid::toggleTouchType()
 {
     if (m_touchState == interact)
     {
-        m_touchState = eliminate;
+		setEliminateTouchType();
     }
     else
     {
-        m_touchState = interact;
+		setInteractTouchType();
     }
 }
 
@@ -263,11 +344,17 @@ int Grid::getInteractionState()
 void Grid::setEliminateTouchType()
 {
     m_touchState = eliminate;
+	m_interactionState = is_elimination;
 }
 
 int Grid::getTouchState()
 {
     return m_touchState;
+}
+
+bool Grid::wasActionReset()
+{
+	return m_actionReset;
 }
 
 // TODO: This function is bloated as hell. The logic is expanded for readability and debugging.
@@ -310,6 +397,7 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
                         // piece above matches trigger recursive check with this as a the base piece
 						int returnedCombo = eliminateGamePieces(abovePiece, comboCount + 1);
 						comboCount = MAX(comboCount, returnedCombo);
+						startParticleAnim(abovePieceLocation, abovePiece->getPieceColor());
                     }
                     else
                     {
@@ -355,6 +443,7 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
                         // piece above matches trigger recursive check with this as a the base piece
 						int returnedCombo = eliminateGamePieces(rightPiece, comboCount + 1);
 						comboCount = MAX(comboCount, returnedCombo);
+						startParticleAnim(rightPieceLocation, rightPiece->getPieceColor());
                     }
                     else
                     {
@@ -400,6 +489,7 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
                         // piece above matches trigger recursive check with this as a the base piece
 						int returnedCombo = eliminateGamePieces(downPiece, comboCount + 1);
 						comboCount = MAX(comboCount, returnedCombo);
+						startParticleAnim(downPieceLocation, downPiece->getPieceColor());
                     }
                     else
                     {
@@ -445,6 +535,7 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
                         // piece above matches trigger recursive check with this as a the base piece
 						int returnedCombo = eliminateGamePieces(leftPiece, comboCount + 1);
 						comboCount = MAX(comboCount, returnedCombo);
+						startParticleAnim(leftPieceLocation, leftPiece->getPieceColor());
                     }
                     else
                     {
@@ -515,6 +606,7 @@ void Grid::ccTouchesBegan(CCSet *touches, CCEvent *event)
             if (selectedGamePiece)
             {
                 // FIX IT SOON
+				GameScene* parentGS = (GameScene*)getParent();
                 switch (selectedGamePiece->getInteractionType())
                 {
                     case 1:
@@ -527,6 +619,7 @@ void Grid::ccTouchesBegan(CCSet *touches, CCEvent *event)
                         
                     case 3:
                         m_interactionState = is_switch;
+						m_switchGamePieceFirstSelection = true;
                         break;
 
 					case 4:
@@ -615,6 +708,9 @@ void Grid::ccTouchesEnded(CCSet* touches, CCEvent* event)
 			// clear the interaction piece
 			m_interactionGamePiece = NULL;
 		}
+
+		// hack variable to "work around" the issue with the gamepiece being the first selected and switching with itself
+		m_switchGamePieceFirstSelection = false;
     }
 
 	CCLog("Grid ccTouchesEnded");

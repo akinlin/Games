@@ -28,6 +28,7 @@ public:
 	void menuEliminateCallback(CCObject* pSender);
 
 	void interactionComplete();
+	void cancelInteraction();
 	void addToBarLevel(int pieceColor, int valueToAdd);
 
 	CCDrawNode* shape(int barLevel);

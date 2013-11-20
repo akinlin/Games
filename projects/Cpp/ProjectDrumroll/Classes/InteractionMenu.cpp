@@ -56,10 +56,15 @@ InteractionMenu::InteractionMenu()
 	flipButtonClipper->setStencil(flipStencil);
 	addChild(flipButtonClipper, 0);
 	// set the content
-	CCSprite* interactButton = CCSprite::create("win32/interactButton.png");
+	CCSprite* interactButton = CCSprite::create("win32/1_eliminateButton.png");
 	interactButton->setAnchorPoint(CCPointZero);
 	interactButton->setPosition(ccp(0, 0));
 	flipButtonClipper->addChild(interactButton);
+	// overlay
+	CCSprite* flipOverlay = CCSprite::create("win32/flip_overlay_large.png");
+	flipOverlay->setPosition(flipButtonClipper->getPosition());
+	flipOverlay->setAnchorPoint(CCPointZero);
+	addChild(flipOverlay, 1);
 
 	//// green interation button (pieceInteractionSwitch)
 	// set the stencil
@@ -80,6 +85,11 @@ InteractionMenu::InteractionMenu()
 	switchButton->setAnchorPoint(CCPointZero);
 	switchButton->setPosition(ccp(0, 0));
 	switchButtonClipper->addChild(switchButton);
+	// overlay
+	CCSprite* switchOverlay = CCSprite::create("win32/switch_overlay_large.png");
+	switchOverlay->setPosition(switchButtonClipper->getPosition());
+	switchOverlay->setAnchorPoint(CCPointZero);
+	addChild(switchOverlay, 1);
 
 	//// yellow interation button (pieceInteractionDPad)
 	// set the stencil
@@ -96,10 +106,15 @@ InteractionMenu::InteractionMenu()
 	dpadButtonClipper->setStencil(dpadStencil);
 	addChild(dpadButtonClipper, 0);
 	// set the content
-	CCSprite* dpadButton = CCSprite::create("win32/y_eliminateButton.png");
+	CCSprite* dpadButton = CCSprite::create("win32/y_1_eliminateButton.png");
 	dpadButton->setAnchorPoint(CCPointZero);
 	dpadButton->setPosition(ccp(0, 0));
 	dpadButtonClipper->addChild(dpadButton);
+	// overlay
+	CCSprite* dpadOverlay = CCSprite::create("win32/dpad_overlay_large.png");
+	dpadOverlay->setPosition(dpadButtonClipper->getPosition());
+	dpadOverlay->setAnchorPoint(CCPointZero);
+	addChild(dpadOverlay, 1);
 
 	//// purple interation button (pieceInteractionSlide)
 	// set the stencil
@@ -116,10 +131,15 @@ InteractionMenu::InteractionMenu()
 	slideButtonClipper->setStencil(slideStencil);
 	addChild(slideButtonClipper, 0);
 	// set the content
-	CCSprite* slideButton = CCSprite::create("win32/p_eliminateButton.png");
+	CCSprite* slideButton = CCSprite::create("win32/p_1_eliminateButton.png");
 	slideButton->setAnchorPoint(CCPointZero);
 	slideButton->setPosition(ccp(0, 0));
 	slideButtonClipper->addChild(slideButton);
+	// overlay
+	CCSprite* slideOverlay = CCSprite::create("win32/slide_overlay_large.png");
+	slideOverlay->setPosition(slideButtonClipper->getPosition());
+	slideOverlay->setAnchorPoint(CCPointZero);
+	addChild(slideOverlay, 1);
 
 	//// elimination button
 	eliminateButton = CCSprite::create("win32/eliminateButton.png");
@@ -223,6 +243,16 @@ void InteractionMenu::interactionComplete()
 	{
 		interactionEliminationOn = false;
 	}
+}
+
+void InteractionMenu::cancelInteraction()
+{
+	interactionFlipOn = false;
+	interactionSwitchOn = false;
+	interactionDPadOn = false;
+	interactionSlideOn = false;
+	interactionRotaryOn = false;
+	interactionEliminationOn = false;
 }
 
 CCDrawNode* InteractionMenu::shape(int barLevel)

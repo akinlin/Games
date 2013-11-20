@@ -36,7 +36,7 @@ GamePiece::GamePiece()
     s_color = rand() % gamePieceColorCount;
     if (rand() % 10 == 1)
     {
-        //s_interactionType = rand() % pieceInteractionCount;
+        s_interactionType = rand() % pieceInteractionCount;
     }
     else
     {
@@ -79,39 +79,43 @@ GamePiece::GamePiece()
 //    }
     if (s_interactionType == pieceInteractionFlip)
     {
-        m_interactionSprite = CCLabelTTF::create("Flip", "Arial", VisibleRect::getScaledFont(5));
-        m_interactionSprite->setPosition(ccp((getTextureWidth()/2)/2, (getTextureHeight()/2)/2));
-        m_interactionSprite->setColor(ccBLACK);
+		m_interactionSprite = CCSprite::create("win32/flip_overlay_small.png");//CCLabelTTF::create("Flip", "Arial", VisibleRect::getScaledFont(5));
+        //m_interactionSprite->setPosition(ccp((32-30)/2, (32-30)/2));
+		m_interactionSprite->setAnchorPoint(CCPointZero);
+        //m_interactionSprite->setColor(ccBLACK);
         this->addChild(m_interactionSprite);
     }
     else if (s_interactionType == pieceInteractionDPadFlip)
     {
-        m_interactionSprite = CCLabelTTF::create("DPad", "Arial", VisibleRect::getScaledFont(5));
-        m_interactionSprite->setPosition(ccp((getTextureWidth()/2)/2, (getTextureHeight()/2)/2));
-        m_interactionSprite->setColor(ccBLACK);
+		m_interactionSprite = CCSprite::create("win32/dpad_overlay_small.png");//CCLabelTTF::create("DPad", "Arial", VisibleRect::getScaledFont(5));
+        //m_interactionSprite->setPosition(ccp((getTextureWidth()/2)/2, (getTextureHeight()/2)/2));
+		m_interactionSprite->setAnchorPoint(CCPointZero);
+        //m_interactionSprite->setColor(ccBLACK);
         this->addChild(m_interactionSprite);
     }
     else if (s_interactionType == pieceInteractionSwitch)
     {
-        m_interactionSprite = CCLabelTTF::create("Switch", "Arial", VisibleRect::getScaledFont(5));
-        m_interactionSprite->setPosition(ccp((getTextureWidth()/2)/2, (getTextureHeight()/2)/2));
-        m_interactionSprite->setColor(ccBLACK);
+		m_interactionSprite = CCSprite::create("win32/switch_overlay_small.png");//CCLabelTTF::create("Switch", "Arial", VisibleRect::getScaledFont(5));
+        //m_interactionSprite->setPosition(ccp((getTextureWidth()/2)/2, (getTextureHeight()/2)/2));
+		m_interactionSprite->setAnchorPoint(CCPointZero);
+        //m_interactionSprite->setColor(ccBLACK);
         this->addChild(m_interactionSprite);
     }
 	else if (s_interactionType == pieceInteractionSlide)
 	{
-		m_interactionSprite = CCLabelTTF::create("Slide", "Arial", VisibleRect::getScaledFont(5));
-		m_interactionSprite->setPosition(ccp((getTextureWidth() / 2) / 2, (getTextureHeight() / 2) / 2));
-		m_interactionSprite->setColor(ccBLACK);
+		m_interactionSprite = CCSprite::create("win32/slide_overlay_small.png");//CCLabelTTF::create("Slide", "Arial", VisibleRect::getScaledFont(5));
+		//m_interactionSprite->setPosition(ccp((getTextureWidth() / 2) / 2, (getTextureHeight() / 2) / 2));
+		m_interactionSprite->setAnchorPoint(CCPointZero);
+		//m_interactionSprite->setColor(ccBLACK);
 		this->addChild(m_interactionSprite);
 	}
-	else if (s_interactionType == pieceInteractionRotary)
+	/*else if (s_interactionType == pieceInteractionRotary)
 	{
 		m_interactionSprite = CCLabelTTF::create("Rotary", "Arial", VisibleRect::getScaledFont(5));
 		m_interactionSprite->setPosition(ccp((getTextureWidth() / 2) / 2, (getTextureHeight() / 2) / 2));
 		m_interactionSprite->setColor(ccBLACK);
 		this->addChild(m_interactionSprite);
-	}
+	}*/
     
     this->autorelease();
 }

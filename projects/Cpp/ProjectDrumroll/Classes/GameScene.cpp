@@ -26,11 +26,11 @@ const std::string menuItem[ITEM_COUNT] =
 
 enum SceneTags {
     kTagBackgroundReference,
-    kTagGridReference,
     kTagHUDReference,
     kTagButtonMenu,
 	kTagClippingButton,
-    kTagGoalstab
+    kTagGoalstab,
+	kTagGridReference
 };
 
 CCScene* GameScene::scene()
@@ -191,6 +191,11 @@ void GameScene::interactionSelected(ccColor3B color, int interactionState)
 	NULL)));
 }
 
+void GameScene::interactionCancelled()
+{
+	
+}
+
 void GameScene::addToBar(int pieceColor, int valueToAdd)
 {
 	m_interactionReference->addToBarLevel(pieceColor, valueToAdd);
@@ -314,11 +319,21 @@ void GameScene::updateAll(float dx)
 
 	// check if interactions are done
 	// needs a callback from the interaction menu to execute
-	if (m_gridReference->getInteractionState() == InteractionState::is_empty && 
-		m_gridReference->getTouchState() != TouchState::eliminate)
+	if (m_gridReference->getInteractionState() == InteractionState::is_empty)
 	{
-		// tell the interactionmenu the interaction is compelte
-		m_interactionReference->interactionComplete();
+		// check to make sure the action didn't get reset
+		if (!m_gridReference->wasActionReset())
+		{
+			// tell the interactionmenu the interaction is compelte
+			m_interactionReference->interactionComplete();
+		}
+		else
+		{
+			m_interactionReference->cancelInteraction();
+		}
+		// hack to stop the elimination checks
+		m_gridReference->setInteractTouchType();
+
 		stopAllActions();
 		setColor(ccBLACK);
 	}

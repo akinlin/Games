@@ -44,6 +44,8 @@ public:
     virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
+	// query if the action occured in the last click event
+	bool wasActionReset();
     
     bool isLevelComplete();
     int getCurrentScore();
@@ -65,8 +67,12 @@ private:
     int m_highComboCount;
     int m_interactionCount;
 
+	bool m_switchGamePieceFirstSelection;
+
 	int m_slideMoves;
 	int m_slideLastPoint;
+
+	bool m_actionReset;
     
     void setPieceLocaiton(int row, int col);
     // returns the width of the piece referenced with grid padding
@@ -76,7 +82,7 @@ private:
     
     // after an elimination move, reset the grid after gravity drop
     void recalculateGrid();
-    
+
     // interaction handling functions
 	void handleSlideMove(CCPoint location);
 	void handleSlideComplete();
@@ -85,6 +91,14 @@ private:
     void handleSwitchInteraction(GamePiece* gamePieceSprite);
     void handleFlipInteraction(GamePiece* gamePieceSprite);
     void handleDPadFlipInteraction(GamePiece* gamePieceSprite);
+
+	// testing out particle system
+	CCParticleSystem*    m_emitter;
+	CCSprite*            m_background;
+
+	void testStopAction(float dt);
+	void startParticleAnim(CCPoint location, int color);
+	void callback1(CCNode* pTarget, void* data);
 };
 
 enum InteractionState
