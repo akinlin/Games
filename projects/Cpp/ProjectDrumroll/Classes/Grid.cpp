@@ -31,7 +31,6 @@ Grid::Grid()
     m_interactionCount = 0;
 	m_slideMoves = 0;
 	m_actionReset = false;
-	m_switchGamePieceFirstSelection = false;
     
     // turn on touch events
     setTouchEnabled( true );
@@ -70,8 +69,7 @@ Grid::Grid()
     // set content size to grid size, assuming all pieces are the same size
     setContentSize(CCSizeMake(m_gridWidth, m_gridHeight));
     
-    m_touchState = interact;
-    m_interactionState = is_empty;
+	// init GamePiece reference
     m_interactionGamePiece = NULL;
 }
 
@@ -214,35 +212,25 @@ float Grid::getHeight()
 
 void Grid::handleTouch(CCPoint p)
 {
-    //CCLog("Touch_X = %d", p.x);
-    //CCLog("Touch_Y = %d", p.y);
-            
     // find the piece selected
     GamePiece* gamePieceSprite = getGamePieceAtLocation(p);
+	TouchSelectorStateMachine* sharedTouchSelector = TouchSelectorStateMachine::sharedTouchSelector();
     if (gamePieceSprite != NULL)
     {
         if (gamePieceSprite->isVisible())
         {
             // handle the touch according to touchState
-            if (m_touchState == interact)
+			if (sharedTouchSelector->getTouchState() == interact)
             {
                 // handle the interaction type
-                
-                // super bad hard core coupling between this and GamePiece.cpp gamePieceInteractionType enum
-                // FIX IT <I will I just need to get basic funcationality done and then I can do a general clean up>
-//                        pieceInteractionSlide = 0,
-//                        pieceInteractionRotary = 1,
-//                        pieceInteractionSwitch = 2,
-//                        pieceInteractionFlip = 3,
-//                        pieceInteractionCount = 4
-                switch (m_interactionState)
+				switch (sharedTouchSelector->getInteractionState())
                 {
                     // pieceInteractionSwitch
-                    case is_switch:
-						if (m_interactionGamePiece != NULL && !m_switchGamePieceFirstSelection)
+                    case pieceInteractionSwitch:
+						if (m_interactionGamePiece != NULL && !sharedTouchSelector->activeMultiTouchInteraction())
                         {
                             handleSwitchInteraction(gamePieceSprite);
-                            m_interactionState = is_empty;
+							sharedTouchSelector->setInteractionState(pieceInteractionEmpty);
                             m_interactionGamePiece = NULL;
                         }
                         else
@@ -251,12 +239,12 @@ void Grid::handleTouch(CCPoint p)
                         }
                         break;
                         
-                    case is_flip:
+                    case pieceInteractionFlip:
                         // flip the piece
                         handleFlipInteraction(gamePieceSprite);
                         break;
                         
-                    case is_dpadflip:
+                    case pieceInteractionDPadFlip:
                         handleDPadFlipInteraction(gamePieceSprite);
                         break;
                       
@@ -297,7 +285,7 @@ void Grid::handleTouch(CCPoint p)
 				// reset the pieces in the grid
 				recalculateGrid();
 
-				m_interactionState = is_empty;
+				sharedTouchSelector->setInteractionState(pieceInteractionEmpty);
             }
         }
 		// action occured points/values need to be adjusted
@@ -308,49 +296,49 @@ void Grid::handleTouch(CCPoint p)
 		// piece is NULL assuming this is because the location was outside of the grid
 		// this assumption is based on the fact the getGamePieceAtLocation returns NULL in that case
 		// reset the touch state
-		m_interactionState = is_empty;
+		sharedTouchSelector->setInteractionState(pieceInteractionEmpty);
 		// no action occured dont reduce points/values
 		m_actionReset = true;
 	}
 }
 
-void Grid::toggleTouchType()
-{
-    if (m_touchState == interact)
-    {
-		setEliminateTouchType();
-    }
-    else
-    {
-		setInteractTouchType();
-    }
-}
-
-void Grid::setInteractTouchType()
-{
-    m_touchState = interact;
-}
-
-void Grid::setInteractionState(int interactionState)
-{
-	m_interactionState = interactionState;
-}
-
-int Grid::getInteractionState()
-{
-	return m_interactionState;
-}
-
-void Grid::setEliminateTouchType()
-{
-    m_touchState = eliminate;
-	m_interactionState = is_elimination;
-}
-
-int Grid::getTouchState()
-{
-    return m_touchState;
-}
+//void Grid::toggleTouchType()
+//{
+//	if (TouchSelectorStateMachine::sharedTouchSelector()->getTouchState() == interact)
+//    {
+//		setEliminateTouchType();
+//    }
+//    else
+//    {
+//		setInteractTouchType();
+//    }
+//}
+//
+//void Grid::setInteractTouchType()
+//{
+//	TouchSelectorStateMachine::sharedTouchSelector()->setTouchState(interact);
+//}
+//
+//void Grid::setInteractionState(gamePieceInteractionType interactionState)
+//{
+//	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(interactionState);
+//}
+//
+//int Grid::getInteractionState()
+//{
+//	return TouchSelectorStateMachine::sharedTouchSelector()->getInteractionState();
+//}
+//
+//void Grid::setEliminateTouchType()
+//{
+//	TouchSelectorStateMachine::sharedTouchSelector()->setTouchState(eliminate);
+//	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionElimination);
+//}
+//
+//int Grid::getTouchState()
+//{
+//	return TouchSelectorStateMachine::sharedTouchSelector()->getTouchState();
+//}
 
 bool Grid::wasActionReset()
 {
@@ -580,8 +568,9 @@ int Grid::eliminateGamePieces(GamePiece* basePiece, int comboCount)
 void Grid::ccTouchesBegan(CCSet *touches, CCEvent *event)
 {
     // Only handle the touch start if the touch state is interaction
-    // Skip setting the state if interactionState is is_switch
-    if (m_touchState == interact && m_interactionState != is_switch)
+    // Skip setting the state if interactionState is pieceInteractionSwitch
+	TouchSelectorStateMachine* sharedTouchSelector = TouchSelectorStateMachine::sharedTouchSelector();
+	if (sharedTouchSelector->getTouchState() == interact && sharedTouchSelector->getInteractionState() != pieceInteractionSwitch)
     {
         // Set the current grid state depending on the interaction type
         CCSetIterator it;
@@ -605,29 +594,59 @@ void Grid::ccTouchesBegan(CCSet *touches, CCEvent *event)
 			m_interactionGamePiece = selectedGamePiece;
             if (selectedGamePiece)
             {
-                // FIX IT SOON
+                // HARD CODED FIX IT SOON
 				GameScene* parentGS = (GameScene*)getParent();
                 switch (selectedGamePiece->getInteractionType())
                 {
                     case 1:
-                        m_interactionState = is_flip;
+						// if the interaction menu has not been set then dont deduct points
+						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
+						{
+							// menu not slected, interaction native to piece
+							sharedTouchSelector->setNativeTouchInteraction(true);
+						}
+						sharedTouchSelector->setInteractionState(pieceInteractionFlip);
                         break;
                         
                     case 2:
-                        m_interactionState = is_dpadflip;
+						// if the interaction menu has not been set then dont deduct points
+						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
+						{
+							// menu not slected, interaction native to piece
+							sharedTouchSelector->setNativeTouchInteraction(true);
+						}
+						sharedTouchSelector->setInteractionState(pieceInteractionDPadFlip);
                         break;
                         
                     case 3:
-                        m_interactionState = is_switch;
-						m_switchGamePieceFirstSelection = true;
+						// if the interaction menu has not been set then dont deduct points
+						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
+						{
+							// menu not slected, interaction native to piece
+							sharedTouchSelector->setNativeTouchInteraction(true);
+						}
+						sharedTouchSelector->setInteractionState(pieceInteractionSwitch);
+						sharedTouchSelector->setActiveMultiTouchInteraction(true);
                         break;
 
 					case 4:
-						m_interactionState = is_slide;
+						// if the interaction menu has not been set then dont deduct points
+						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
+						{
+							// menu not slected, interaction native to piece
+							sharedTouchSelector->setNativeTouchInteraction(true);
+						}
+						sharedTouchSelector->setInteractionState(pieceInteractionSlide);
 						break;
 
 					case 5:
-						m_interactionState = is_rotary;
+						// if the interaction menu has not been set then dont deduct points
+						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
+						{
+							// menu not slected, interaction native to piece
+							sharedTouchSelector->setNativeTouchInteraction(true);
+						}
+						sharedTouchSelector->setInteractionState(pieceInteractionRotary);
 						break;
                         
                     default:
@@ -660,15 +679,15 @@ void Grid::ccTouchesMoved(CCSet *touches, CCEvent *event)
         location = CCDirector::sharedDirector()->convertToGL(location);
         
         // FIX IT SOON
-        switch (m_interactionState)
+		switch (TouchSelectorStateMachine::sharedTouchSelector()->getInteractionState())
         {
                 // pieceInteractionSlide
-            case is_slide:
+            case pieceInteractionSlide:
                 handleSlideMove(location);
                 break;
                 
                 // pieceInteractionRotary
-            case is_rotary:
+            case pieceInteractionRotary:
                 //handleRotaryMove(location);
                 break;
                 
@@ -701,7 +720,7 @@ void Grid::ccTouchesEnded(CCSet* touches, CCEvent* event)
         // legacy function handleTouch doesn't account for grid state
         handleTouch( location );
 
-		if (m_interactionState == is_slide)
+		if (TouchSelectorStateMachine::sharedTouchSelector()->getInteractionState() == pieceInteractionSlide)
 		{
 			handleSlideComplete();
 
@@ -710,7 +729,7 @@ void Grid::ccTouchesEnded(CCSet* touches, CCEvent* event)
 		}
 
 		// hack variable to "work around" the issue with the gamepiece being the first selected and switching with itself
-		m_switchGamePieceFirstSelection = false;
+		TouchSelectorStateMachine::sharedTouchSelector()->setActiveMultiTouchInteraction(false);
     }
 
 	CCLog("Grid ccTouchesEnded");
@@ -992,10 +1011,14 @@ void Grid::handleSlideComplete()
 	m_slideMoves = 0;
 
 	// reset the interactionState
-	m_interactionState = is_empty;
+	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
 
-	// take away INTERACTION_USE_DEDUCTION points for every touch
-	m_score = m_score - INTERACTION_USE_DEDUCTION;
+	// don't deduct point if the interaction is native
+	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
+	{
+		// take away INTERACTION_USE_DEDUCTION points for every touch
+		m_score = m_score - INTERACTION_USE_DEDUCTION;
+	}
 
 	// increment the interaction count
 	m_interactionCount++;
@@ -1011,10 +1034,14 @@ void Grid::handleRotaryMove(CCPoint location)
 void Grid::handleRotaryComplete()
 {
 	// reset the interactionState
-	m_interactionState = is_empty;
+	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
 
-	// take away INTERACTION_USE_DEDUCTION points for every touch
-	m_score = m_score - INTERACTION_USE_DEDUCTION;
+	// don't deduct point if the interaction is native
+	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
+	{
+		// take away INTERACTION_USE_DEDUCTION points for every touch
+		m_score = m_score - INTERACTION_USE_DEDUCTION;
+	}
 
 	// increment the interaction count
 	m_interactionCount++;
@@ -1046,10 +1073,14 @@ void Grid::handleSwitchInteraction(GamePiece* gamePieceSprite)
     gridTable[secondRow][secondCol] = pointerHolder;
 
 	// reset the interactionState
-	m_interactionState = is_empty;
+	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
 
-	// take away INTERACTION_USE_DEDUCTION points for every touch
-	m_score = m_score - INTERACTION_USE_DEDUCTION;
+	// don't deduct point if the interaction is native
+	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
+	{
+		// take away INTERACTION_USE_DEDUCTION points for every touch
+		m_score = m_score - INTERACTION_USE_DEDUCTION;
+	}
 
 	// increment the interaction count
 	m_interactionCount++;
@@ -1062,10 +1093,14 @@ void Grid::handleFlipInteraction(GamePiece* gamePieceSprite)
     gamePieceSprite->switchToNextPiece();
     
     // reset the interactionState
-    m_interactionState = is_empty;
+	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
     
-    // take away INTERACTION_USE_DEDUCTION points for every touch
-	m_score = m_score - INTERACTION_USE_DEDUCTION;
+	// don't deduct point if the interaction is native
+	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
+	{
+		// take away INTERACTION_USE_DEDUCTION points for every touch
+		m_score = m_score - INTERACTION_USE_DEDUCTION;
+	}
     
     // increment the interaction count
     m_interactionCount++;
@@ -1109,13 +1144,16 @@ void Grid::handleDPadFlipInteraction(GamePiece* gamePieceSprite)
     }
     
     // reset the interactionState
-    m_interactionState = is_empty;
+	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
     
-    // take away INTERACTION_USE_DEDUCTION points for every touch
-	m_score = m_score - INTERACTION_USE_DEDUCTION;
+	// don't deduct point if the interaction is native
+	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
+	{
+		// take away INTERACTION_USE_DEDUCTION points for every touch
+		m_score = m_score - INTERACTION_USE_DEDUCTION;
+	}
     
     // increment the interaction count
     m_interactionCount++;
 }
-
 

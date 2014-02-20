@@ -15,7 +15,56 @@
 #include "HUD.h"
 #include "Goals.h"
 #include "InteractionMenu.h"
+#include "GamePiece.h"
 USING_NS_CC;
+
+//enum InteractionState
+//{
+//	is_empty = 0,
+//	is_slide,
+//	is_rotary,
+//	is_switch,
+//	is_dpadflip,
+//	is_flip,
+//	is_count,
+//	is_elimination
+//};
+
+enum TouchState
+{
+	interact = 0,
+	eliminate = 1
+};
+
+class TouchSelectorStateMachine
+{
+public:
+	TouchSelectorStateMachine();
+	~TouchSelectorStateMachine();
+
+	void init();
+
+	gamePieceInteractionType getInteractionState();
+	void setInteractionState(gamePieceInteractionType interactionState);
+
+	TouchState getTouchState();
+	void setTouchState(TouchState touchState);
+
+	bool activeMultiTouchInteraction();
+	void setActiveMultiTouchInteraction(bool isActive);
+	bool isNativeTouchInteraction();
+	void setNativeTouchInteraction(bool isNative);
+
+	/** returns a shared instance of the director */
+	static TouchSelectorStateMachine* sharedTouchSelector(void);
+
+private:
+	gamePieceInteractionType m_interactionState;
+	TouchState m_touchState;
+
+	bool m_switchGamePieceFirstSelection;
+	bool m_interactionNative;
+};
 
 class GameScene : public CCLayerColor
 {
@@ -30,7 +79,7 @@ public:
     void menuCallback(CCObject* pSender);
 
 	// callback to set interaction selected state
-	void interactionSelected(ccColor3B color, int interactionState);
+	void interactionSelected(ccColor3B color, gamePieceInteractionType interactionState);
 	void interactionCancelled();
 	void addToBar(int pieceColor, int valueToAdd);
     
@@ -61,7 +110,6 @@ private:
     int m_highestCombo;
     // Interaction count
     int m_interactionCount;
-
     
 // Member Management
     // Level state

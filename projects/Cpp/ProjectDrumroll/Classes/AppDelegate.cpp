@@ -17,46 +17,64 @@ using namespace CocosDenshion;
 
 AppDelegate::AppDelegate()
 {
-
+	// create the game class
+	m_game = new ProjectDrumrollGame();
 }
 
 AppDelegate::~AppDelegate()
 {
+	// delete the game class
+	delete m_game;
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    // initialize director
-    CCDirector *pDirector = CCDirector::sharedDirector();
-    pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
-
-    // turn on display FPS
-    //pDirector->setDisplayStats(true);
-
-    // set FPS. the default value is 1.0/60 if you don't call this
-    //pDirector->setAnimationInterval(1.0 / 60);
-
-    // create a scene. it's an autorelease object
-    CCScene *pScene = TitleScene::scene();
-
-    // run
-    pDirector->runWithScene(pScene);
-
+    // init the game
+	if (m_game)
+	{
+		if (!m_game->init())
+		{
+			CCLog("AppDelegate::applicationDidFinishLaunching - Error Game failed on init");
+			return false;
+		}
+	}
+	else
+	{
+		CCLog("AppDelegate::applicationDidFinishLaunching - Error Game is NULL");
+		return false;
+	}
     return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground()
 {
-    CCDirector::sharedDirector()->stopAnimation();
-    SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
-    SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+	// game interupted pause execution
+	if (m_game)
+	{
+		m_game->pause();
+	}
+	else
+	{
+		CCLog("AppDelegate::applicationDidEnterBackground - Error Game is NULL");
+	}
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground()
 {
-    CCDirector::sharedDirector()->startAnimation();
-    SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-    SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+	// game is told to resume execution
+	if (m_game)
+	{
+		m_game->play();
+	}
+	else
+	{
+		CCLog("AppDelegate::applicationWillEnterForeground - Error Game is NULL");
+	}
+}
+
+int Win32App::getANumber()
+{
+	return 32;
 }

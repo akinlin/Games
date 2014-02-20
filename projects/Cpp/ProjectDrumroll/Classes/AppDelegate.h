@@ -10,6 +10,7 @@
 #define  _APP_DELEGATE_H_
 
 #include "CCApplication.h"
+#include "ProjectDrumrollGame.h"
 
 /**
 @brief    The cocos2d Application.
@@ -21,7 +22,6 @@ class  AppDelegate : private cocos2d::CCApplication
 public:
     AppDelegate();
     virtual ~AppDelegate();
-
 
     /**
     @brief    Implement CCDirector and CCScene init code here.
@@ -41,6 +41,17 @@ public:
     @param  the pointer of the application
     */
     virtual void applicationWillEnterForeground();
+
+private:
+	// techdemo hack to allow for easier across app development
+	// production code will subcalss AppDelagate but this requires updating main in all platforms
+	ProjectDrumrollGame* m_game;
+};
+
+class Win32App : private AppDelegate
+{
+public:
+	int getANumber();
 };
 
 #endif // _APP_DELEGATE_H_

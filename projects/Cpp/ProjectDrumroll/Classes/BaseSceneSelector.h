@@ -10,6 +10,7 @@
 #define __ProjectDrumroll__BaseSceneSelector__
 
 #include "cocos2d.h"
+#include "SceneSelectorStateMachine.h"
 USING_NS_CC;
 
 class BaseSceneSelector
@@ -18,9 +19,12 @@ public:
 	BaseSceneSelector();
 	~BaseSceneSelector();
 
+	bool init();
+
 protected:
 
 private:
+	SceneSelectorStateMachine* m_sceneStateMachine;
 
 };
 

@@ -11,7 +11,6 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "ScreenHelper.h"
-#include "GamePiece.h"
 
 using namespace CocosDenshion;
 
@@ -32,6 +31,85 @@ enum SceneTags {
     kTagGoalstab,
 	kTagGridReference
 };
+
+/////////////////////////
+// TouchStateMachine
+
+// singleton stuff
+static TouchSelectorStateMachine *s_SharedTouchSelector = NULL;
+
+TouchSelectorStateMachine* TouchSelectorStateMachine::sharedTouchSelector(void)
+{
+	if (!s_SharedTouchSelector)
+	{
+		s_SharedTouchSelector = new TouchSelectorStateMachine();
+		s_SharedTouchSelector->init();
+	}
+
+	return s_SharedTouchSelector;
+}
+
+TouchSelectorStateMachine::TouchSelectorStateMachine()
+{
+
+}
+
+TouchSelectorStateMachine::~TouchSelectorStateMachine()
+{
+
+}
+
+void TouchSelectorStateMachine::init()
+{
+	// set the state to null to signify it has never been set
+	m_touchState = interact;
+	m_interactionState = pieceInteractionEmpty;
+
+	m_switchGamePieceFirstSelection = false;
+	m_interactionNative = false;
+}
+
+gamePieceInteractionType TouchSelectorStateMachine::getInteractionState()
+{
+	return m_interactionState;
+}
+void TouchSelectorStateMachine::setInteractionState(gamePieceInteractionType interactionState)
+{
+	m_interactionState = interactionState;
+}
+
+TouchState TouchSelectorStateMachine::getTouchState()
+{
+	return m_touchState;
+}
+void TouchSelectorStateMachine::setTouchState(TouchState touchState)
+{
+	m_touchState = touchState;
+}
+
+bool TouchSelectorStateMachine::activeMultiTouchInteraction()
+{
+	return m_switchGamePieceFirstSelection;
+}
+
+void TouchSelectorStateMachine::setActiveMultiTouchInteraction(bool isActive)
+{
+	m_switchGamePieceFirstSelection = isActive;
+}
+
+bool TouchSelectorStateMachine::isNativeTouchInteraction()
+{
+	return m_interactionNative;
+}
+
+void TouchSelectorStateMachine::setNativeTouchInteraction(bool isNative)
+{
+	m_interactionNative = isNative;
+}
+
+
+/////////////////////////
+// GameScene
 
 CCScene* GameScene::scene()
 {
@@ -69,7 +147,10 @@ bool GameScene::init()
     m_highestCombo = 0;
     // init interaction count
     m_interactionCount = 0;
-    
+
+	// init the touchselector state machine
+	TouchSelectorStateMachine::sharedTouchSelector()->init();
+
     // add background for the main screen"
     m_backgroundReference = CCSprite::create("win32/MainScreen.png");
     m_backgroundReference->setScale(VisibleRect::getScale());
@@ -107,65 +188,65 @@ bool GameScene::init()
     return true;
 }
 
-void GameScene::menuCallback(CCObject* pSender)
-{
-	// stop all layer actions first
-	stopAllActions();
+//void GameScene::menuCallback(CCObject* pSender)
+//{
+//	// stop all layer actions first
+//	stopAllActions();
+//
+//    // get the userdata, it's the index of the menu item clicked
+//    CCMenuItem* pMenuItem = (CCMenuItemImage *)(pSender);
+//    int nIdx = pMenuItem->getZOrder() - 10000;
+//    
+//    CCLog("Index = %d", nIdx);
+//    
+//    // create the scene and run it
+//    CCScene *pScene = NULL;
+//    switch (nIdx)
+//    {
+//        case 0:
+//            pScene = TitleScene::scene();
+//            break;
+//        case 1:
+//            // go to the next level
+//            nextLevel();
+//            break;
+//        case 2:
+//            // change the touch state
+//            m_gridReference->toggleTouchType();
+//            // tint the background for the interaction type
+//            if (m_gridReference->getTouchState() == 0)
+//            {
+//                // hard coded to be the interaction state so set to blue
+//                //m_backgroundReference->setColor(ccBLUE);
+//				setColor(ccBLUE);
+//            }
+//            else if(m_gridReference->getTouchState() == 1)
+//            {
+//                // hard coded to be the elimination state so set to red
+//                //m_backgroundReference->setColor(ccRED);
+//				setColor(ccRED);
+//            }
+//            break;
+//        default:
+//            break;
+//    }
+//
+//	runAction(
+//		CCRepeatForever::create(
+//		CCSequence::create(
+//		CCFadeTo::create(.25, 0),
+//		CCFadeTo::create(.25, 255),
+//		NULL)));
+//    
+//    // run
+//    if (pScene)
+//    {
+//        CCDirector::sharedDirector()->replaceScene(pScene);
+//    }
+//    
+//}
 
-    // get the userdata, it's the index of the menu item clicked
-    CCMenuItem* pMenuItem = (CCMenuItemImage *)(pSender);
-    int nIdx = pMenuItem->getZOrder() - 10000;
-    
-    CCLog("Index = %d", nIdx);
-    
-    // create the scene and run it
-    CCScene *pScene = NULL;
-    switch (nIdx)
-    {
-        case 0:
-            pScene = TitleScene::scene();
-            break;
-        case 1:
-            // go to the next level
-            nextLevel();
-            break;
-        case 2:
-            // change the touch state
-            m_gridReference->toggleTouchType();
-            // tint the background for the interaction type
-            if (m_gridReference->getTouchState() == 0)
-            {
-                // hard coded to be the interaction state so set to blue
-                //m_backgroundReference->setColor(ccBLUE);
-				setColor(ccBLUE);
-            }
-            else if(m_gridReference->getTouchState() == 1)
-            {
-                // hard coded to be the elimination state so set to red
-                //m_backgroundReference->setColor(ccRED);
-				setColor(ccRED);
-            }
-            break;
-        default:
-            break;
-    }
-
-	runAction(
-		CCRepeatForever::create(
-		CCSequence::create(
-		CCFadeTo::create(.25, 0),
-		CCFadeTo::create(.25, 255),
-		NULL)));
-    
-    // run
-    if (pScene)
-    {
-        CCDirector::sharedDirector()->replaceScene(pScene);
-    }
-    
-}
-
-void GameScene::interactionSelected(ccColor3B color, int interactionState)
+void GameScene::interactionSelected(ccColor3B color, gamePieceInteractionType interactionState)
 {
 	// stop all layer actions first
 	stopAllActions();
@@ -173,14 +254,16 @@ void GameScene::interactionSelected(ccColor3B color, int interactionState)
 	// need to call back to gamescene reference
 	setColor(color);
 
-	if (interactionState == is_elimination)
+	TouchSelectorStateMachine* sharedTouchSelector = TouchSelectorStateMachine::sharedTouchSelector();
+	if (interactionState == pieceInteractionElimination)
 	{
-		m_gridReference->setEliminateTouchType();
+		sharedTouchSelector->setTouchState(eliminate);
+		sharedTouchSelector->setInteractionState(pieceInteractionElimination);
 	}
 	else
 	{
-		m_gridReference->setInteractTouchType();
-		m_gridReference->setInteractionState(interactionState);
+		sharedTouchSelector->setTouchState(interact);
+		sharedTouchSelector->setInteractionState(interactionState);
 	}
 
 	runAction(
@@ -213,6 +296,19 @@ void GameScene::checkForEndOfLevel()
         }
         else
         {
+			// check for new high score
+			const char* KEY_HIGH_SCORE = "high_score";
+			int currentHighScore = CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_HIGH_SCORE);
+			if (m_currentScore > currentHighScore)
+			{
+				CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_HIGH_SCORE, m_currentScore);
+				CCLog("NEW HIGH SCORE");
+			}
+			else
+			{
+				CCLog("**************");
+			}
+
             // end the game (go back to main menu)
             CCScene *pScene = TitleScene::scene();
             CCDirector::sharedDirector()->replaceScene(pScene);
@@ -319,7 +415,8 @@ void GameScene::updateAll(float dx)
 
 	// check if interactions are done
 	// needs a callback from the interaction menu to execute
-	if (m_gridReference->getInteractionState() == InteractionState::is_empty)
+	TouchSelectorStateMachine* sharedTouchSelector = TouchSelectorStateMachine::sharedTouchSelector();
+	if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
 	{
 		// check to make sure the action didn't get reset
 		if (!m_gridReference->wasActionReset())
@@ -332,7 +429,7 @@ void GameScene::updateAll(float dx)
 			m_interactionReference->cancelInteraction();
 		}
 		// hack to stop the elimination checks
-		m_gridReference->setInteractTouchType();
+		sharedTouchSelector->setTouchState(interact);
 
 		stopAllActions();
 		setColor(ccBLACK);

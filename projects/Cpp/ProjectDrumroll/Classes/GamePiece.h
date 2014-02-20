@@ -54,7 +54,8 @@ enum gamePieceInteractionType
 	pieceInteractionSwitch = 3,
 	pieceInteractionSlide = 4,
 	pieceInteractionRotary = 5,
-	pieceInteractionCount = 6
+	pieceInteractionCount = 6,
+	pieceInteractionElimination = 99
 };
 
 // TODO: review if this should be part of the spritehelper class

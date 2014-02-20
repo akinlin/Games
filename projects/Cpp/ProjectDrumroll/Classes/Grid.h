@@ -31,12 +31,12 @@ public:
     // handle the touch event at a given coordinate
     void handleTouch(CCPoint p);
     
-    void toggleTouchType();
-    void setInteractTouchType();
-	void setInteractionState(int interactionState);
-	int getInteractionState();
-    void setEliminateTouchType();
-    int getTouchState();
+    //void toggleTouchType();
+    //void setInteractTouchType();
+	//void setInteractionState(gamePieceInteractionType interactionState);
+	//int getInteractionState();
+    //void setEliminateTouchType();
+    //int getTouchState();
     int eliminateGamePieces(GamePiece* basePiece, int comboCount);
     
     // touch functions
@@ -56,8 +56,6 @@ public:
 private:
     GamePiece* gridTable[GRID_ROWS][GRID_COLS];
     int m_score;
-    int m_touchState;
-    int m_interactionState;
     GamePiece* m_interactionGamePiece;
     
     int m_gridWidth;
@@ -65,9 +63,7 @@ private:
     int m_pieceTextureWidth;
     int m_pieceTextureHeight;
     int m_highComboCount;
-    int m_interactionCount;
-
-	bool m_switchGamePieceFirstSelection;
+	int m_interactionCount;
 
 	int m_slideMoves;
 	int m_slideLastPoint;
@@ -99,24 +95,6 @@ private:
 	void testStopAction(float dt);
 	void startParticleAnim(CCPoint location, int color);
 	void callback1(CCNode* pTarget, void* data);
-};
-
-enum InteractionState
-{
-	is_empty,
-	is_slide,
-	is_rotary,
-	is_switch,
-	is_dpadflip,
-	is_flip,
-	is_count,
-	is_elimination
-};
-
-enum TouchState
-{
-	interact = 0,
-	eliminate = 1
 };
 
 #endif /* defined(__ProjectDrumroll__Grid__) */

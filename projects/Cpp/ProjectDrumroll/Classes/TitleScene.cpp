@@ -11,6 +11,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "ScreenHelper.h"
+#include "TestDataSave.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -40,6 +41,10 @@ enum TitleMenuItemTags {
 };
 
 /////////////////////////
+// Local methos
+CCMoveBy* getRandMove();
+
+/////////////////////////
 // TitleScene methods
 CCScene* TitleScene::scene()
 {
@@ -67,14 +72,16 @@ bool TitleScene::init()
 
     // initalize the m_TitleMenu
 	createTitleMenu();
-	// add the m_TitleMenu initalized by createTitleMenu
-	addChild(m_TitleMenu, kTitleLayerChildTagTitleMenu);
     
 	// initalize the title background
 	createTitleBG();
-	// add the sprite as a child to this layer
-	addChild(m_TitleBGSprite, kTitleLayerChildTagTitleBG);
-	addChild(m_TitleLabel, kTitleLayerChildTagTitleLabel);
+
+	// play bg music
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("bg_music.wav", true);
+
+	// schedule a high score scene push
+	//CCScheduler::scheduleSelector(schedule_selector(TitleScene::pushHighScoreScene), this, 3.0f, false);
+	schedule(schedule_selector(TitleScene::pushHighScoreScene), 7.0f);
 	    
     return true;
 }
@@ -106,12 +113,37 @@ void TitleScene::createTitleMenu()
 
 	CCLabelTTF* label = CCLabelTTF::create("Click To Start", "Arial", 150);
 	CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(TitleScene::menuCallback));
+	// pulse action
+	CCScaleTo* scaleUp = CCScaleTo::create(.75f, 1.1);
+	CCScaleTo* scaleDown = CCScaleTo::create(.75f, 1);
+	CCSequence* pulseSequence = CCSequence::create(scaleUp, scaleDown, NULL);
+	CCRepeatForever* repeat = CCRepeatForever::create(pulseSequence);
+	pMenuItem->runAction(repeat);
 
 	m_TitleMenu = CCMenu::create();
 	m_TitleMenu->setAnchorPoint(CCPointZero);
 	m_TitleMenu->addChild(pMenuItem, kMenuTagStartGame);
 	m_TitleMenu->setContentSize(VisibleRect::getScreenSize());
 	m_TitleMenu->setPosition(ccp((VisibleRect::getScreenWidth() / 2) + 50, VisibleRect::getScreenHeight() / 2));
+	// add the m_TitleMenu initalized by createTitleMenu
+	addChild(m_TitleMenu, kTitleLayerChildTagTitleMenu, kTitleLayerChildTagTitleMenu);
+
+	// create the label
+	m_TitleLabel = CCLabelTTF::create("Project Drumroll", "Arial", 200);
+	m_TitleLabel->setAnchorPoint(CCPointZero);
+	m_TitleLabel->setPosition(ccp(VisibleRect::getScreenWidth() - m_TitleLabel->getContentSize().width, VisibleRect::getScreenHeight() - m_TitleLabel->getContentSize().height));
+	addChild(m_TitleLabel, kTitleLayerChildTagTitleLabel, kTitleLayerChildTagTitleLabel);
+
+	// high score
+	// Init the high scores
+	const char* KEY_HIGH_SCORE = "high_score";
+	char highScoreString[100];
+	sprintf(highScoreString, "High Score: %d", CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_HIGH_SCORE, 100));
+	m_highScoreDisplayString = CCLabelTTF::create(highScoreString, "Arial", VisibleRect::getScaledFont(15));
+	m_highScoreDisplayString->setAnchorPoint(CCPointZero);
+	// yeah yeah its hardcoded, i just didn't want to do that math right now
+	m_highScoreDisplayString->setPosition(ccp(50, VisibleRect::getScaledFont(450)));
+	addChild(m_highScoreDisplayString, 5);
 }
 
 void TitleScene::menuCallback(CCObject* pSender)
@@ -165,16 +197,39 @@ void TitleScene::menuCallback(CCObject* pSender)
 
 void TitleScene::createTitleBG()
 {
+	// create the layer for the BG
+	m_BGLayer = CCLayer::create();
+
 	// TODO: need to fix the resource path
 	m_TitleBGSprite = CCSprite::create("win32/Default.png");
 	// position the sprite on the center of the screen
 	m_TitleBGSprite->setPosition(ccp(VisibleRect::getScreenWidth() / 2, VisibleRect::getScreenHeight() / 2));
 
-	// create the label
-	m_TitleLabel = CCLabelTTF::create("Project Drumroll", "Arial", 200);
-	m_TitleLabel->setAnchorPoint(CCPointZero);
-	CCLog("Label Height = %d", m_TitleLabel->getContentSize().height);
-	CCLog("Label Width = %d", m_TitleLabel->getContentSize().width);
-	m_TitleLabel->setPosition(ccp(VisibleRect::getScreenWidth() - m_TitleLabel->getContentSize().width, VisibleRect::getScreenHeight() - m_TitleLabel->getContentSize().height));
+	// add the sprite as a child to m_BGLayer
+	m_BGLayer->addChild(m_TitleBGSprite, kTitleLayerChildTagTitleBG);
+	CCSequence* moveSequence = CCSequence::create(getRandMove(), CCCallFuncN::create(this, callfuncN_selector(TitleScene::callback1)), NULL);
+	//CCRepeatForever* repeat = CCRepeatForever::create(moveSequence);
+	m_BGLayer->runAction(moveSequence);
+	// add layer as child to TitleScene
+	addChild(m_BGLayer, kTitleLayerChildTagTitleBG, kTitleLayerChildTagTitleBG);
+}
+
+CCMoveBy* getRandMove()
+{
+	int x = (rand() % 100) - 50;
+	int y = (rand() % 100) - 50;
+
+	return CCMoveBy::create(1.0f, ccp(x, y));
+}
+
+void TitleScene::callback1(CCNode* pTarget)
+{
+	CCSequence* moveSequence = CCSequence::create(getRandMove(), CCCallFuncN::create(this, callfuncN_selector(TitleScene::callback1)), NULL);
+	m_BGLayer->runAction(moveSequence);
+}
+
+void TitleScene::pushHighScoreScene(float ct)
+{
+	CCDirector::sharedDirector()->pushScene(TestDataSave::scene());
 }
 

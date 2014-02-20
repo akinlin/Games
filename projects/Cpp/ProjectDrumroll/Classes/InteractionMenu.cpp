@@ -9,6 +9,7 @@
 #include "InteractionMenu.h"
 #include "ScreenHelper.h"
 #include "GameScene.h"
+#include "GamePiece.h"
 
 const int MAX_BAR_LEVEL = 50;
 const int INTERACTION_BAR_COST = 5;
@@ -305,7 +306,7 @@ bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 		{
 			CCLog("InteractionMenu TouchBegan - true");
 			interactionFlipOn = true;
-			m_parent->interactionSelected(ccBLUE, is_flip);
+			m_parent->interactionSelected(ccBLUE, pieceInteractionFlip);
 			return true;
 		}
 	}
@@ -322,7 +323,7 @@ bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 		{
 			CCLog("InteractionMenu TouchBegan - true");
 			interactionSwitchOn = true;
-			m_parent->interactionSelected(ccGREEN, is_switch);
+			m_parent->interactionSelected(ccGREEN, pieceInteractionSwitch);
 			return true;
 		}
 	}
@@ -339,7 +340,7 @@ bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 		{
 			CCLog("InteractionMenu TouchBegan - true");
 			interactionDPadOn = true;
-			m_parent->interactionSelected(ccYELLOW, is_dpadflip);
+			m_parent->interactionSelected(ccYELLOW, pieceInteractionDPadFlip);
 			return true;
 		}
 	}
@@ -356,7 +357,7 @@ bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 		{
 			CCLog("InteractionMenu TouchBegan - true");
 			interactionSlideOn = true;
-			m_parent->interactionSelected(ccc3(255, 0, 255), is_slide);
+			m_parent->interactionSelected(ccc3(255, 0, 255), pieceInteractionSlide);
 			return true;
 		}
 	}
@@ -371,7 +372,7 @@ bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 	{
 		CCLog("InteractionMenu TouchBegan - true");
 		interactionEliminationOn = true;
-		m_parent->interactionSelected(ccRED, is_elimination);
+		m_parent->interactionSelected(ccRED, pieceInteractionElimination);
 		return true;
 	}
 
@@ -512,68 +513,68 @@ void InteractionMenu::ccTouchEnded(CCTouch* touch, CCEvent* event)
 //	}
 //}
 
-void InteractionMenu::menuInteractionCallback(CCObject* pSender)
-{
-	// get the selected button
-	CCMenuItemImage* pMenuItem = (CCMenuItemImage *)(pSender);
-
-	GameScene* m_parent = (GameScene*)this->getParent();
-
-	// set the background color
-	switch (pMenuItem->getZOrder())
-	{
-	case kTagInteractButtonReference:
-		if (m_flipBar >= INTERACTION_BAR_COST)
-		{
-			interactionFlipOn = true;
-			// need to call back to gamescene reference
-			m_parent->interactionSelected(ccBLUE, is_flip);
-		}
-		break;
-	case kTagG_InteractButtonReference:
-		if (m_switchBar >= INTERACTION_BAR_COST)
-		{
-			interactionSwitchOn = true;
-			// need to call back to gamescene reference
-			m_parent->interactionSelected(ccGREEN, is_switch);
-		}
-
-		break;
-	case kTagY_InteractButtonReference:
-		if (m_dpadBar >= INTERACTION_BAR_COST)
-		{
-			interactionDPadOn = true;
-			// need to call back to gamescene reference
-			m_parent->interactionSelected(ccYELLOW, is_dpadflip);
-		}
-		break;
-	case kTagP_InteractButtonReference:
-		if (m_slideBar >= INTERACTION_BAR_COST)
-		{
-			interactionSlideOn = true;
-			// need to call back to gamescene reference
-			m_parent->interactionSelected(ccc3(255, 0, 255), is_slide);
-		}
-		break;
-	case kTagO_InteractButtonReference:
-		if (m_rotaryBar >= INTERACTION_BAR_COST)
-		{
-			interactionRotaryOn = true;
-			// need to call back to gamescene reference
-			m_parent->interactionSelected(ccc3(255, 165, 0), is_rotary);
-		}
-		break;
-	default:
-		// need to call back to gamescene reference
-		m_parent->interactionSelected(ccBLACK, is_empty);
-		break;
-	}
-}
+//void InteractionMenu::menuInteractionCallback(CCObject* pSender)
+//{
+//	// get the selected button
+//	CCMenuItemImage* pMenuItem = (CCMenuItemImage *)(pSender);
+//
+//	GameScene* m_parent = (GameScene*)this->getParent();
+//
+//	// set the background color
+//	switch (pMenuItem->getZOrder())
+//	{
+//	case kTagInteractButtonReference:
+//		if (m_flipBar >= INTERACTION_BAR_COST)
+//		{
+//			interactionFlipOn = true;
+//			// need to call back to gamescene reference
+//			m_parent->interactionSelected(ccBLUE, pieceInteractionFlip);
+//		}
+//		break;
+//	case kTagG_InteractButtonReference:
+//		if (m_switchBar >= INTERACTION_BAR_COST)
+//		{
+//			interactionSwitchOn = true;
+//			// need to call back to gamescene reference
+//			m_parent->interactionSelected(ccGREEN, pieceInteractionSwitch);
+//		}
+//
+//		break;
+//	case kTagY_InteractButtonReference:
+//		if (m_dpadBar >= INTERACTION_BAR_COST)
+//		{
+//			interactionDPadOn = true;
+//			// need to call back to gamescene reference
+//			m_parent->interactionSelected(ccYELLOW, pieceInteractionDPadFlip);
+//		}
+//		break;
+//	case kTagP_InteractButtonReference:
+//		if (m_slideBar >= INTERACTION_BAR_COST)
+//		{
+//			interactionSlideOn = true;
+//			// need to call back to gamescene reference
+//			m_parent->interactionSelected(ccc3(255, 0, 255), pieceInteractionSlide);
+//		}
+//		break;
+//	case kTagO_InteractButtonReference:
+//		if (m_rotaryBar >= INTERACTION_BAR_COST)
+//		{
+//			interactionRotaryOn = true;
+//			// need to call back to gamescene reference
+//			m_parent->interactionSelected(ccc3(255, 165, 0), pieceInteractionRotary);
+//		}
+//		break;
+//	default:
+//		// need to call back to gamescene reference
+//		m_parent->interactionSelected(ccBLACK, pieceInteractionEmpty);
+//		break;
+//	}
+//}
 
 void InteractionMenu::menuEliminateCallback(CCObject* pSender)
 {
 	GameScene* m_parent = (GameScene*)this->getParent();
-	m_parent->interactionSelected(ccRED, is_elimination);
+	m_parent->interactionSelected(ccRED, pieceInteractionElimination);
 }
 
 void InteractionMenu::addToBarLevel(int pieceColor, int valueToAdd)
