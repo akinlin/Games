@@ -26,7 +26,6 @@ ProjectDrumrollGame::ProjectDrumrollGame()
 ProjectDrumrollGame::~ProjectDrumrollGame()
 {
 	delete m_gameStateMachine;
-	//delete m_sceneSelector;
 }
 
 bool ProjectDrumrollGame::init()

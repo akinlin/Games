@@ -1,6 +1,7 @@
 #ifndef __HELLOWORLD_FILE_OPERATION__
 #define __HELLOWORLD_FILE_OPERATION__
 
+#include "cocos2d.h"
 #include "platform/win32/CCPlatformDefine.h"
 #include <string>
 #include "support/tinyxml2/tinyxml2.h"
@@ -12,6 +13,7 @@ class CC_DLL FileOperation
 public:
 	static void saveFile(void);
 	static void savePlistFile();
+	static void saveHighScoreFile(cocos2d::CCArray* highscores);
 	static void readFile(void);
 	static std::string getFilePath();
 

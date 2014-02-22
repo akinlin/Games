@@ -80,6 +80,9 @@
     <ClCompile Include="..\Classes\GamePiece.cpp">
       <Filter>Classes\sprites</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Store.cpp">
+      <Filter>Classes\support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -92,9 +95,6 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ProjectDrumrollGame.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Header.h">
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\cocos2dx\support\tinyxml2\tinyxml2.h">
@@ -144,6 +144,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GamePiece.h">
       <Filter>Classes\sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Store.h">
+      <Filter>Classes\support</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

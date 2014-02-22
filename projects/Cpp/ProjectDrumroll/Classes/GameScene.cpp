@@ -11,6 +11,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "ScreenHelper.h"
+#include "Store.h"
 
 using namespace CocosDenshion;
 
@@ -67,6 +68,7 @@ void TouchSelectorStateMachine::init()
 
 	m_switchGamePieceFirstSelection = false;
 	m_interactionNative = false;
+	m_actionReset = false;
 }
 
 gamePieceInteractionType TouchSelectorStateMachine::getInteractionState()
@@ -105,6 +107,16 @@ bool TouchSelectorStateMachine::isNativeTouchInteraction()
 void TouchSelectorStateMachine::setNativeTouchInteraction(bool isNative)
 {
 	m_interactionNative = isNative;
+}
+
+bool TouchSelectorStateMachine::wasActionReset()
+{
+	return m_actionReset;
+}
+
+void TouchSelectorStateMachine::setActionReset(bool isReset)
+{
+	m_actionReset = isReset;
 }
 
 
@@ -148,9 +160,6 @@ bool GameScene::init()
     // init interaction count
     m_interactionCount = 0;
 
-	// init the touchselector state machine
-	TouchSelectorStateMachine::sharedTouchSelector()->init();
-
     // add background for the main screen"
     m_backgroundReference = CCSprite::create("win32/MainScreen.png");
     m_backgroundReference->setScale(VisibleRect::getScale());
@@ -187,64 +196,6 @@ bool GameScene::init()
     
     return true;
 }
-
-//void GameScene::menuCallback(CCObject* pSender)
-//{
-//	// stop all layer actions first
-//	stopAllActions();
-//
-//    // get the userdata, it's the index of the menu item clicked
-//    CCMenuItem* pMenuItem = (CCMenuItemImage *)(pSender);
-//    int nIdx = pMenuItem->getZOrder() - 10000;
-//    
-//    CCLog("Index = %d", nIdx);
-//    
-//    // create the scene and run it
-//    CCScene *pScene = NULL;
-//    switch (nIdx)
-//    {
-//        case 0:
-//            pScene = TitleScene::scene();
-//            break;
-//        case 1:
-//            // go to the next level
-//            nextLevel();
-//            break;
-//        case 2:
-//            // change the touch state
-//            m_gridReference->toggleTouchType();
-//            // tint the background for the interaction type
-//            if (m_gridReference->getTouchState() == 0)
-//            {
-//                // hard coded to be the interaction state so set to blue
-//                //m_backgroundReference->setColor(ccBLUE);
-//				setColor(ccBLUE);
-//            }
-//            else if(m_gridReference->getTouchState() == 1)
-//            {
-//                // hard coded to be the elimination state so set to red
-//                //m_backgroundReference->setColor(ccRED);
-//				setColor(ccRED);
-//            }
-//            break;
-//        default:
-//            break;
-//    }
-//
-//	runAction(
-//		CCRepeatForever::create(
-//		CCSequence::create(
-//		CCFadeTo::create(.25, 0),
-//		CCFadeTo::create(.25, 255),
-//		NULL)));
-//    
-//    // run
-//    if (pScene)
-//    {
-//        CCDirector::sharedDirector()->replaceScene(pScene);
-//    }
-//    
-//}
 
 void GameScene::interactionSelected(ccColor3B color, gamePieceInteractionType interactionState)
 {
@@ -296,18 +247,9 @@ void GameScene::checkForEndOfLevel()
         }
         else
         {
-			// check for new high score
-			const char* KEY_HIGH_SCORE = "high_score";
-			int currentHighScore = CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_HIGH_SCORE);
-			if (m_currentScore > currentHighScore)
-			{
-				CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_HIGH_SCORE, m_currentScore);
-				CCLog("NEW HIGH SCORE");
-			}
-			else
-			{
-				CCLog("**************");
-			}
+			// save the score to the high score list
+			// need to create a general save class and send the score
+			Store::sharedStore()->finalScoreUpdate(m_currentScore, m_currentLevel);
 
             // end the game (go back to main menu)
             CCScene *pScene = TitleScene::scene();
@@ -329,67 +271,6 @@ void GameScene::refreshScore()
 
 void GameScene::updateGoals()
 {
-    // check each of the goals and update state
-    // hard coded checks
-	// TAKEING OUT GOAL CHECKS TO TEST NEW GAMEPLAY
-    //if (m_goalsTab->getGoalStatus(0))
-    //{
-    //    //CCLog("Interaction Count: %d", m_gridReference->getInteractionCount());
-    //    // icon is green
-    //    if (m_gridReference->getInteractionCount() > 40)
-    //    {
-    //        // strong coupling with the knowledge that this is the '0' index should change
-    //        m_goalsTab->setGoalStatus(false, 0);
-    //    }
-    //}
-    //else
-    //{
-    //    // icon is red
-    //    if (m_gridReference->getInteractionCount() <= 40)
-    //    {
-    //        // strong coupling with the knowledge that this is the '0' index should change
-    //        m_goalsTab->setGoalStatus(true, 0);
-    //    }
-    //}
-    //
-    //if (m_goalsTab->getGoalStatus(1))
-    //{
-    //    // icon is green
-    //    if (m_gridReference->getCurrentScore() < 1000)
-    //    {
-    //        // strong coupling with the knowledge that this is the '0' index should change
-    //        m_goalsTab->setGoalStatus(false, 1);
-    //    }
-    //}
-    //else
-    //{
-    //    // icon is red
-    //    if (m_gridReference->getCurrentScore() >= 1000)
-    //    {
-    //        // strong coupling with the knowledge that this is the '0' index should change
-    //        m_goalsTab->setGoalStatus(true, 1);
-    //    }
-    //}
-    //
-    //if (m_goalsTab->getGoalStatus(2))
-    //{
-    //    // icon is green
-    //    if (m_gridReference->getComboCount() < 5)
-    //    {
-    //        // strong coupling with the knowledge that this is the '0' index should change
-    //        m_goalsTab->setGoalStatus(false, 2);
-    //    }
-    //}
-    //else
-    //{
-    //    // icon is red
-    //    if (m_gridReference->getComboCount() > 5)
-    //    {
-    //        // strong coupling with the knowledge that this is the '0' index should change
-    //        m_goalsTab->setGoalStatus(true, 2);
-    //    }
-    //}
-
 	// only goal is score 1000 pts per level
 	if (m_currentScore >= m_currentLevel * 1000)
 	{
@@ -414,12 +295,12 @@ void GameScene::updateAll(float dx)
     updateGoals();
 
 	// check if interactions are done
-	// needs a callback from the interaction menu to execute
+	// needs a callback to the interaction menu to execute
 	TouchSelectorStateMachine* sharedTouchSelector = TouchSelectorStateMachine::sharedTouchSelector();
 	if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
 	{
 		// check to make sure the action didn't get reset
-		if (!m_gridReference->wasActionReset())
+		if (!sharedTouchSelector->wasActionReset())
 		{
 			// tell the interactionmenu the interaction is compelte
 			m_interactionReference->interactionComplete();

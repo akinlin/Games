@@ -30,7 +30,6 @@ Grid::Grid()
     m_highComboCount  = 0;
     m_interactionCount = 0;
 	m_slideMoves = 0;
-	m_actionReset = false;
     
     // turn on touch events
     setTouchEnabled( true );
@@ -227,15 +226,17 @@ void Grid::handleTouch(CCPoint p)
                 {
                     // pieceInteractionSwitch
                     case pieceInteractionSwitch:
-						if (m_interactionGamePiece != NULL && !sharedTouchSelector->activeMultiTouchInteraction())
+						if (m_interactionGamePiece != NULL && sharedTouchSelector->activeMultiTouchInteraction())
                         {
                             handleSwitchInteraction(gamePieceSprite);
 							sharedTouchSelector->setInteractionState(pieceInteractionEmpty);
                             m_interactionGamePiece = NULL;
+							sharedTouchSelector->setActiveMultiTouchInteraction(false);
                         }
                         else
                         {
                             m_interactionGamePiece = gamePieceSprite;
+							sharedTouchSelector->setActiveMultiTouchInteraction(true);
                         }
                         break;
                         
@@ -289,7 +290,7 @@ void Grid::handleTouch(CCPoint p)
             }
         }
 		// action occured points/values need to be adjusted
-		m_actionReset = false;
+		sharedTouchSelector->setActionReset(false);
     }
 	else
 	{
@@ -297,52 +298,11 @@ void Grid::handleTouch(CCPoint p)
 		// this assumption is based on the fact the getGamePieceAtLocation returns NULL in that case
 		// reset the touch state
 		sharedTouchSelector->setInteractionState(pieceInteractionEmpty);
+		// reset the multitouch state
+		sharedTouchSelector->setActiveMultiTouchInteraction(false);
 		// no action occured dont reduce points/values
-		m_actionReset = true;
+		sharedTouchSelector->setActionReset(true);
 	}
-}
-
-//void Grid::toggleTouchType()
-//{
-//	if (TouchSelectorStateMachine::sharedTouchSelector()->getTouchState() == interact)
-//    {
-//		setEliminateTouchType();
-//    }
-//    else
-//    {
-//		setInteractTouchType();
-//    }
-//}
-//
-//void Grid::setInteractTouchType()
-//{
-//	TouchSelectorStateMachine::sharedTouchSelector()->setTouchState(interact);
-//}
-//
-//void Grid::setInteractionState(gamePieceInteractionType interactionState)
-//{
-//	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(interactionState);
-//}
-//
-//int Grid::getInteractionState()
-//{
-//	return TouchSelectorStateMachine::sharedTouchSelector()->getInteractionState();
-//}
-//
-//void Grid::setEliminateTouchType()
-//{
-//	TouchSelectorStateMachine::sharedTouchSelector()->setTouchState(eliminate);
-//	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionElimination);
-//}
-//
-//int Grid::getTouchState()
-//{
-//	return TouchSelectorStateMachine::sharedTouchSelector()->getTouchState();
-//}
-
-bool Grid::wasActionReset()
-{
-	return m_actionReset;
 }
 
 // TODO: This function is bloated as hell. The logic is expanded for readability and debugging.
@@ -626,7 +586,6 @@ void Grid::ccTouchesBegan(CCSet *touches, CCEvent *event)
 							sharedTouchSelector->setNativeTouchInteraction(true);
 						}
 						sharedTouchSelector->setInteractionState(pieceInteractionSwitch);
-						sharedTouchSelector->setActiveMultiTouchInteraction(true);
                         break;
 
 					case 4:
@@ -727,9 +686,6 @@ void Grid::ccTouchesEnded(CCSet* touches, CCEvent* event)
 			// clear the interaction piece
 			m_interactionGamePiece = NULL;
 		}
-
-		// hack variable to "work around" the issue with the gamepiece being the first selected and switching with itself
-		TouchSelectorStateMachine::sharedTouchSelector()->setActiveMultiTouchInteraction(false);
     }
 
 	CCLog("Grid ccTouchesEnded");
@@ -835,13 +791,13 @@ void Grid::recalculateGrid()
                     // switch the piece to the new table reference
                     int row = firstNonActive.x;
                     int col = firstNonActive.y;
-                    // goofy test
+                    // set first non active piece to the location of the new active piece
                     gridTable[row][col]->setPosition(gridTable[j][i]->getPosition());
                               
-                    // move the piece to the firstNonActive location
+                    // move the active piece to the firstNonActive location
                     gridTable[j][i]->setPosition(firstNonActivePosition);
                     
-                    // extended goofy test
+                    // switch the piece references in the grid
                     GamePiece* emptySpace = gridTable[row][col];
                     gridTable[row][col] = gridTable[j][i];
                     gridTable[j][i] = emptySpace;
@@ -859,7 +815,7 @@ void Grid::recalculateGrid()
         }
     }
     
-    // first find all empty rows and move pieces to the left
+    // find all empty rows and move pieces to the left
     int emptyColumnCount = 0;
     for (int i = 0; i < GRID_COLS; i++)
     {
@@ -875,42 +831,44 @@ void Grid::recalculateGrid()
             // check to for a column movement
             if (emptyColumnCount > 0)
             {
-                // move the active column to the left
-                // loop all of the pieces in the column until an empty piece is encountered
-                for(int j = 0; j < GRID_ROWS; j++)
-                {
-                    // check for the first inactive piece
-                    if (!gridTable[j][i]->isActive())
-                    {
-                        // if the piece is inactive break the loop
-                        break;
-                    }
-                    
-//                    // need a temp holder piece
-//                    GamePiece gamePieceHolder = *gridTable[j][i - emptyColumnCount];
-//                    // replace the empty piece pointer with the active piece
-//                    gridTable[j][i - emptyColumnCount] = gridTable[j][i];
-//                    // replace the moved active piece with the empty piece stored in holder
-//                    gridTable[j][i] = &gamePieceHolder;
-                    
-                    // fix the positions
-                    CCPoint positionHolder = gridTable[j][i - emptyColumnCount]->getPosition();
-                    gridTable[j][i - emptyColumnCount]->setPosition(gridTable[j][i]->getPosition());
-                    gridTable[j][i]->setPosition(positionHolder);
-                    
-                    // switch the pointers
-                    GamePiece* pointerHolder = gridTable[j][i - emptyColumnCount];
-                    gridTable[j][i - emptyColumnCount] = gridTable[j][i];
-                    gridTable[j][i] = pointerHolder;
-                    
-                    //gridTable[j][i]->setColor(ccBLUE);
-                }
-                // hacky decrement the i counter
-                i--;
-                
-                // reset the counter
-                emptyColumnCount = 0;
+				for (int k = 0; k < emptyColumnCount; k++)
+				{
+					// move the active column to the left
+					// loop all of the pieces in the column until an empty piece is encountered
+					for (int j = 0; j < GRID_ROWS; j++)
+					{
+						// check for the first inactive piece
+						if (!gridTable[j][i]->isActive())
+						{
+							// if the piece is inactive break the loop
+							break;
+						}
+
+						//                    // need a temp holder piece
+						//                    GamePiece gamePieceHolder = *gridTable[j][i - emptyColumnCount];
+						//                    // replace the empty piece pointer with the active piece
+						//                    gridTable[j][i - emptyColumnCount] = gridTable[j][i];
+						//                    // replace the moved active piece with the empty piece stored in holder
+						//                    gridTable[j][i] = &gamePieceHolder;
+
+						// fix the positions
+						CCPoint positionHolder = gridTable[j][i - emptyColumnCount]->getPosition();
+						gridTable[j][i - emptyColumnCount]->setPosition(gridTable[j][i]->getPosition());
+						gridTable[j][i]->setPosition(positionHolder);
+
+						// switch the pointers
+						GamePiece* pointerHolder = gridTable[j][i - emptyColumnCount];
+						gridTable[j][i - emptyColumnCount] = gridTable[j][i];
+						gridTable[j][i] = pointerHolder;
+
+						//gridTable[j][i]->setColor(ccBLUE);
+					}
+					// hacky decrement the i counter
+					i--;
+				}
             }
+			// reset the counter
+			emptyColumnCount = 0;
         }
     }
 }

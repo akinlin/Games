@@ -43,7 +43,7 @@ bool TestDataSave::init()
     }
 
 	//FileOperation::saveFile();
-	FileOperation::savePlistFile();
+	//FileOperation::savePlistFile();
 	//FileOperation::readFile();
 
 	CCLabelTTF* highscoretitle = CCLabelTTF::create("Rank      Score      Level", "Arial", VisibleRect::getScaledFont(15));
@@ -72,11 +72,11 @@ void TestDataSave::loadPlist(const char* plistFile)
 	if (scores != NULL)
 	{
 		// try writing to the data array and saving it back
-		CCDictionary* newScore = CCDictionary::create();
+		/*CCDictionary* newScore = CCDictionary::create();
 		newScore->setObject(ccs("4"), "RANK");
 		newScore->setObject(ccs("750"), "SCORE");
 		newScore->setObject(ccs("1"), "LEVEL");
-		scores->addObject(newScore);
+		scores->addObject(newScore);*/
 
 		CCObject* arrayElement;
 		int index = 0;

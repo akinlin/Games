@@ -138,6 +138,7 @@
     <ClCompile Include="..\Classes\SceneSelectorStateMachine.cpp" />
     <ClCompile Include="..\Classes\ScreenHelper.cpp" />
     <ClCompile Include="..\Classes\SpritHelper.cpp" />
+    <ClCompile Include="..\Classes\Store.cpp" />
     <ClCompile Include="..\Classes\TestDataSave.cpp" />
     <ClCompile Include="..\Classes\TitleScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -152,7 +153,6 @@
     <ClInclude Include="..\Classes\GameStateMachine.h" />
     <ClInclude Include="..\Classes\Goals.h" />
     <ClInclude Include="..\Classes\Grid.h" />
-    <ClInclude Include="..\Classes\Header.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\HUD.h" />
     <ClInclude Include="..\Classes\InteractionMenu.h" />
@@ -161,6 +161,7 @@
     <ClInclude Include="..\Classes\SceneSelectorStateMachine.h" />
     <ClInclude Include="..\Classes\ScreenHelper.h" />
     <ClInclude Include="..\Classes\SpritHelper.h" />
+    <ClInclude Include="..\Classes\Store.h" />
     <ClInclude Include="..\Classes\TestDataSave.h" />
     <ClInclude Include="..\Classes\TitleScene.h" />
     <ClInclude Include="main.h" />

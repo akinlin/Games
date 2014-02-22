@@ -30,13 +30,6 @@ public:
     float getHeight();
     // handle the touch event at a given coordinate
     void handleTouch(CCPoint p);
-    
-    //void toggleTouchType();
-    //void setInteractTouchType();
-	//void setInteractionState(gamePieceInteractionType interactionState);
-	//int getInteractionState();
-    //void setEliminateTouchType();
-    //int getTouchState();
     int eliminateGamePieces(GamePiece* basePiece, int comboCount);
     
     // touch functions
@@ -44,8 +37,6 @@ public:
     virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
-	// query if the action occured in the last click event
-	bool wasActionReset();
     
     bool isLevelComplete();
     int getCurrentScore();
@@ -67,8 +58,6 @@ private:
 
 	int m_slideMoves;
 	int m_slideLastPoint;
-
-	bool m_actionReset;
     
     void setPieceLocaiton(int row, int col);
     // returns the width of the piece referenced with grid padding

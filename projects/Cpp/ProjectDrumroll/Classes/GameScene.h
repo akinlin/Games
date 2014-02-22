@@ -18,18 +18,6 @@
 #include "GamePiece.h"
 USING_NS_CC;
 
-//enum InteractionState
-//{
-//	is_empty = 0,
-//	is_slide,
-//	is_rotary,
-//	is_switch,
-//	is_dpadflip,
-//	is_flip,
-//	is_count,
-//	is_elimination
-//};
-
 enum TouchState
 {
 	interact = 0,
@@ -54,8 +42,11 @@ public:
 	void setActiveMultiTouchInteraction(bool isActive);
 	bool isNativeTouchInteraction();
 	void setNativeTouchInteraction(bool isNative);
+	void setActionReset(bool isReset);
+	// query if the action occured in the last click event
+	bool wasActionReset();
 
-	/** returns a shared instance of the director */
+	/** returns a shared instance of the TouchSelectorStateMachine */
 	static TouchSelectorStateMachine* sharedTouchSelector(void);
 
 private:
@@ -64,6 +55,7 @@ private:
 
 	bool m_switchGamePieceFirstSelection;
 	bool m_interactionNative;
+	bool m_actionReset;
 };
 
 class GameScene : public CCLayerColor
