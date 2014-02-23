@@ -16,27 +16,19 @@ USING_NS_CC;
 class HUD : public CCLayer
 {
 public:
-    HUD();//GameScene* parentScene);
+    HUD();
     ~HUD();
     
-    virtual void ccTouchesEnded(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
     void returnToMenu(CCObject* pSender);
     
-    void updateScore(int score);
+	void updateScore();
     void updateLevel(int level);
-	void updateBars(int flipbar, int switchbar, int dpadbar, int slidebar, int rotarybar);
     
 private:
     CCLabelTTF* m_scoreDisplayString;
+	CCLabelTTF* m_scoreSubCountDisplayString;
+	CCLabelTTF* m_scoreAddCountDisplayString;
     CCLabelTTF* m_levelDisplayString;
-
-	CCLabelTTF* m_flipDisplayString;
-	CCLabelTTF* m_switchDisplayString;
-	CCLabelTTF* m_dpadDisplayString;
-	CCLabelTTF* m_slideDisplayString;
-	CCLabelTTF* m_rotaryDisplayString;
-    
-//    GameScene* m_parentScene;
     
 };
 

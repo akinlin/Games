@@ -37,9 +37,9 @@ private:
 	// Eliminate and Interact Buttons (should be in the HUD)
 	CCMenu* m_touchStateMenu;
 	CCClippingNode *flipButtonClipper;
-	CCClippingNode *switchButtonClipper;
+	/*CCClippingNode *switchButtonClipper;
 	CCClippingNode *dpadButtonClipper;
-	CCClippingNode *slideButtonClipper;
+	CCClippingNode *slideButtonClipper;*/
 
 	CCSprite* eliminateButton;
 
@@ -60,6 +60,8 @@ private:
 	void addToDPadBar(int addition);
 	void addToSlideBar(int addition);
 	void addToRotaryBar(int addition);
+
+	void subPoints(int points);
 };
 
 

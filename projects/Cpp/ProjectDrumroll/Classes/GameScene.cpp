@@ -15,6 +15,10 @@
 
 using namespace CocosDenshion;
 
+const char* KEY_CURRENT_SCORE = "current_score";
+const char* KEY_CURRENT_ADD_SCORE = "current_add_score";
+const char* KEY_CURRENT_SUB_SCORE = "current_sub_score";
+
 const int LINE_SPACE = 50;
 const int ITEM_COUNT = 4;
 const std::string menuItem[ITEM_COUNT] =
@@ -67,7 +71,6 @@ void TouchSelectorStateMachine::init()
 	m_interactionState = pieceInteractionEmpty;
 
 	m_switchGamePieceFirstSelection = false;
-	m_interactionNative = false;
 	m_actionReset = false;
 }
 
@@ -97,16 +100,6 @@ bool TouchSelectorStateMachine::activeMultiTouchInteraction()
 void TouchSelectorStateMachine::setActiveMultiTouchInteraction(bool isActive)
 {
 	m_switchGamePieceFirstSelection = isActive;
-}
-
-bool TouchSelectorStateMachine::isNativeTouchInteraction()
-{
-	return m_interactionNative;
-}
-
-void TouchSelectorStateMachine::setNativeTouchInteraction(bool isNative)
-{
-	m_interactionNative = isNative;
 }
 
 bool TouchSelectorStateMachine::wasActionReset()
@@ -152,8 +145,10 @@ bool GameScene::init()
     m_currentLevel = 1;
     
     // init score
-    m_currentScore = 0;
-    m_scoreCache = 0;
+    //m_currentScore = 0;
+	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_SCORE, 0);
+	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_ADD_SCORE, 0);
+	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_SUB_SCORE, 0);
     
     // init combo
     m_highestCombo = 0;
@@ -249,7 +244,7 @@ void GameScene::checkForEndOfLevel()
         {
 			// save the score to the high score list
 			// need to create a general save class and send the score
-			Store::sharedStore()->finalScoreUpdate(m_currentScore, m_currentLevel);
+			Store::sharedStore()->finalScoreUpdate(CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_SCORE), m_currentLevel);
 
             // end the game (go back to main menu)
             CCScene *pScene = TitleScene::scene();
@@ -260,19 +255,14 @@ void GameScene::checkForEndOfLevel()
 
 void GameScene::refreshScore()
 {
-    // get the score from the grid
-    int levelScore = m_gridReference->getCurrentScore();
-    // add the scoreCache variable, value stored from the previous levels
-    m_currentScore = m_scoreCache + levelScore;
-    
     // give it to the HUD
-    m_hudReference->updateScore(m_currentScore);
+	m_hudReference->updateScore();
 }
 
 void GameScene::updateGoals()
 {
 	// only goal is score 1000 pts per level
-	if (m_currentScore >= m_currentLevel * 1000)
+	if (CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_SCORE) >= m_currentLevel * 1000)
 	{
 		m_goalsTab->setGoalStatus(true, 0);
 	}
@@ -315,8 +305,6 @@ void GameScene::updateAll(float dx)
 		stopAllActions();
 		setColor(ccBLACK);
 	}
-
-	//m_hudReference->updateBars(m_flipBar, m_switchBar, m_dpadBar, m_slideBar, m_rotaryBar);
     
     // check for the end of the level (grid returns complete when all pieces are gone)
     checkForEndOfLevel();
@@ -341,12 +329,4 @@ void GameScene::nextLevel()
     // increment the level
     m_currentLevel++;
     m_hudReference->updateLevel(m_currentLevel);
-    
-    // store the score cache since the score will get reset in the next level
-    storeScoreCache();
-}
-
-void GameScene::storeScoreCache()
-{
-    m_scoreCache = m_currentScore;
 }

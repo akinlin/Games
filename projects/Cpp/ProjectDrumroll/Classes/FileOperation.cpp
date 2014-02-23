@@ -154,6 +154,12 @@ void FileOperation::saveHighScoreFile(CCArray* highscores)
 		pInteger = addNewElement(pDoc, pDictEle, "integer", scoreDict->valueForKey("LEVEL")->getCString());
 
 		index++;
+
+		// dont write more than 10 scores
+		if (index > 9)
+		{
+			break;
+		}
 	}
 
 	// Save file

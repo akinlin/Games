@@ -16,6 +16,8 @@ const int INTERACTION_BAR_COST = 5;
 const int BUTTON_TEXTURE_HEIGHT = 250;
 const int BUTTON_TEXTURE_WIDTH = 250;
 
+const int INTERACTION_USE_DEDUCTION = 20;
+
 //
 // testing variables not meant to stay in
 //
@@ -69,78 +71,78 @@ InteractionMenu::InteractionMenu()
 
 	//// green interation button (pieceInteractionSwitch)
 	// set the stencil
-	m_switchBar = 20;
-	percentage = m_switchBar / MAX_BAR_LEVEL;
-	barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	switchStencil = shape(m_switchBar);
-	switchStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
-	switchStencil->setAnchorPoint(CCPointZero);
-	//// set the clipper
-	switchButtonClipper = CCClippingNode::create();
-	switchButtonClipper->setAnchorPoint(CCPointZero);
-	switchButtonClipper->setPosition(ccp(0, (s.height / 2)));
-	switchButtonClipper->setStencil(switchStencil);
-	addChild(switchButtonClipper, 0);
-	// set the content
-	CCSprite* switchButton = CCSprite::create("win32/g_eliminateButton.png");
-	switchButton->setAnchorPoint(CCPointZero);
-	switchButton->setPosition(ccp(0, 0));
-	switchButtonClipper->addChild(switchButton);
-	// overlay
-	CCSprite* switchOverlay = CCSprite::create("win32/switch_overlay_large.png");
-	switchOverlay->setPosition(switchButtonClipper->getPosition());
-	switchOverlay->setAnchorPoint(CCPointZero);
-	addChild(switchOverlay, 1);
+	//m_switchBar = 20;
+	//percentage = m_switchBar / MAX_BAR_LEVEL;
+	//barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
+	//switchStencil = shape(m_switchBar);
+	//switchStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
+	//switchStencil->setAnchorPoint(CCPointZero);
+	////// set the clipper
+	//switchButtonClipper = CCClippingNode::create();
+	//switchButtonClipper->setAnchorPoint(CCPointZero);
+	//switchButtonClipper->setPosition(ccp(0, (s.height / 2)));
+	//switchButtonClipper->setStencil(switchStencil);
+	//addChild(switchButtonClipper, 0);
+	//// set the content
+	//CCSprite* switchButton = CCSprite::create("win32/g_eliminateButton.png");
+	//switchButton->setAnchorPoint(CCPointZero);
+	//switchButton->setPosition(ccp(0, 0));
+	//switchButtonClipper->addChild(switchButton);
+	//// overlay
+	//CCSprite* switchOverlay = CCSprite::create("win32/switch_overlay_large.png");
+	//switchOverlay->setPosition(switchButtonClipper->getPosition());
+	//switchOverlay->setAnchorPoint(CCPointZero);
+	//addChild(switchOverlay, 1);
 
 	//// yellow interation button (pieceInteractionDPad)
 	// set the stencil
-	m_dpadBar = 20;
-	percentage = m_dpadBar / MAX_BAR_LEVEL;
-	barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	dpadStencil = shape(m_dpadBar);
-	dpadStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
-	dpadStencil->setAnchorPoint(CCPointZero);
-	//// set the clipper
-	dpadButtonClipper = CCClippingNode::create();
-	dpadButtonClipper->setAnchorPoint(CCPointZero);
-	dpadButtonClipper->setPosition(ccp(0, (s.height / 2) - BUTTON_TEXTURE_HEIGHT));
-	dpadButtonClipper->setStencil(dpadStencil);
-	addChild(dpadButtonClipper, 0);
-	// set the content
-	CCSprite* dpadButton = CCSprite::create("win32/y_1_eliminateButton.png");
-	dpadButton->setAnchorPoint(CCPointZero);
-	dpadButton->setPosition(ccp(0, 0));
-	dpadButtonClipper->addChild(dpadButton);
-	// overlay
-	CCSprite* dpadOverlay = CCSprite::create("win32/dpad_overlay_large.png");
-	dpadOverlay->setPosition(dpadButtonClipper->getPosition());
-	dpadOverlay->setAnchorPoint(CCPointZero);
-	addChild(dpadOverlay, 1);
+	//m_dpadBar = 20;
+	//percentage = m_dpadBar / MAX_BAR_LEVEL;
+	//barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
+	//dpadStencil = shape(m_dpadBar);
+	//dpadStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
+	//dpadStencil->setAnchorPoint(CCPointZero);
+	////// set the clipper
+	//dpadButtonClipper = CCClippingNode::create();
+	//dpadButtonClipper->setAnchorPoint(CCPointZero);
+	//dpadButtonClipper->setPosition(ccp(0, (s.height / 2) - BUTTON_TEXTURE_HEIGHT));
+	//dpadButtonClipper->setStencil(dpadStencil);
+	//addChild(dpadButtonClipper, 0);
+	//// set the content
+	//CCSprite* dpadButton = CCSprite::create("win32/y_1_eliminateButton.png");
+	//dpadButton->setAnchorPoint(CCPointZero);
+	//dpadButton->setPosition(ccp(0, 0));
+	//dpadButtonClipper->addChild(dpadButton);
+	//// overlay
+	//CCSprite* dpadOverlay = CCSprite::create("win32/dpad_overlay_large.png");
+	//dpadOverlay->setPosition(dpadButtonClipper->getPosition());
+	//dpadOverlay->setAnchorPoint(CCPointZero);
+	//addChild(dpadOverlay, 1);
 
 	//// purple interation button (pieceInteractionSlide)
 	// set the stencil
-	m_slideBar = 20;
-	percentage = m_slideBar / MAX_BAR_LEVEL;
-	barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	slideStencil = shape(m_slideBar);
-	slideStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
-	slideStencil->setAnchorPoint(CCPointZero);
-	//// set the clipper
-	slideButtonClipper = CCClippingNode::create();
-	slideButtonClipper->setAnchorPoint(CCPointZero);
-	slideButtonClipper->setPosition(ccp(0, (s.height / 2) - (BUTTON_TEXTURE_HEIGHT*2)));
-	slideButtonClipper->setStencil(slideStencil);
-	addChild(slideButtonClipper, 0);
-	// set the content
-	CCSprite* slideButton = CCSprite::create("win32/p_1_eliminateButton.png");
-	slideButton->setAnchorPoint(CCPointZero);
-	slideButton->setPosition(ccp(0, 0));
-	slideButtonClipper->addChild(slideButton);
-	// overlay
-	CCSprite* slideOverlay = CCSprite::create("win32/slide_overlay_large.png");
-	slideOverlay->setPosition(slideButtonClipper->getPosition());
-	slideOverlay->setAnchorPoint(CCPointZero);
-	addChild(slideOverlay, 1);
+	//m_slideBar = 20;
+	//percentage = m_slideBar / MAX_BAR_LEVEL;
+	//barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
+	//slideStencil = shape(m_slideBar);
+	//slideStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
+	//slideStencil->setAnchorPoint(CCPointZero);
+	////// set the clipper
+	//slideButtonClipper = CCClippingNode::create();
+	//slideButtonClipper->setAnchorPoint(CCPointZero);
+	//slideButtonClipper->setPosition(ccp(0, (s.height / 2) - (BUTTON_TEXTURE_HEIGHT*2)));
+	//slideButtonClipper->setStencil(slideStencil);
+	//addChild(slideButtonClipper, 0);
+	//// set the content
+	//CCSprite* slideButton = CCSprite::create("win32/p_1_eliminateButton.png");
+	//slideButton->setAnchorPoint(CCPointZero);
+	//slideButton->setPosition(ccp(0, 0));
+	//slideButtonClipper->addChild(slideButton);
+	//// overlay
+	//CCSprite* slideOverlay = CCSprite::create("win32/slide_overlay_large.png");
+	//slideOverlay->setPosition(slideButtonClipper->getPosition());
+	//slideOverlay->setAnchorPoint(CCPointZero);
+	//addChild(slideOverlay, 1);
 
 	//// elimination button
 	eliminateButton = CCSprite::create("win32/eliminateButton.png");
@@ -160,6 +162,7 @@ void InteractionMenu::interactionComplete()
 	{
 		interactionFlipOn = false;
 		m_flipBar -= INTERACTION_BAR_COST;
+		subPoints(INTERACTION_USE_DEDUCTION);
 
 		float percentage = m_flipBar / MAX_BAR_LEVEL;
 		float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
@@ -169,6 +172,7 @@ void InteractionMenu::interactionComplete()
 	{
 		interactionSwitchOn = false;
 		m_switchBar -= INTERACTION_BAR_COST;
+		subPoints(INTERACTION_USE_DEDUCTION);
 
 		float percentage = m_switchBar / MAX_BAR_LEVEL;
 		float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
@@ -178,6 +182,7 @@ void InteractionMenu::interactionComplete()
 	{
 		interactionDPadOn = false;
 		m_dpadBar -= INTERACTION_BAR_COST;
+		subPoints(INTERACTION_USE_DEDUCTION);
 
 		float percentage = m_dpadBar / MAX_BAR_LEVEL;
 		float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
@@ -187,6 +192,7 @@ void InteractionMenu::interactionComplete()
 	{
 		interactionSlideOn = false;
 		m_slideBar -= INTERACTION_BAR_COST;
+		subPoints(INTERACTION_USE_DEDUCTION);
 
 		float percentage = m_slideBar / MAX_BAR_LEVEL;
 		float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
@@ -196,11 +202,18 @@ void InteractionMenu::interactionComplete()
 	{
 		interactionRotaryOn = false;
 		m_rotaryBar -= INTERACTION_BAR_COST;
+		subPoints(INTERACTION_USE_DEDUCTION);
 	}
 	else if (interactionEliminationOn)
 	{
 		interactionEliminationOn = false;
 	}
+}
+
+void InteractionMenu::subPoints(int points)
+{
+	CCUserDefault::sharedUserDefault()->setIntegerForKey("current_score", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_score") - points);
+	CCUserDefault::sharedUserDefault()->setIntegerForKey("current_sub_score", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_sub_score") + points);
 }
 
 void InteractionMenu::cancelInteraction()
@@ -269,55 +282,55 @@ bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 	}
 
 	// check the switch button
-	ButtonRect = new CCRect(switchButtonClipper->getPositionX()
-		, switchButtonClipper->getPositionY()
-		, BUTTON_TEXTURE_WIDTH
-		, BUTTON_TEXTURE_HEIGHT);
+	//ButtonRect = new CCRect(switchButtonClipper->getPositionX()
+	//	, switchButtonClipper->getPositionY()
+	//	, BUTTON_TEXTURE_WIDTH
+	//	, BUTTON_TEXTURE_HEIGHT);
 
-	if (ButtonRect->containsPoint(location))
-	{
-		if (m_switchBar >= INTERACTION_BAR_COST)
-		{
-			CCLog("InteractionMenu TouchBegan - true");
-			interactionSwitchOn = true;
-			m_parent->interactionSelected(ccGREEN, pieceInteractionSwitch);
-			return true;
-		}
-	}
+	//if (ButtonRect->containsPoint(location))
+	//{
+	//	if (m_switchBar >= INTERACTION_BAR_COST)
+	//	{
+	//		CCLog("InteractionMenu TouchBegan - true");
+	//		interactionSwitchOn = true;
+	//		m_parent->interactionSelected(ccGREEN, pieceInteractionSwitch);
+	//		return true;
+	//	}
+	//}
 
-	// check the dpad button
-	ButtonRect = new CCRect(dpadButtonClipper->getPositionX()
-		, dpadButtonClipper->getPositionY()
-		, BUTTON_TEXTURE_WIDTH
-		, BUTTON_TEXTURE_HEIGHT);
+	//// check the dpad button
+	//ButtonRect = new CCRect(dpadButtonClipper->getPositionX()
+	//	, dpadButtonClipper->getPositionY()
+	//	, BUTTON_TEXTURE_WIDTH
+	//	, BUTTON_TEXTURE_HEIGHT);
 
-	if (ButtonRect->containsPoint(location))
-	{
-		if (m_dpadBar >= INTERACTION_BAR_COST)
-		{
-			CCLog("InteractionMenu TouchBegan - true");
-			interactionDPadOn = true;
-			m_parent->interactionSelected(ccYELLOW, pieceInteractionDPadFlip);
-			return true;
-		}
-	}
+	//if (ButtonRect->containsPoint(location))
+	//{
+	//	if (m_dpadBar >= INTERACTION_BAR_COST)
+	//	{
+	//		CCLog("InteractionMenu TouchBegan - true");
+	//		interactionDPadOn = true;
+	//		m_parent->interactionSelected(ccYELLOW, pieceInteractionDPadFlip);
+	//		return true;
+	//	}
+	//}
 
-	// check the slide button
-	ButtonRect = new CCRect(slideButtonClipper->getPositionX()
-		, slideButtonClipper->getPositionY()
-		, BUTTON_TEXTURE_WIDTH
-		, BUTTON_TEXTURE_HEIGHT);
+	//// check the slide button
+	//ButtonRect = new CCRect(slideButtonClipper->getPositionX()
+	//	, slideButtonClipper->getPositionY()
+	//	, BUTTON_TEXTURE_WIDTH
+	//	, BUTTON_TEXTURE_HEIGHT);
 
-	if (ButtonRect->containsPoint(location))
-	{
-		if (m_slideBar >= INTERACTION_BAR_COST)
-		{
-			CCLog("InteractionMenu TouchBegan - true");
-			interactionSlideOn = true;
-			m_parent->interactionSelected(ccc3(255, 0, 255), pieceInteractionSlide);
-			return true;
-		}
-	}
+	//if (ButtonRect->containsPoint(location))
+	//{
+	//	if (m_slideBar >= INTERACTION_BAR_COST)
+	//	{
+	//		CCLog("InteractionMenu TouchBegan - true");
+	//		interactionSlideOn = true;
+	//		m_parent->interactionSelected(ccc3(255, 0, 255), pieceInteractionSlide);
+	//		return true;
+	//	}
+	//}
 
 	// check the elimination button
 	ButtonRect = new CCRect(eliminateButton->getPositionX()
@@ -384,7 +397,7 @@ void InteractionMenu::addToFlipBar(int addition)
 
 void InteractionMenu::addToSwitchBar(int addition)
 {
-	m_switchBar += addition;
+	/*m_switchBar += addition;
 	if (m_switchBar > MAX_BAR_LEVEL)
 	{
 		m_switchBar = MAX_BAR_LEVEL;
@@ -392,12 +405,12 @@ void InteractionMenu::addToSwitchBar(int addition)
 
 	float percentage = m_switchBar / MAX_BAR_LEVEL;
 	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	switchStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
+	switchStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));*/
 }
 
 void InteractionMenu::addToDPadBar(int addition)
 {
-	m_dpadBar += addition;
+	/*m_dpadBar += addition;
 	if (m_dpadBar > MAX_BAR_LEVEL)
 	{
 		m_dpadBar = MAX_BAR_LEVEL;
@@ -405,12 +418,12 @@ void InteractionMenu::addToDPadBar(int addition)
 
 	float percentage = m_dpadBar / MAX_BAR_LEVEL;
 	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	dpadStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
+	dpadStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));*/
 }
 
 void InteractionMenu::addToSlideBar(int addition)
 {
-	m_slideBar += addition;
+	/*m_slideBar += addition;
 	if (m_slideBar > MAX_BAR_LEVEL)
 	{
 		m_slideBar = MAX_BAR_LEVEL;
@@ -418,5 +431,5 @@ void InteractionMenu::addToSlideBar(int addition)
 
 	float percentage = m_slideBar / MAX_BAR_LEVEL;
 	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	slideStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
+	slideStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));*/
 }

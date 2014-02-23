@@ -39,14 +39,12 @@ public:
     virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
     
     bool isLevelComplete();
-    int getCurrentScore();
     int getInteractionCount();
     int getComboCount();
     bool m_IsRecursiveMatchCheck;
     
 private:
     GamePiece* gridTable[GRID_ROWS][GRID_COLS];
-    int m_score;
     GamePiece* m_interactionGamePiece;
     
     int m_gridWidth;
@@ -67,6 +65,10 @@ private:
     
     // after an elimination move, reset the grid after gravity drop
     void recalculateGrid();
+
+	// methods for tracking score fluctuations
+	void addPoints(int points);
+	void subPoints(int points);
 
     // interaction handling functions
 	void handleSlideMove(CCPoint location);

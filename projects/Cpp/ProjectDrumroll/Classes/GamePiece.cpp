@@ -24,14 +24,15 @@ GamePiece::GamePiece()
     m_isActive = true;
     
     s_color = rand() % gamePieceColorCount;
-    if (rand() % 10 == 1)
+    /*if (rand() % 10 == 1)
     {
         s_interactionType = rand() % pieceInteractionCount;
     }
     else
     {
         s_interactionType = pieceInteractionEmpty;
-    }
+    }*/
+	s_interactionType = pieceInteractionEmpty;
     
     m_BlocksSprite = new Blocks();
     

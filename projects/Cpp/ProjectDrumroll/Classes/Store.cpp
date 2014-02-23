@@ -58,7 +58,7 @@ void Store::finalScoreUpdate(int score, int level)
 		// check if score is greater then the highscore
 		if (score > highScore)
 		{
-			// add the score to the high score list
+			// add the score to the high score list 
 			CCDictionary* newHighScore = CCDictionary::create();
 			newHighScore->setObject(ccs(std::to_string(index + 1)), "RANK");
 			newHighScore->setObject(ccs(std::to_string(score)), "SCORE");

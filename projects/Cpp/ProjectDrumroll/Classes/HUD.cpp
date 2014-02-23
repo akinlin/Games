@@ -41,6 +41,24 @@ HUD::HUD()
     // yeah yeah its hardcoded, i just didn't want to do that math right now
     m_scoreDisplayString->setPosition(ccp(VisibleRect::getScaledFont(30), VisibleRect::getScaledFont(450)));
     addChild(m_scoreDisplayString);
+
+	// display the add score value
+	char scoreAddCountDisplayString[100];
+	sprintf(scoreAddCountDisplayString, "Score Additions: 0");
+	m_scoreAddCountDisplayString = CCLabelTTF::create(scoreAddCountDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	m_scoreAddCountDisplayString->setAnchorPoint(CCPointZero);
+	// yeah yeah its hardcoded, i just didn't want to do that math right now
+	m_scoreAddCountDisplayString->setPosition(ccp(VisibleRect::getScaledFont(30), VisibleRect::getScaledFont(425)));
+	addChild(m_scoreAddCountDisplayString);
+
+	// display the sub score value
+	char scoreSubCountDisplayString[100];
+	sprintf(scoreSubCountDisplayString, "Score Subtractions: 0");
+	m_scoreSubCountDisplayString = CCLabelTTF::create(scoreSubCountDisplayString, "Arial", VisibleRect::getScaledFont(15));
+	m_scoreSubCountDisplayString->setAnchorPoint(CCPointZero);
+	// yeah yeah its hardcoded, i just didn't want to do that math right now
+	m_scoreSubCountDisplayString->setPosition(ccp(VisibleRect::getScaledFont(30), VisibleRect::getScaledFont(400)));
+	addChild(m_scoreSubCountDisplayString);
     
     // display the score value
     char levelDisplayString[100];
@@ -57,47 +75,6 @@ HUD::HUD()
 	colorKey->setPosition(ccp(VisibleRect::getScreenWidth() - 60, VisibleRect::getScreenHeight() - 188));
 	addChild(colorKey);
 
-	// display the interaction values
-	//char flipDisplayString[100];
-	//sprintf(flipDisplayString, "Flip Level:");
-	//m_flipDisplayString = CCLabelTTF::create(flipDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	//m_flipDisplayString->setAnchorPoint(CCPointZero);
-	//// yeah yeah its hardcoded, i just didn't want to do that math right now
-	//m_flipDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(450)));
-	//addChild(m_flipDisplayString);
-
-	//char switchDisplayString[100];
-	//sprintf(switchDisplayString, "Switch Level:");
-	//m_switchDisplayString = CCLabelTTF::create(switchDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	//m_switchDisplayString->setAnchorPoint(CCPointZero);
-	//// yeah yeah its hardcoded, i just didn't want to do that math right now
-	//m_switchDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(425)));
-	//addChild(m_switchDisplayString);
-
-	//char dpadDisplayString[100];
-	//sprintf(dpadDisplayString, "DPad Level:");
-	//m_dpadDisplayString = CCLabelTTF::create(dpadDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	//m_dpadDisplayString->setAnchorPoint(CCPointZero);
-	//// yeah yeah its hardcoded, i just didn't want to do that math right now
-	//m_dpadDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(400)));
-	//addChild(m_dpadDisplayString);
-
-	//char slideDisplayString[100];
-	//sprintf(slideDisplayString, "Slide Level:");
-	//m_slideDisplayString = CCLabelTTF::create(slideDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	//m_slideDisplayString->setAnchorPoint(CCPointZero);
-	//// yeah yeah its hardcoded, i just didn't want to do that math right now
-	//m_slideDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(375)));
-	//addChild(m_slideDisplayString);
-
-	//char rotaryDisplayString[100];
-	//sprintf(rotaryDisplayString, "Rotary Level:");
-	//m_rotaryDisplayString = CCLabelTTF::create(rotaryDisplayString, "Arial", VisibleRect::getScaledFont(15));
-	//m_rotaryDisplayString->setAnchorPoint(CCPointZero);
-	//// yeah yeah its hardcoded, i just didn't want to do that math right now
-	//m_rotaryDisplayString->setPosition(ccp(VisibleRect::getScaledFont(350), VisibleRect::getScaledFont(350)));
-	////addChild(m_rotaryDisplayString);
-
     // display the quit button
     CCMenuItemImage* quitButton = CCMenuItemImage::create("CloseNormal.png", "CloseSelected.png", this, menu_selector(HUD::returnToMenu));
     quitButton->setPosition(ccp(VisibleRect::getScreenWidth() - 70, 70));
@@ -112,27 +89,6 @@ HUD::~HUD()
     // may not need a destrcutor
 }
 
-void HUD::ccTouchesEnded(CCSet* touches, CCEvent* event)
-{
-//    //Add a new body/atlas sprite at the touched location
-//    CCSetIterator it;
-//    CCTouch* touch;
-//    
-//    for( it = touches->begin(); it != touches->end(); it++)
-//    {
-//        touch = (CCTouch*)(*it);
-//        
-//        if(!touch)
-//            break;
-//        
-//        CCPoint location = touch->getLocationInView();
-//        
-//        location = CCDirector::sharedDirector()->convertToGL(location);
-//        
-//        handleTouch( location );
-//    }
-}
-
 void HUD::returnToMenu(CCObject* pSender)
 {
     CCScene *pScene = NULL;
@@ -145,11 +101,20 @@ void HUD::returnToMenu(CCObject* pSender)
     }
 }
 
-void HUD::updateScore(int score)
+void HUD::updateScore()
 {
+
     char scoreDisplayString[100];
-    sprintf(scoreDisplayString, "Score: %d", score);
+	sprintf(scoreDisplayString, "Score: %d", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_score"));
     m_scoreDisplayString->setString(scoreDisplayString);
+
+	char scoreAddCountDisplayString[100];
+	sprintf(scoreAddCountDisplayString, "Score Additions: %d", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_add_score"));
+	m_scoreAddCountDisplayString->setString(scoreAddCountDisplayString);
+
+	char scoreSubCountDisplayString[100];
+	sprintf(scoreSubCountDisplayString, "Score Subtractions: %d", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_sub_score"));
+	m_scoreSubCountDisplayString->setString(scoreSubCountDisplayString);
 }
 
 void HUD::updateLevel(int level)
@@ -157,27 +122,4 @@ void HUD::updateLevel(int level)
     char levelDisplayString[100];
     sprintf(levelDisplayString, "Level: %d", level);
     m_levelDisplayString->setString(levelDisplayString);
-}
-
-void HUD::updateBars(int flipbar, int switchbar, int dpadbar, int slidebar, int rotarybar)
-{
-	char flipDisplayString[100];
-	sprintf(flipDisplayString, "Flip Level: %d", flipbar);
-	m_flipDisplayString->setString(flipDisplayString);
-
-	char switchDisplayString[100];
-	sprintf(switchDisplayString, "Switch Level: %d", switchbar);
-	m_switchDisplayString->setString(switchDisplayString);
-
-	char dpadDisplayString[100];
-	sprintf(dpadDisplayString, "DPad Level: %d", dpadbar);
-	m_dpadDisplayString->setString(dpadDisplayString);
-
-	char slideDisplayString[100];
-	sprintf(slideDisplayString, "Slide Level: %d", slidebar);
-	m_slideDisplayString->setString(slideDisplayString);
-
-	char rotaryDisplayString[100];
-	sprintf(rotaryDisplayString, "Rotary Level: %d", rotarybar);
-	//m_rotaryDisplayString->setString(rotaryDisplayString);
 }

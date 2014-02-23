@@ -12,7 +12,6 @@
 #include "ScreenHelper.h"
 
 const int GRID_SPACE = 10;
-const int INTERACTION_USE_DEDUCTION = 20;
 const int SINGLE_PIECE_ELIMINATION_DEDUCTION = 150;
 const int COMBO_ELIMINATION_ADDITION = 50;
 
@@ -26,7 +25,6 @@ CCPoint purpleLocation = ccp(-575, -100);
 Grid::Grid()
 {
     // reset score
-    m_score = 0;
     m_highComboCount  = 0;
     m_interactionCount = 0;
 	m_slideMoves = 0;
@@ -261,12 +259,12 @@ void Grid::handleTouch(CCPoint p)
                 if (comboCount == 0)
                 {
                     // only one piece was eliminated
-					m_score -= SINGLE_PIECE_ELIMINATION_DEDUCTION;
+					subPoints(SINGLE_PIECE_ELIMINATION_DEDUCTION);
                 }
                 else
                 {
                     // a combo of two or more was created
-					m_score += (COMBO_ELIMINATION_ADDITION*(comboCount + 1));
+					addPoints((COMBO_ELIMINATION_ADDITION*(comboCount + 1)));
 
 					startParticleAnim(gamePieceSprite->getPosition(), gamePieceSprite->getPieceColor());
 
@@ -559,52 +557,22 @@ void Grid::ccTouchesBegan(CCSet *touches, CCEvent *event)
                 switch (selectedGamePiece->getInteractionType())
                 {
                     case 1:
-						// if the interaction menu has not been set then dont deduct points
-						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
-						{
-							// menu not slected, interaction native to piece
-							sharedTouchSelector->setNativeTouchInteraction(true);
-						}
 						sharedTouchSelector->setInteractionState(pieceInteractionFlip);
                         break;
                         
                     case 2:
-						// if the interaction menu has not been set then dont deduct points
-						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
-						{
-							// menu not slected, interaction native to piece
-							sharedTouchSelector->setNativeTouchInteraction(true);
-						}
 						sharedTouchSelector->setInteractionState(pieceInteractionDPadFlip);
                         break;
                         
                     case 3:
-						// if the interaction menu has not been set then dont deduct points
-						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
-						{
-							// menu not slected, interaction native to piece
-							sharedTouchSelector->setNativeTouchInteraction(true);
-						}
 						sharedTouchSelector->setInteractionState(pieceInteractionSwitch);
                         break;
 
 					case 4:
-						// if the interaction menu has not been set then dont deduct points
-						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
-						{
-							// menu not slected, interaction native to piece
-							sharedTouchSelector->setNativeTouchInteraction(true);
-						}
 						sharedTouchSelector->setInteractionState(pieceInteractionSlide);
 						break;
 
 					case 5:
-						// if the interaction menu has not been set then dont deduct points
-						if (sharedTouchSelector->getInteractionState() == pieceInteractionEmpty)
-						{
-							// menu not slected, interaction native to piece
-							sharedTouchSelector->setNativeTouchInteraction(true);
-						}
 						sharedTouchSelector->setInteractionState(pieceInteractionRotary);
 						break;
                         
@@ -712,11 +680,6 @@ bool Grid::isLevelComplete()
         }
     }
     return true;
-}
-
-int Grid::getCurrentScore()
-{
-    return m_score;
 }
 
 int Grid::getInteractionCount()
@@ -873,6 +836,18 @@ void Grid::recalculateGrid()
     }
 }
 
+void Grid::addPoints(int points)
+{
+	CCUserDefault::sharedUserDefault()->setIntegerForKey("current_score", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_score") + points);
+	CCUserDefault::sharedUserDefault()->setIntegerForKey("current_add_score", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_add_score") + points);
+}
+
+void Grid::subPoints(int points)
+{
+	CCUserDefault::sharedUserDefault()->setIntegerForKey("current_score", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_score") - points);
+	CCUserDefault::sharedUserDefault()->setIntegerForKey("current_sub_score", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_sub_score") + points);
+}
+
 void Grid::handleSlideMove(CCPoint location)
 {
     // slide the row or column until the user releases the touch
@@ -971,13 +946,6 @@ void Grid::handleSlideComplete()
 	// reset the interactionState
 	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
 
-	// don't deduct point if the interaction is native
-	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
-	{
-		// take away INTERACTION_USE_DEDUCTION points for every touch
-		m_score = m_score - INTERACTION_USE_DEDUCTION;
-	}
-
 	// increment the interaction count
 	m_interactionCount++;
 }
@@ -993,13 +961,6 @@ void Grid::handleRotaryComplete()
 {
 	// reset the interactionState
 	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
-
-	// don't deduct point if the interaction is native
-	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
-	{
-		// take away INTERACTION_USE_DEDUCTION points for every touch
-		m_score = m_score - INTERACTION_USE_DEDUCTION;
-	}
 
 	// increment the interaction count
 	m_interactionCount++;
@@ -1033,13 +994,6 @@ void Grid::handleSwitchInteraction(GamePiece* gamePieceSprite)
 	// reset the interactionState
 	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
 
-	// don't deduct point if the interaction is native
-	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
-	{
-		// take away INTERACTION_USE_DEDUCTION points for every touch
-		m_score = m_score - INTERACTION_USE_DEDUCTION;
-	}
-
 	// increment the interaction count
 	m_interactionCount++;
 }
@@ -1052,13 +1006,6 @@ void Grid::handleFlipInteraction(GamePiece* gamePieceSprite)
     
     // reset the interactionState
 	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
-    
-	// don't deduct point if the interaction is native
-	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
-	{
-		// take away INTERACTION_USE_DEDUCTION points for every touch
-		m_score = m_score - INTERACTION_USE_DEDUCTION;
-	}
     
     // increment the interaction count
     m_interactionCount++;
@@ -1103,13 +1050,6 @@ void Grid::handleDPadFlipInteraction(GamePiece* gamePieceSprite)
     
     // reset the interactionState
 	TouchSelectorStateMachine::sharedTouchSelector()->setInteractionState(pieceInteractionEmpty);
-    
-	// don't deduct point if the interaction is native
-	if (!TouchSelectorStateMachine::sharedTouchSelector()->isNativeTouchInteraction())
-	{
-		// take away INTERACTION_USE_DEDUCTION points for every touch
-		m_score = m_score - INTERACTION_USE_DEDUCTION;
-	}
     
     // increment the interaction count
     m_interactionCount++;

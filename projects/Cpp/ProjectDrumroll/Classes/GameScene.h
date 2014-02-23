@@ -40,8 +40,6 @@ public:
 
 	bool activeMultiTouchInteraction();
 	void setActiveMultiTouchInteraction(bool isActive);
-	bool isNativeTouchInteraction();
-	void setNativeTouchInteraction(bool isNative);
 	void setActionReset(bool isReset);
 	// query if the action occured in the last click event
 	bool wasActionReset();
@@ -54,7 +52,6 @@ private:
 	TouchState m_touchState;
 
 	bool m_switchGamePieceFirstSelection;
-	bool m_interactionNative;
 	bool m_actionReset;
 };
 
@@ -97,7 +94,6 @@ private:
     int m_currentLevel;
     // Score
     int m_currentScore;
-    int m_scoreCache;
     // Combo
     int m_highestCombo;
     // Interaction count
@@ -120,8 +116,6 @@ private:
     void createGrid();
     // change level
     void nextLevel();
-    // store level cache
-    void storeScoreCache();
 };
 
 #endif /* defined(__ProjectDrumroll__GameScene__) */

@@ -1,4 +1,7 @@
 <?1.0?>
 <userDefaultRoot>
-    <high_score>2000</high_score>
+    <high_score>10750</high_score>
+    <current_score>570</current_score>
+    <current_add_score>1100</current_add_score>
+    <current_sub_score>530</current_sub_score>
 </userDefaultRoot>
