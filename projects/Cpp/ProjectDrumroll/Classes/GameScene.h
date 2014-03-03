@@ -86,14 +86,12 @@ private:
     // Background (Should probably be its own class)
     CCSprite* m_backgroundReference;
 	// InteractionMenu handles user selected interactions
-	InteractionMenu* m_interactionReference;
+	GameInteractionMenu* m_interactionReference;
     // goals tab reference
     Goals* m_goalsTab;
     
     // Level
     int m_currentLevel;
-    // Score
-    int m_currentScore;
     // Combo
     int m_highestCombo;
     // Interaction count

@@ -133,6 +133,8 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\HUD.cpp" />
     <ClCompile Include="..\Classes\InteractionMenu.cpp" />
+    <ClCompile Include="..\Classes\InteractionMenuItem.cpp" />
+    <ClCompile Include="..\Classes\LevelEditorScene.cpp" />
     <ClCompile Include="..\Classes\LogoScene.cpp" />
     <ClCompile Include="..\Classes\ProjectDrumrollGame.cpp" />
     <ClCompile Include="..\Classes\SceneSelectorStateMachine.cpp" />
@@ -156,6 +158,8 @@
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\HUD.h" />
     <ClInclude Include="..\Classes\InteractionMenu.h" />
+    <ClInclude Include="..\Classes\InteractionMenuItem.h" />
+    <ClInclude Include="..\Classes\LevelEditorScene.h" />
     <ClInclude Include="..\Classes\LogoScene.h" />
     <ClInclude Include="..\Classes\ProjectDrumrollGame.h" />
     <ClInclude Include="..\Classes\SceneSelectorStateMachine.h" />

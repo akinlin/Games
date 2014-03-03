@@ -12,6 +12,7 @@
 #include "SimpleAudioEngine.h"
 #include "ScreenHelper.h"
 #include "TestDataSave.h"
+#include "LevelEditorScene.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -36,6 +37,7 @@ const std::string menuItem[ITEM_COUNT] =
 };
 enum TitleMenuItemTags {
 	kMenuTagStartGame = 10000,
+	kMenuTagLevelEditor,
 	kMenuTagHiddenLevel,
 	kMenuTagExit
 };
@@ -120,9 +122,14 @@ void TitleScene::createTitleMenu()
 	CCRepeatForever* repeat = CCRepeatForever::create(pulseSequence);
 	pMenuItem->runAction(repeat);
 
+	CCLabelTTF* labelLevelEditor = CCLabelTTF::create("Level Editor", "Arial", 100);
+	CCMenuItemLabel* pEditorMenuItem = CCMenuItemLabel::create(labelLevelEditor, this, menu_selector(TitleScene::menuLevelEditorCallback));
+	pEditorMenuItem->setPosition(ccp(0, -150));
+
 	m_TitleMenu = CCMenu::create();
 	m_TitleMenu->setAnchorPoint(CCPointZero);
 	m_TitleMenu->addChild(pMenuItem, kMenuTagStartGame);
+	m_TitleMenu->addChild(pEditorMenuItem, kMenuTagStartGame);
 	m_TitleMenu->setContentSize(VisibleRect::getScreenSize());
 	m_TitleMenu->setPosition(ccp((VisibleRect::getScreenWidth() / 2) + 50, VisibleRect::getScreenHeight() / 2));
 	// add the m_TitleMenu initalized by createTitleMenu
@@ -188,6 +195,19 @@ void TitleScene::menuCallback(CCObject* pSender)
 	CCScene *pScene = NULL;
 	pScene = GameScene::scene();
 	      
+	// run
+	if (pScene)
+	{
+		CCDirector::sharedDirector()->replaceScene(pScene);
+	}
+}
+
+void TitleScene::menuLevelEditorCallback(CCObject* pSender)
+{
+	// create the scene and run it
+	CCScene *pScene = NULL;
+	pScene = LevelEditorScene::scene();
+
 	// run
 	if (pScene)
 	{

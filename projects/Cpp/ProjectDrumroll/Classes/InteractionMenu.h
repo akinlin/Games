@@ -10,6 +10,7 @@
 #define __ProjectDrumroll__INTERACTIONMENU__
 
 #include "cocos2d.h"
+#include "InteractionMenuItem.h"
 
 USING_NS_CC;
 
@@ -18,6 +19,16 @@ class InteractionMenu : public CCLayer
 public:
 	InteractionMenu();
 	~InteractionMenu();
+
+private:
+	
+};
+
+class GameInteractionMenu : public InteractionMenu
+{
+public:
+	GameInteractionMenu();
+	~GameInteractionMenu();
 
 	virtual void onEnter();
 	virtual void onExit();
@@ -31,15 +42,13 @@ public:
 	void cancelInteraction();
 	void addToBarLevel(int pieceColor, int valueToAdd);
 
-	CCDrawNode* shape(int barLevel);
-
 private:
 	// Eliminate and Interact Buttons (should be in the HUD)
 	CCMenu* m_touchStateMenu;
-	CCClippingNode *flipButtonClipper;
-	/*CCClippingNode *switchButtonClipper;
-	CCClippingNode *dpadButtonClipper;
-	CCClippingNode *slideButtonClipper;*/
+	InteractionMenuItem *flipButtonClipper;
+	InteractionMenuItem *switchButtonClipper;
+	InteractionMenuItem *dpadButtonClipper;
+	InteractionMenuItem *slideButtonClipper;
 
 	CCSprite* eliminateButton;
 
@@ -64,5 +73,14 @@ private:
 	void subPoints(int points);
 };
 
+class EditorInteractionMenu : public InteractionMenu
+{
+public:
+	EditorInteractionMenu();
+	~EditorInteractionMenu();
+
+private:
+	
+};
 
 #endif /* defined(__ProjectDrumroll__INTERACTIONMENU__) */

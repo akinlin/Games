@@ -10,6 +10,7 @@
 #include "GamePiece.h"
 #include "GameScene.h"
 #include "ScreenHelper.h"
+#include "FileOperation.h"
 
 const int GRID_SPACE = 10;
 const int SINGLE_PIECE_ELIMINATION_DEDUCTION = 150;
@@ -31,14 +32,45 @@ Grid::Grid()
     
     // turn on touch events
     setTouchEnabled( true );
+
+	// load the level
+	int sharedlevel = CCUserDefault::sharedUserDefault()->getIntegerForKey("current_level");
+	std::string levelFile;
+	if (sharedlevel == 1)
+	{
+		levelFile = FileOperation::getFilePath() + "levels/levelA.plist";
+	}
+	else if (sharedlevel == 2)
+	{
+		levelFile = FileOperation::getFilePath() + "levels/levelB.plist";
+	}
+	CCArray* level = CCArray::createWithContentsOfFile(levelFile.c_str());
     
     // create game pieces and fill the grid
     for (int i = 0; i < GRID_ROWS; i++)
     {
+
         for (int j = 0; j < GRID_COLS; j++)
         {
-            // create a piece and assign it to the grid location
-            GamePiece* gamePieceSprite = new GamePiece();
+			// create a piece and assign it to the grid location
+			GamePiece* gamePieceSprite;
+			// if the level was loaded correctly
+			if (level != NULL)
+			{
+				int color = 0;
+				int type = 0;
+				CCDictionary* piece = CCDictionary::createWithDictionary((CCDictionary *)level->objectAtIndex((i*GRID_COLS) + j));
+				color = piece->valueForKey("COLOR")->intValue();
+				type = piece->valueForKey("TYPE")->intValue();
+				CCLog("ROW %d COL %d = PIECE %d TYPE %d", i, j, color, type);
+
+				gamePieceSprite = new GamePiece(color, type);
+			}
+			else
+			{
+				// create a piece and assign it to the grid location
+				gamePieceSprite = new GamePiece();
+			}
             
             // set the piece location with space in between
             // set piece width and height (assuming all are the same size)
@@ -138,9 +170,12 @@ void Grid::callback1(CCNode* pTarget, void* data)
 
 	// add to the bar level
 	GameScene* parent = (GameScene*)this->getParent();
-	int *color = (int*)data;
-	parent->addToBar(*color, 1);
-	delete color;
+	if (parent != NULL)
+	{
+		int *color = (int*)data;
+		parent->addToBar(*color, 1);
+		delete color;
+	}
 }
 
 GamePiece* Grid::getGamePieceAtIndex(int row, int col)
@@ -553,7 +588,6 @@ void Grid::ccTouchesBegan(CCSet *touches, CCEvent *event)
             if (selectedGamePiece)
             {
                 // HARD CODED FIX IT SOON
-				GameScene* parentGS = (GameScene*)getParent();
                 switch (selectedGamePiece->getInteractionType())
                 {
                     case 1:

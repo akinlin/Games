@@ -83,6 +83,12 @@
     <ClCompile Include="..\Classes\Store.cpp">
       <Filter>Classes\support</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LevelEditorScene.cpp">
+      <Filter>Classes\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InteractionMenuItem.cpp">
+      <Filter>Classes\sprites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -147,6 +153,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Store.h">
       <Filter>Classes\support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelEditorScene.h">
+      <Filter>Classes\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InteractionMenuItem.h">
+      <Filter>Classes\sprites</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

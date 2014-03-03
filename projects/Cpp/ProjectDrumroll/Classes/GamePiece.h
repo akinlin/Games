@@ -18,7 +18,7 @@ class GamePiece : public CCSprite
 {
 public:
     GamePiece();
-    //GamePiece(GamePiece& gamePiece);
+	GamePiece(int pieceColor, int interactionType);
     
     int getPieceColor();
     int getInteractionType();
@@ -44,6 +44,8 @@ private:
     
     bool m_isInElinationCheck;
     bool m_isActive;
+
+	void createPiece(int pieceColor, int interactionType);
 };
 
 enum gamePieceInteractionType

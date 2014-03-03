@@ -21,13 +21,29 @@
             <key>RANK</key>
             <integer>3</integer>
             <key>SCORE</key>
+            <integer>2950</integer>
+            <key>LEVEL</key>
+            <integer>3</integer>
+        </dict>
+        <dict>
+            <key>RANK</key>
+            <integer>4</integer>
+            <key>SCORE</key>
+            <integer>2750</integer>
+            <key>LEVEL</key>
+            <integer>3</integer>
+        </dict>
+        <dict>
+            <key>RANK</key>
+            <integer>5</integer>
+            <key>SCORE</key>
             <integer>2520</integer>
             <key>LEVEL</key>
             <integer>4</integer>
         </dict>
         <dict>
             <key>RANK</key>
-            <integer>4</integer>
+            <integer>6</integer>
             <key>SCORE</key>
             <integer>2000</integer>
             <key>LEVEL</key>
@@ -35,51 +51,35 @@
         </dict>
         <dict>
             <key>RANK</key>
-            <integer>5</integer>
+            <integer>7</integer>
             <key>SCORE</key>
-            <integer>1500</integer>
+            <integer>1900</integer>
             <key>LEVEL</key>
             <integer>2</integer>
         </dict>
         <dict>
             <key>RANK</key>
-            <integer>6</integer>
-            <key>SCORE</key>
-            <integer>1000</integer>
-            <key>LEVEL</key>
-            <integer>1</integer>
-        </dict>
-        <dict>
-            <key>RANK</key>
-            <integer>7</integer>
-            <key>SCORE</key>
-            <integer>850</integer>
-            <key>LEVEL</key>
-            <integer>1</integer>
-        </dict>
-        <dict>
-            <key>RANK</key>
             <integer>8</integer>
             <key>SCORE</key>
-            <integer>850</integer>
+            <integer>1900</integer>
             <key>LEVEL</key>
-            <integer>1</integer>
+            <integer>2</integer>
         </dict>
         <dict>
             <key>RANK</key>
             <integer>9</integer>
             <key>SCORE</key>
-            <integer>850</integer>
+            <integer>1840</integer>
             <key>LEVEL</key>
-            <integer>1</integer>
+            <integer>2</integer>
         </dict>
         <dict>
             <key>RANK</key>
             <integer>10</integer>
             <key>SCORE</key>
-            <integer>830</integer>
+            <integer>1700</integer>
             <key>LEVEL</key>
-            <integer>1</integer>
+            <integer>2</integer>
         </dict>
     </array>
 </plist>

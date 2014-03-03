@@ -15,6 +15,8 @@
 
 using namespace CocosDenshion;
 
+const char* KEY_CURRENT_LEVEL = "current_level";
+
 const char* KEY_CURRENT_SCORE = "current_score";
 const char* KEY_CURRENT_ADD_SCORE = "current_add_score";
 const char* KEY_CURRENT_SUB_SCORE = "current_sub_score";
@@ -142,10 +144,9 @@ bool GameScene::init()
     }
     
     // init level
-    m_currentLevel = 1;
+	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_LEVEL, 1);
     
     // init score
-    //m_currentScore = 0;
 	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_SCORE, 0);
 	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_ADD_SCORE, 0);
 	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_SUB_SCORE, 0);
@@ -172,11 +173,11 @@ bool GameScene::init()
     // create and add the grid
     m_hudReference = new HUD();
     m_hudReference->setPosition(CCPointZero);
-    m_hudReference->updateLevel(m_currentLevel);
+	m_hudReference->updateLevel(CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_LEVEL));
     this->addChild(m_hudReference, kTagHUDReference);
 
     // create and add the interact and eliminate buttons
-	m_interactionReference = new InteractionMenu();
+	m_interactionReference = new GameInteractionMenu();
 	addChild(m_interactionReference, kTagClippingButton);
     
     // Add the goals tab
@@ -244,7 +245,9 @@ void GameScene::checkForEndOfLevel()
         {
 			// save the score to the high score list
 			// need to create a general save class and send the score
-			Store::sharedStore()->finalScoreUpdate(CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_SCORE), m_currentLevel);
+			Store::sharedStore()->finalScoreUpdate(
+				CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_SCORE), 
+				CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_LEVEL));
 
             // end the game (go back to main menu)
             CCScene *pScene = TitleScene::scene();
@@ -262,7 +265,7 @@ void GameScene::refreshScore()
 void GameScene::updateGoals()
 {
 	// only goal is score 1000 pts per level
-	if (CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_SCORE) >= m_currentLevel * 1000)
+	if (CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_SCORE) >= CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_LEVEL) *1000)
 	{
 		m_goalsTab->setGoalStatus(true, 0);
 	}
@@ -321,12 +324,13 @@ void GameScene::createGrid()
 
 void GameScene::nextLevel()
 {
+	// increment the level
+	int currentLevel = CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_LEVEL) + 1;
+	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_LEVEL, currentLevel);
+	m_hudReference->updateLevel(currentLevel);
+
     // remove the grid and create a new one
     createGrid();
     removeChildByTag(kTagGridReference);
     addChild(m_gridReference, kTagGridReference);
-    
-    // increment the level
-    m_currentLevel++;
-    m_hudReference->updateLevel(m_currentLevel);
 }

@@ -17,13 +17,6 @@ using namespace CocosDenshion;
 
 GamePiece::GamePiece()
 {
-    // set elimination state flag
-    // TODO: review if this should be part of a statemachine
-    m_isInElinationCheck = false;
-    // set the active flag
-    m_isActive = true;
-    
-    s_color = rand() % gamePieceColorCount;
     /*if (rand() % 10 == 1)
     {
         s_interactionType = rand() % pieceInteractionCount;
@@ -32,31 +25,54 @@ GamePiece::GamePiece()
     {
         s_interactionType = pieceInteractionEmpty;
     }*/
-	s_interactionType = pieceInteractionEmpty;
+
+	createPiece(rand() % gamePieceColorCount, pieceInteractionEmpty);
     
-    m_BlocksSprite = new Blocks();
-    
-    this->initWithTexture(m_BlocksSprite->getTexture(), m_BlocksSprite->getSpriteRect(s_color));
-    this->setScale(VisibleRect::getScale());
-    
-    if (s_interactionType == pieceInteractionFlip)
-    {
+    this->autorelease();
+}
+
+GamePiece::GamePiece(int pieceColor, int interactionType)
+{
+	createPiece(pieceColor, interactionType);
+
+	this->autorelease();
+}
+
+void GamePiece::createPiece(int pieceColor, int interactionType)
+{
+	// set piece attributes
+	s_color = pieceColor;
+	s_interactionType = interactionType;
+
+	// set elimination state flag
+	// TODO: review if this should be part of a statemachine
+	m_isInElinationCheck = false;
+	// set the active flag
+	m_isActive = true;
+
+	m_BlocksSprite = new Blocks();
+
+	this->initWithTexture(m_BlocksSprite->getTexture(), m_BlocksSprite->getSpriteRect(s_color));
+	this->setScale(VisibleRect::getScale());
+
+	if (s_interactionType == pieceInteractionFlip)
+	{
 		m_interactionSprite = CCSprite::create("win32/flip_overlay_small.png");
 		m_interactionSprite->setAnchorPoint(CCPointZero);
-        this->addChild(m_interactionSprite);
-    }
-    else if (s_interactionType == pieceInteractionDPadFlip)
-    {
+		this->addChild(m_interactionSprite);
+	}
+	else if (s_interactionType == pieceInteractionDPadFlip)
+	{
 		m_interactionSprite = CCSprite::create("win32/dpad_overlay_small.png");
 		m_interactionSprite->setAnchorPoint(CCPointZero);
-        this->addChild(m_interactionSprite);
-    }
-    else if (s_interactionType == pieceInteractionSwitch)
-    {
+		this->addChild(m_interactionSprite);
+	}
+	else if (s_interactionType == pieceInteractionSwitch)
+	{
 		m_interactionSprite = CCSprite::create("win32/switch_overlay_small.png");
 		m_interactionSprite->setAnchorPoint(CCPointZero);
-        this->addChild(m_interactionSprite);
-    }
+		this->addChild(m_interactionSprite);
+	}
 	else if (s_interactionType == pieceInteractionSlide)
 	{
 		m_interactionSprite = CCSprite::create("win32/slide_overlay_small.png");
@@ -65,39 +81,12 @@ GamePiece::GamePiece()
 	}
 	/*else if (s_interactionType == pieceInteractionRotary)
 	{
-		m_interactionSprite = CCLabelTTF::create("Rotary", "Arial", VisibleRect::getScaledFont(5));
-		m_interactionSprite->setPosition(ccp((getTextureWidth() / 2) / 2, (getTextureHeight() / 2) / 2));
-		m_interactionSprite->setColor(ccBLACK);
-		this->addChild(m_interactionSprite);
+	m_interactionSprite = CCLabelTTF::create("Rotary", "Arial", VisibleRect::getScaledFont(5));
+	m_interactionSprite->setPosition(ccp((getTextureWidth() / 2) / 2, (getTextureHeight() / 2) / 2));
+	m_interactionSprite->setColor(ccBLACK);
+	this->addChild(m_interactionSprite);
 	}*/
-    
-    this->autorelease();
 }
-
-//GamePiece(GamePiece& gamePiece)
-//{
-//    // set elimination state flag
-//    // TODO: review if this should be part of a statemachine
-//    m_isInElinationCheck = false;
-//    // set the active flag
-//    m_isActive = true;
-//    
-//    s_color = arc4random() % gamePieceColorCount;
-//    s_interactionType = arc4random() % pieceInteractionCount;
-//    
-//    //    int idx = (CCRANDOM_0_1() > .5 ? 0:1);
-//    //    int idy = (CCRANDOM_0_1() > .5 ? 0:1);
-//    //    CCTexture2D* textureSheet = TextureManager::getBlocksTexture();
-//    //
-//    //    textureWidth = TextureManager::getTextureWidth();
-//    //    textureHeight = TextureManager::getTextureHeight();
-//    
-//    m_BlocksSprite = new Blocks();
-//    
-//    this->initWithTexture(m_BlocksSprite->getTexture(), m_BlocksSprite->getSpriteRect(s_color));
-//    this->setScale(VisibleRect::getScale());
-//    this->autorelease();
-//}
 
 int GamePiece::getPieceColor()
 {

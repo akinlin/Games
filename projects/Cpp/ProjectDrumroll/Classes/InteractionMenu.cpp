@@ -10,13 +10,13 @@
 #include "ScreenHelper.h"
 #include "GameScene.h"
 #include "GamePiece.h"
+#include "InteractionMenuItem.h"
 
-const int MAX_BAR_LEVEL = 50;
 const int INTERACTION_BAR_COST = 5;
+const int INTERACTION_USE_DEDUCTION = 20;
+const int MAX_BAR_LEVEL = 50;
 const int BUTTON_TEXTURE_HEIGHT = 250;
 const int BUTTON_TEXTURE_WIDTH = 250;
-
-const int INTERACTION_USE_DEDUCTION = 20;
 
 //
 // testing variables not meant to stay in
@@ -39,35 +39,52 @@ enum ButtonMenuTags {
 
 InteractionMenu::InteractionMenu()
 {
+	
+}
+
+InteractionMenu::~InteractionMenu()
+{
+	
+}
+
+GameInteractionMenu::GameInteractionMenu()
+{
 	CCSize s = VisibleRect::getScreenSize();
 
 	// turn on touch events
-	//setTouchEnabled(true);
+	setTouchEnabled(true);
 
-	// blue interation button (pieceInteractionFlip)
-	// set the stencil
-	m_flipBar = 20;
-	float percentage = m_flipBar / MAX_BAR_LEVEL;
-	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	flipStencil = shape(m_flipBar);
-	flipStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
-	flipStencil->setAnchorPoint(CCPointZero);
-	//// set the clipper
-	flipButtonClipper = CCClippingNode::create();
-	flipButtonClipper->setAnchorPoint(ccp(0, 0));
-	flipButtonClipper->setPosition(ccp(0, (s.height / 2) + BUTTON_TEXTURE_HEIGHT));
-	flipButtonClipper->setStencil(flipStencil);
-	addChild(flipButtonClipper, 0);
-	// set the content
-	CCSprite* interactButton = CCSprite::create("win32/1_eliminateButton.png");
-	interactButton->setAnchorPoint(CCPointZero);
-	interactButton->setPosition(ccp(0, 0));
-	flipButtonClipper->addChild(interactButton);
-	// overlay
-	CCSprite* flipOverlay = CCSprite::create("win32/flip_overlay_large.png");
-	flipOverlay->setPosition(flipButtonClipper->getPosition());
-	flipOverlay->setAnchorPoint(CCPointZero);
-	addChild(flipOverlay, 1);
+	//// blue interation button (pieceInteractionFlip)
+	flipButtonClipper = new InteractionMenuItem(20, "win32/1_eliminateButton.png", "win32/flip_overlay_large.png");
+	if (flipButtonClipper)
+	{
+		flipButtonClipper->setPosition(ccp(0, (s.height / 2) + BUTTON_TEXTURE_HEIGHT));
+		addChild(flipButtonClipper);
+	}
+
+	//// green interation button (pieceInteractionSwitch)
+	switchButtonClipper = new InteractionMenuItem(20, "win32/g_eliminateButton.png", "win32/switch_overlay_large.png");
+	if (switchButtonClipper)
+	{
+		switchButtonClipper->setPosition(ccp(0, (s.height / 2)));
+		addChild(switchButtonClipper);
+	}
+
+	//// yellow interation button (pieceInteractionDPad)
+	dpadButtonClipper = new InteractionMenuItem(20, "win32/y_1_eliminateButton.png", "win32/dpad_overlay_large.png");
+	if (dpadButtonClipper)
+	{
+		dpadButtonClipper->setPosition(ccp(0, (s.height / 2) - BUTTON_TEXTURE_HEIGHT));
+		addChild(dpadButtonClipper);
+	}
+
+	//// purple interation button (pieceInteractionSlide)
+	slideButtonClipper = new InteractionMenuItem(20, "win32/p_1_eliminateButton.png", "win32/slide_overlay_large.png");
+	if (slideButtonClipper)
+	{
+		slideButtonClipper->setPosition(ccp(0, (s.height / 2) - (BUTTON_TEXTURE_HEIGHT * 2)));
+		addChild(slideButtonClipper);
+	}
 
 	//// green interation button (pieceInteractionSwitch)
 	// set the stencil
@@ -151,58 +168,39 @@ InteractionMenu::InteractionMenu()
 	addChild(eliminateButton);
 }
 
-InteractionMenu::~InteractionMenu()
+GameInteractionMenu::~GameInteractionMenu()
 {
-	
+	CC_SAFE_DELETE(flipButtonClipper);
 }
 
-void InteractionMenu::interactionComplete()
+void GameInteractionMenu::interactionComplete()
 {
 	if (interactionFlipOn)
 	{
 		interactionFlipOn = false;
-		m_flipBar -= INTERACTION_BAR_COST;
+		flipButtonClipper->setBarLevel(flipButtonClipper->getBarLevel() - INTERACTION_BAR_COST);
 		subPoints(INTERACTION_USE_DEDUCTION);
-
-		float percentage = m_flipBar / MAX_BAR_LEVEL;
-		float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-		flipStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
 	}
 	else if (interactionSwitchOn)
 	{
 		interactionSwitchOn = false;
-		m_switchBar -= INTERACTION_BAR_COST;
+		switchButtonClipper->setBarLevel(switchButtonClipper->getBarLevel() - INTERACTION_BAR_COST);
 		subPoints(INTERACTION_USE_DEDUCTION);
-
-		float percentage = m_switchBar / MAX_BAR_LEVEL;
-		float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-		switchStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
 	}
 	else if (interactionDPadOn)
 	{
 		interactionDPadOn = false;
-		m_dpadBar -= INTERACTION_BAR_COST;
+		dpadButtonClipper->setBarLevel(dpadButtonClipper->getBarLevel() - INTERACTION_BAR_COST);
 		subPoints(INTERACTION_USE_DEDUCTION);
-
-		float percentage = m_dpadBar / MAX_BAR_LEVEL;
-		float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-		dpadStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
 	}
 	else if (interactionSlideOn)
 	{
 		interactionSlideOn = false;
-		m_slideBar -= INTERACTION_BAR_COST;
+		slideButtonClipper->setBarLevel(slideButtonClipper->getBarLevel() - INTERACTION_BAR_COST);
 		subPoints(INTERACTION_USE_DEDUCTION);
-
-		float percentage = m_slideBar / MAX_BAR_LEVEL;
-		float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-		slideStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
 	}
 	else if (interactionRotaryOn)
 	{
-		interactionRotaryOn = false;
-		m_rotaryBar -= INTERACTION_BAR_COST;
-		subPoints(INTERACTION_USE_DEDUCTION);
 	}
 	else if (interactionEliminationOn)
 	{
@@ -210,13 +208,13 @@ void InteractionMenu::interactionComplete()
 	}
 }
 
-void InteractionMenu::subPoints(int points)
+void GameInteractionMenu::subPoints(int points)
 {
 	CCUserDefault::sharedUserDefault()->setIntegerForKey("current_score", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_score") - points);
 	CCUserDefault::sharedUserDefault()->setIntegerForKey("current_sub_score", CCUserDefault::sharedUserDefault()->getIntegerForKey("current_sub_score") + points);
 }
 
-void InteractionMenu::cancelInteraction()
+void GameInteractionMenu::cancelInteraction()
 {
 	interactionFlipOn = false;
 	interactionSwitchOn = false;
@@ -226,38 +224,21 @@ void InteractionMenu::cancelInteraction()
 	interactionEliminationOn = false;
 }
 
-CCDrawNode* InteractionMenu::shape(int barLevel)
-{
-	float percentage = barLevel / MAX_BAR_LEVEL;
-	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-
-	CCDrawNode *shape = CCDrawNode::create();
-	static CCPoint rect[4];
-	rect[0] = ccp(-250, -250);
-	rect[1] = ccp(250, -250);
-	rect[2] = ccp(250, 250);
-	rect[3] = ccp(-250, 250);
-
-	static ccColor4F green = { 0, 1, 0, 1 };
-	shape->drawPolygon(rect, 4, green, 0, green);
-	return shape;
-}
-
-void InteractionMenu::onEnter()
+void GameInteractionMenu::onEnter()
 {
 	CCDirector* pDirector = CCDirector::sharedDirector();
 	pDirector->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
 	CCLayer::onEnter();
 }
 
-void InteractionMenu::onExit()
+void GameInteractionMenu::onExit()
 {
 	CCDirector* pDirector = CCDirector::sharedDirector();
 	pDirector->getTouchDispatcher()->removeDelegate(this);
 	CCLayer::onExit();
 }
 
-bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
+bool GameInteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
 	CCPoint location = touch->getLocationInView();
 
@@ -272,7 +253,7 @@ bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 	GameScene* m_parent = (GameScene*)this->getParent();
 	if (ButtonRect->containsPoint(location))
 	{
-		if (m_flipBar >= INTERACTION_BAR_COST)
+		if (flipButtonClipper->getBarLevel() >= INTERACTION_BAR_COST)
 		{
 			CCLog("InteractionMenu TouchBegan - true");
 			interactionFlipOn = true;
@@ -282,55 +263,55 @@ bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 	}
 
 	// check the switch button
-	//ButtonRect = new CCRect(switchButtonClipper->getPositionX()
-	//	, switchButtonClipper->getPositionY()
-	//	, BUTTON_TEXTURE_WIDTH
-	//	, BUTTON_TEXTURE_HEIGHT);
+	ButtonRect = new CCRect(switchButtonClipper->getPositionX()
+		, switchButtonClipper->getPositionY()
+		, BUTTON_TEXTURE_WIDTH
+		, BUTTON_TEXTURE_HEIGHT);
 
-	//if (ButtonRect->containsPoint(location))
-	//{
-	//	if (m_switchBar >= INTERACTION_BAR_COST)
-	//	{
-	//		CCLog("InteractionMenu TouchBegan - true");
-	//		interactionSwitchOn = true;
-	//		m_parent->interactionSelected(ccGREEN, pieceInteractionSwitch);
-	//		return true;
-	//	}
-	//}
+	if (ButtonRect->containsPoint(location))
+	{
+		if (switchButtonClipper->getBarLevel() >= INTERACTION_BAR_COST)
+		{
+			CCLog("InteractionMenu TouchBegan - true");
+			interactionSwitchOn = true;
+			m_parent->interactionSelected(ccGREEN, pieceInteractionSwitch);
+			return true;
+		}
+	}
 
-	//// check the dpad button
-	//ButtonRect = new CCRect(dpadButtonClipper->getPositionX()
-	//	, dpadButtonClipper->getPositionY()
-	//	, BUTTON_TEXTURE_WIDTH
-	//	, BUTTON_TEXTURE_HEIGHT);
+	// check the dpad button
+	ButtonRect = new CCRect(dpadButtonClipper->getPositionX()
+		, dpadButtonClipper->getPositionY()
+		, BUTTON_TEXTURE_WIDTH
+		, BUTTON_TEXTURE_HEIGHT);
 
-	//if (ButtonRect->containsPoint(location))
-	//{
-	//	if (m_dpadBar >= INTERACTION_BAR_COST)
-	//	{
-	//		CCLog("InteractionMenu TouchBegan - true");
-	//		interactionDPadOn = true;
-	//		m_parent->interactionSelected(ccYELLOW, pieceInteractionDPadFlip);
-	//		return true;
-	//	}
-	//}
+	if (ButtonRect->containsPoint(location))
+	{
+		if (dpadButtonClipper->getBarLevel() >= INTERACTION_BAR_COST)
+		{
+			CCLog("InteractionMenu TouchBegan - true");
+			interactionDPadOn = true;
+			m_parent->interactionSelected(ccYELLOW, pieceInteractionDPadFlip);
+			return true;
+		}
+	}
 
-	//// check the slide button
-	//ButtonRect = new CCRect(slideButtonClipper->getPositionX()
-	//	, slideButtonClipper->getPositionY()
-	//	, BUTTON_TEXTURE_WIDTH
-	//	, BUTTON_TEXTURE_HEIGHT);
+	// check the slide button
+	ButtonRect = new CCRect(slideButtonClipper->getPositionX()
+		, slideButtonClipper->getPositionY()
+		, BUTTON_TEXTURE_WIDTH
+		, BUTTON_TEXTURE_HEIGHT);
 
-	//if (ButtonRect->containsPoint(location))
-	//{
-	//	if (m_slideBar >= INTERACTION_BAR_COST)
-	//	{
-	//		CCLog("InteractionMenu TouchBegan - true");
-	//		interactionSlideOn = true;
-	//		m_parent->interactionSelected(ccc3(255, 0, 255), pieceInteractionSlide);
-	//		return true;
-	//	}
-	//}
+	if (ButtonRect->containsPoint(location))
+	{
+		if (slideButtonClipper->getBarLevel() >= INTERACTION_BAR_COST)
+		{
+			CCLog("InteractionMenu TouchBegan - true");
+			interactionSlideOn = true;
+			m_parent->interactionSelected(ccc3(255, 0, 255), pieceInteractionSlide);
+			return true;
+		}
+	}
 
 	// check the elimination button
 	ButtonRect = new CCRect(eliminateButton->getPositionX()
@@ -351,18 +332,18 @@ bool InteractionMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 	return false;
 }
 
-void InteractionMenu::ccTouchEnded(CCTouch* touch, CCEvent* event)
+void GameInteractionMenu::ccTouchEnded(CCTouch* touch, CCEvent* event)
 {
 	CCLog("InteractionMenu TouchEnded");
 }
 
-void InteractionMenu::menuEliminateCallback(CCObject* pSender)
+void GameInteractionMenu::menuEliminateCallback(CCObject* pSender)
 {
 	GameScene* m_parent = (GameScene*)this->getParent();
 	m_parent->interactionSelected(ccRED, pieceInteractionElimination);
 }
 
-void InteractionMenu::addToBarLevel(int pieceColor, int valueToAdd)
+void GameInteractionMenu::addToBarLevel(int pieceColor, int valueToAdd)
 {
 	if (pieceColor == pieceColorYellow)
 	{
@@ -382,54 +363,42 @@ void InteractionMenu::addToBarLevel(int pieceColor, int valueToAdd)
 	}
 }
 
-void InteractionMenu::addToFlipBar(int addition)
+void GameInteractionMenu::addToFlipBar(int addition)
 {
-	m_flipBar += addition;
-	if (m_flipBar > MAX_BAR_LEVEL)
+	int flipBar = flipButtonClipper->getBarLevel() + addition;
+	if (flipBar > MAX_BAR_LEVEL)
 	{
-		m_flipBar = MAX_BAR_LEVEL;
+		flipBar = MAX_BAR_LEVEL;
 	}
-
-	float percentage = m_flipBar / MAX_BAR_LEVEL;
-	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	flipStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));
+	flipButtonClipper->setBarLevel(flipBar);
 }
 
-void InteractionMenu::addToSwitchBar(int addition)
+void GameInteractionMenu::addToSwitchBar(int addition)
 {
-	/*m_switchBar += addition;
-	if (m_switchBar > MAX_BAR_LEVEL)
+	int switchBar = switchButtonClipper->getBarLevel() + addition;
+	if (switchBar > MAX_BAR_LEVEL)
 	{
-		m_switchBar = MAX_BAR_LEVEL;
+		switchBar = MAX_BAR_LEVEL;
 	}
-
-	float percentage = m_switchBar / MAX_BAR_LEVEL;
-	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	switchStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));*/
+	switchButtonClipper->setBarLevel(switchBar);
 }
 
-void InteractionMenu::addToDPadBar(int addition)
+void GameInteractionMenu::addToDPadBar(int addition)
 {
-	/*m_dpadBar += addition;
-	if (m_dpadBar > MAX_BAR_LEVEL)
+	int dpadBar = dpadButtonClipper->getBarLevel() + addition;
+	if (dpadBar > MAX_BAR_LEVEL)
 	{
-		m_dpadBar = MAX_BAR_LEVEL;
+		dpadBar = MAX_BAR_LEVEL;
 	}
-
-	float percentage = m_dpadBar / MAX_BAR_LEVEL;
-	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	dpadStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));*/
+	dpadButtonClipper->setBarLevel(dpadBar);
 }
 
-void InteractionMenu::addToSlideBar(int addition)
+void GameInteractionMenu::addToSlideBar(int addition)
 {
-	/*m_slideBar += addition;
-	if (m_slideBar > MAX_BAR_LEVEL)
+	int slideBar = slideButtonClipper->getBarLevel() + addition;
+	if (slideBar > MAX_BAR_LEVEL)
 	{
-		m_slideBar = MAX_BAR_LEVEL;
+		slideBar = MAX_BAR_LEVEL;
 	}
-
-	float percentage = m_slideBar / MAX_BAR_LEVEL;
-	float barLevelHeight = BUTTON_TEXTURE_HEIGHT * percentage;
-	slideStencil->setPosition(ccp(0, barLevelHeight - BUTTON_TEXTURE_HEIGHT));*/
+	slideButtonClipper->setBarLevel(slideBar);
 }
