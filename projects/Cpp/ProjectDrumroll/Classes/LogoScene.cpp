@@ -10,6 +10,7 @@
 #include "TitleScene.h"
 #include "SimpleAudioEngine.h"
 #include "ScreenHelper.h"
+#include "FileOperation.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -52,14 +53,14 @@ bool LogoScene::init()
     
 	// initalize the title background
 	createTitleBG();
-	    
+    
     return true;
 }
 
 void LogoScene::createTitleBG()
 {
 	// TODO: need to fix the resource path
-	m_LogoSprite = CCSprite::create("win32/logo.png");
+	m_LogoSprite = CCSprite::create("logo.png");
 	m_LogoSprite->setScale(3);
 	// position the sprite on the center of the screen
 	m_LogoSprite->setPosition(ccp(VisibleRect::getScreenWidth() / 2, (VisibleRect::getScreenHeight() / 2)-200));
@@ -68,7 +69,7 @@ void LogoScene::createTitleBG()
 
 	// try it out
 	CCSprite*  clipper;
-	clipper = CCSprite::create("win32/MainScreen.png");
+	clipper = CCSprite::create("MainScreen.png");
 	clipper->setPosition(ccp(VisibleRect::getScreenWidth() / 2, (VisibleRect::getScreenHeight() / 2)-300));
 	clipper->setScale(2);
 	// add the sprite as a child to this layer

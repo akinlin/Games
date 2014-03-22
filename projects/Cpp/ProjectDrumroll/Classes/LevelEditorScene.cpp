@@ -62,7 +62,7 @@ bool LevelEditorScene::init()
     }
    
     // add background for the main screen"
-    m_backgroundReference = CCSprite::create("win32/MainScreenEditor.png");
+    m_backgroundReference = CCSprite::create("MainScreenEditor.png");
     m_backgroundReference->setScale(VisibleRect::getScale());
     // position the sprite on the center of the screen
     m_backgroundReference->setPosition( ccp(VisibleRect::getVisibleRect().size.width/2, VisibleRect::getVisibleRect().size.height/2) );

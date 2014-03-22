@@ -221,7 +221,7 @@ void TitleScene::createTitleBG()
 	m_BGLayer = CCLayer::create();
 
 	// TODO: need to fix the resource path
-	m_TitleBGSprite = CCSprite::create("win32/Default.png");
+	m_TitleBGSprite = CCSprite::create("Default.png");
 	// position the sprite on the center of the screen
 	m_TitleBGSprite->setPosition(ccp(VisibleRect::getScreenWidth() / 2, VisibleRect::getScreenHeight() / 2));
 

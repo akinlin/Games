@@ -13,6 +13,7 @@
 #include "LogoScene.h"
 #include "TitleScene.h"
 #include "TestDataSave.h"
+#include "LoadData.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -58,7 +59,7 @@ void ProjectDrumrollGame::setUpGame()
 	pDirector->setAnimationInterval(1.0 / 60);
 
 	// create a scene. it's an autorelease object
-	CCScene *pScene = LogoScene::scene();
+	CCScene *pScene = LoadData::scene();
 
 	// run
 	pDirector->runWithScene(pScene);

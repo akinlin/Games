@@ -1,6 +1,6 @@
 all:
 	./build_native.sh
-	ant -Dsdk.dir=C:\Users\user\android-sdks debug
+	ant -Dsdk.dir=/Users/android-sdks debug
 run:
 	adb -d uninstall com.tbdentertainment.projectdrumroll
 	adb -d install bin\ProjectDrumroll-debug.apk

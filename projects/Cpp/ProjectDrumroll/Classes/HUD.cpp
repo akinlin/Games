@@ -70,7 +70,7 @@ HUD::HUD()
     addChild(m_levelDisplayString);
 
 	// color key
-	CCSprite* colorKey = CCSprite::create("win32/color_key.png");
+	CCSprite* colorKey = CCSprite::create("color_key.png");
 	colorKey->setAnchorPoint(CCPointZero);
 	colorKey->setPosition(ccp(VisibleRect::getScreenWidth() - 60, VisibleRect::getScreenHeight() - 188));
 	addChild(colorKey);

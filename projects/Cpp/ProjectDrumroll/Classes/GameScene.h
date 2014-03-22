@@ -16,6 +16,7 @@
 #include "Goals.h"
 #include "InteractionMenu.h"
 #include "GamePiece.h"
+#include "Store.h"
 USING_NS_CC;
 
 enum TouchState

@@ -12,6 +12,9 @@
 #include "SimpleAudioEngine.h"
 #include "ScreenHelper.h"
 #include "FileOperation.h"
+#include "ScreenHelper.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -42,10 +45,62 @@ bool TestDataSave::init()
         return false;
     }
 
-	//FileOperation::saveFile();
-	//FileOperation::savePlistFile();
-	//FileOperation::readFile();
+    // Test file paths
+//    string utilsFilePath = CCFileUtils::sharedFileUtils()->getWritablePath();
+//    CCString* utilsFileDisplay = CCString::createWithFormat("Shared File Utils Path: %s", utilsFilePath.c_str());
+//    CCLog(utilsFileDisplay->getCString());
+//
+//    CCLabelTTF* fileUtilsPathLabel = CCLabelTTF::create(utilsFileDisplay->getCString(), "Arial", VisibleRect::getScaledFont(10));
+//    fileUtilsPathLabel->setAnchorPoint(CCPointZero);
+//    fileUtilsPathLabel->setPosition(ccp(0, VisibleRect::getScaledFont(420)));
+//	addChild(fileUtilsPathLabel, 1);
+//
+//    // Resource File reading
+//    
+//    // Clean up the instance
+//    CCFileUtils::sharedFileUtils()->purgeCachedEntries();
+//    // check if a file exists
+//    string fileExistsPath = CCFileUtils::sharedFileUtils()->fullPathForFilename("levelA.plist");
+//    bool fileExists = CCFileUtils::sharedFileUtils()->isFileExist(fileExistsPath);
+//    CCString* fileExistsPathDisplay;
+//    if (fileExists)
+//    {
+//        fileExistsPathDisplay = CCString::createWithFormat("Exists at path: %s", fileExistsPath.c_str());
+//        CCLog(fileExistsPath.c_str());
+//    }
+//    else
+//    {
+//        fileExistsPathDisplay = CCString::createWithFormat("File does not exist");
+//    }
+//    CCLabelTTF* fileExistLabel = CCLabelTTF::create(fileExistsPathDisplay->getCString(), "Arial", VisibleRect::getScaledFont(10));
+//    fileExistLabel->setAnchorPoint(CCPointZero);
+//    fileExistLabel->setPosition(ccp(0, VisibleRect::getScaledFont(390)));
+//	addChild(fileExistLabel, 2);
+//
+//    // File saving and access
+//    
+//    // Clean up the instance
+//    CCFileUtils::sharedFileUtils()->purgeCachedEntries();
+//    // check if a file exists
+//    string storedFilePath = FileOperation::getAppFilePath() + "/levelA.plist";
+//    bool storedFileExists = CCFileUtils::sharedFileUtils()->isFileExist(storedFilePath);
+//    CCString* StoredFileExistsPathDisplay;
+//    if (storedFileExists)
+//    {
+//        StoredFileExistsPathDisplay = CCString::createWithFormat("Exists at path: %s", storedFilePath.c_str());
+//        CCLog(storedFilePath.c_str());
+//    }
+//    else
+//    {
+//        StoredFileExistsPathDisplay = CCString::createWithFormat("File does not exist");
+//        FileOperation::saveAppFile(storedFilePath);
+//    }
+//    CCLabelTTF* StoredFileExistLabel = CCLabelTTF::create(StoredFileExistsPathDisplay->getCString(), "Arial", VisibleRect::getScaledFont(10));
+//    StoredFileExistLabel->setAnchorPoint(CCPointZero);
+//    StoredFileExistLabel->setPosition(ccp(0, VisibleRect::getScaledFont(360)));
+//	addChild(StoredFileExistLabel, 3);
 
+    // high score display
 	CCLabelTTF* highscoretitle = CCLabelTTF::create("Rank      Score      Level", "Arial", VisibleRect::getScaledFont(15));
 	highscoretitle->setAnchorPoint(CCPointZero);
 	// yeah yeah its hardcoded, i just didn't want to do that math right now
@@ -65,9 +120,48 @@ bool TestDataSave::init()
 
 void TestDataSave::loadPlist(const char* plistFile)
 {
-	std::string highScoreFile = FileOperation::getFilePath() + plistFile;//CCFileUtils::sharedFileUtils()->fullPathForFilename(plistFile);
-	CCLog("highScoreFile %s", highScoreFile.c_str());
-	CCArray* scores = CCArray::createWithContentsOfFile(highScoreFile.c_str());
+	std::string highScoreFile = FileOperation::getAppFilePath() + "/" + plistFile;//CCFileUtils::sharedFileUtils()->fullPathForFilename(plistFile);
+	CCArray* scores = NULL;
+    if (CCFileUtils::sharedFileUtils()->isFileExist(highScoreFile))
+    {
+        scores = CCArray::createWithContentsOfFile(highScoreFile.c_str());
+    }
+    else
+    {
+        // copy the file to the app storage if it does not exist
+        string copyPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(plistFile);
+        FILE *fp = fopen(copyPath.c_str(), "r");
+        char buf[5000] = { 0 };
+        
+        if (!fp)
+        {
+            CCLOG("can not open file %s", copyPath.c_str());
+            return;
+        }
+        
+        fgets(buf, 5000, fp);
+        
+        FILE *wfp = fopen(copyPath.c_str(), "w");
+        
+        if (wfp)
+        {
+            cocos2d::CCUserDefault::sharedUserDefault()->flush();
+            fputs(buf, wfp);
+            fclose(wfp);
+            CCLog("%s file created", copyPath.c_str());
+        }
+        else
+        {
+            CCLog("can not create file %s", copyPath.c_str());
+        }
+        
+        CCLOG("read content %s", buf);
+        
+        fclose(fp);
+
+    }
+    CCLog("highScoreFile %s", highScoreFile.c_str());
+	
 
 	if (scores != NULL)
 	{

@@ -3,13 +3,17 @@
 
 #include "FileOperation.h"
 #include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 using namespace std;
 using namespace cocos2d;
 
+const char* gameSaveDirecotry = "com.tbd.projectdrumroll";
+
 void FileOperation::saveFile()
 {
-	string path = getFilePath();
+	string path = getFilePath() + "savetest.txt";
 	FILE *fp = fopen(path.c_str(), "w");
 
 	if (!fp)
@@ -19,8 +23,10 @@ void FileOperation::saveFile()
 	}
 	cocos2d::CCUserDefault::sharedUserDefault()->flush();
 
-	fputs("", fp);
+	fputs("something", fp);
 	fclose(fp);
+    
+    CCLOG("Saved file %s", path.c_str());
 }
 
 void FileOperation::savePlistFile()
@@ -86,6 +92,8 @@ void FileOperation::savePlistFile()
 	// LEVEL
 	pKey = addNewElement(pDoc, pDictEle, "key", "LEVEL");
 	pInteger = addNewElement(pDoc, pDictEle, "integer", "4");
+    
+    cocos2d::CCUserDefault::sharedUserDefault()->flush();
 
 	// Save file
 	pDoc->SaveFile(path.c_str());
@@ -98,7 +106,7 @@ void FileOperation::savePlistFile()
 
 void FileOperation::saveHighScoreFile(CCArray* highscores)
 {
-	string path = getFilePath() + "test.plist";
+	string path = getAppFilePath() + "/test.plist";
 	// create the XML Document
 	CCLOG("Creating xml file %s", path.c_str());
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
@@ -138,7 +146,8 @@ void FileOperation::saveHighScoreFile(CCArray* highscores)
 		pDictEle = addNewElement(pDoc, pArrayEle, "dict");
 		// RANK
 		pKey = addNewElement(pDoc, pDictEle, "key", "RANK");
-		pInteger = addNewElement(pDoc, pDictEle, "integer", std::to_string(index + 1).c_str());
+		pInteger = addNewElement(pDoc, pDictEle, "integer", CCString::createWithFormat("%d", index + 1)->getCString());
+        //CCLog("Saved Rank %s", std::to_string(index + 1).c_str());
 		// SCORE
 		pKey = addNewElement(pDoc, pDictEle, "key", "SCORE");
 		pInteger = addNewElement(pDoc, pDictEle, "integer", scoreDict->valueForKey("SCORE")->getCString());
@@ -161,9 +170,11 @@ void FileOperation::saveHighScoreFile(CCArray* highscores)
 			break;
 		}
 	}
+    
+    cocos2d::CCUserDefault::sharedUserDefault()->flush();
 
 	// Save file
-	pDoc->SaveFile(path.c_str());
+	pDoc->SaveFile(path.c_str(), false);
 
 	if (pDoc)
 	{
@@ -177,7 +188,7 @@ void FileOperation::saveHighScoreFile(CCArray* highscores)
 
 void FileOperation::readFile()
 {
-	string path = getFilePath();
+	string path = getFilePath() + "savetest.txt";
 	FILE *fp = fopen(path.c_str(), "r");
 	char buf[50] = { 0 };
 
@@ -222,6 +233,85 @@ string FileOperation::getFilePath()
 #endif
 
 	return path;
+}
+
+bool FileOperation::saveAppFile(string fileName, char* fileContent)
+{
+    // check if a file exists
+    //string fileDirPath = CCFileUtils::sharedFileUtils()->getWritablePath() + gameSaveDirecotry;
+    string filePath = fileName;//fileDirPath + "/" + fileName;
+        
+    FILE *fp = fopen(filePath.c_str(), "w");
+        
+    if (fp)
+    {
+        cocos2d::CCUserDefault::sharedUserDefault()->flush();
+        fputs(fileContent, fp);
+        fclose(fp);
+        CCLog("%s file created", filePath.c_str());
+        return true;
+    }
+    else
+    {
+        CCLog("can not create file %s", filePath.c_str());
+        return false;
+    }
+}
+
+char* FileOperation::loadAppFile(string fileName)
+{
+    // check if a file exists
+    //string fileDirPath = CCFileUtils::sharedFileUtils()->getWritablePath() + gameSaveDirecotry;
+    string filePath = fileName;//fileDirPath + "/" + fileName;
+    
+    FILE *fp = fopen(filePath.c_str(), "r");
+    char buf[500] = { 0 };
+    char* content;
+    
+	if (fp)
+	{
+		fgets(buf, 500, fp);
+        content = buf;
+        fclose(fp);
+	}
+    
+    return content;
+}
+
+string FileOperation::getAppFilePath()
+{
+    return CCFileUtils::sharedFileUtils()->getWritablePath() + gameSaveDirecotry;
+}
+
+bool FileOperation::fileCopy(string sourceFilePath, string destFilePath)
+{
+    // buffer from source file
+    unsigned char* buf;
+    // buffer size
+    size_t size;
+    
+    // get the source file data
+    buf = CCFileUtils::sharedFileUtils()->getFileData(sourceFilePath.c_str(), "r", &size);
+    if (!buf)
+    {
+        // source file could not be copied
+        return false;
+    }
+    
+    // open the dest file for writing
+    FILE* dest = fopen(destFilePath.c_str(), "wb");
+    if (!dest)
+    {
+        // dest file could not be opened
+        return false;
+    }
+
+    // write the dest file with the source file buffer
+    fwrite(buf, 1, size, dest);
+    // close the dest file
+    fclose(dest);
+    
+    return true;
 }
 
 tinyxml2::XMLElement* FileOperation::addNewElement(tinyxml2::XMLDocument *pDoc, const char* name)

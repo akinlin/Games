@@ -36,20 +36,24 @@ Grid::Grid()
 	// load the level
 	int sharedlevel = CCUserDefault::sharedUserDefault()->getIntegerForKey("current_level");
 	std::string levelFile;
+    std::string filepath = FileOperation::getFilePath();
 	if (sharedlevel == 1)
 	{
-		levelFile = FileOperation::getFilePath() + "levels/levelA.plist";
+		levelFile = CCFileUtils::sharedFileUtils()->fullPathForFilename("levelA.plist");//FileOperation::getFilePath() + "levelA.plist";
 	}
 	else if (sharedlevel == 2)
 	{
-		levelFile = FileOperation::getFilePath() + "levels/levelB.plist";
+		levelFile = CCFileUtils::sharedFileUtils()->fullPathForFilename("levelB.plist");//FileOperation::getFilePath() + "levelB.plist";
 	}
-	CCArray* level = CCArray::createWithContentsOfFile(levelFile.c_str());
-    
+	CCArray* level = NULL;
+    if (CCFileUtils::sharedFileUtils()->isFileExist(levelFile))
+    {
+        level = CCArray::createWithContentsOfFile(levelFile.c_str());
+    }
+   
     // create game pieces and fill the grid
     for (int i = 0; i < GRID_ROWS; i++)
     {
-
         for (int j = 0; j < GRID_COLS; j++)
         {
 			// create a piece and assign it to the grid location
@@ -59,9 +63,9 @@ Grid::Grid()
 			{
 				int color = 0;
 				int type = 0;
-				CCDictionary* piece = CCDictionary::createWithDictionary((CCDictionary *)level->objectAtIndex((i*GRID_COLS) + j));
-				color = piece->valueForKey("COLOR")->intValue();
-				type = piece->valueForKey("TYPE")->intValue();
+                CCDictionary* piece = CCDictionary::createWithDictionary((CCDictionary *)level->objectAtIndex((i*GRID_COLS) + j));
+                color = piece->valueForKey("COLOR")->intValue();
+                type = piece->valueForKey("TYPE")->intValue();
 				CCLog("ROW %d COL %d = PIECE %d TYPE %d", i, j, color, type);
 
 				gamePieceSprite = new GamePiece(color, type);
@@ -964,7 +968,7 @@ void Grid::handleSlideComplete()
 		tempArray[i] = gridTable[rowToMove][newcol];
 	}
 
-	boolean placementDone = false;
+	bool placementDone = false;
 	for (int i = 0; i < GRID_COLS; i++)
 	{
 		gridTable[rowToMove][i] = tempArray[i];

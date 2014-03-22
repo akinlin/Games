@@ -55,7 +55,7 @@ GameInteractionMenu::GameInteractionMenu()
 	setTouchEnabled(true);
 
 	//// blue interation button (pieceInteractionFlip)
-	flipButtonClipper = new InteractionMenuItem(20, "win32/1_eliminateButton.png", "win32/flip_overlay_large.png");
+	flipButtonClipper = new InteractionMenuItem(20, "1_eliminateButton.png", "flip_overlay_large.png");
 	if (flipButtonClipper)
 	{
 		flipButtonClipper->setPosition(ccp(0, (s.height / 2) + BUTTON_TEXTURE_HEIGHT));
@@ -63,7 +63,7 @@ GameInteractionMenu::GameInteractionMenu()
 	}
 
 	//// green interation button (pieceInteractionSwitch)
-	switchButtonClipper = new InteractionMenuItem(20, "win32/g_eliminateButton.png", "win32/switch_overlay_large.png");
+	switchButtonClipper = new InteractionMenuItem(20, "g_eliminateButton.png", "switch_overlay_large.png");
 	if (switchButtonClipper)
 	{
 		switchButtonClipper->setPosition(ccp(0, (s.height / 2)));
@@ -71,7 +71,7 @@ GameInteractionMenu::GameInteractionMenu()
 	}
 
 	//// yellow interation button (pieceInteractionDPad)
-	dpadButtonClipper = new InteractionMenuItem(20, "win32/y_1_eliminateButton.png", "win32/dpad_overlay_large.png");
+	dpadButtonClipper = new InteractionMenuItem(20, "y_1_eliminateButton.png", "dpad_overlay_large.png");
 	if (dpadButtonClipper)
 	{
 		dpadButtonClipper->setPosition(ccp(0, (s.height / 2) - BUTTON_TEXTURE_HEIGHT));
@@ -79,7 +79,7 @@ GameInteractionMenu::GameInteractionMenu()
 	}
 
 	//// purple interation button (pieceInteractionSlide)
-	slideButtonClipper = new InteractionMenuItem(20, "win32/p_1_eliminateButton.png", "win32/slide_overlay_large.png");
+	slideButtonClipper = new InteractionMenuItem(20, "p_1_eliminateButton.png", "slide_overlay_large.png");
 	if (slideButtonClipper)
 	{
 		slideButtonClipper->setPosition(ccp(0, (s.height / 2) - (BUTTON_TEXTURE_HEIGHT * 2)));
@@ -162,7 +162,7 @@ GameInteractionMenu::GameInteractionMenu()
 	//addChild(slideOverlay, 1);
 
 	//// elimination button
-	eliminateButton = CCSprite::create("win32/eliminateButton.png");
+	eliminateButton = CCSprite::create("eliminateButton.png");
 	eliminateButton->setAnchorPoint(CCPointZero);
 	eliminateButton->setPosition(ccp((s.width / 2) - (BUTTON_TEXTURE_WIDTH / 2), 0));
 	addChild(eliminateButton);

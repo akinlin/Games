@@ -1,19 +1,20 @@
 //
-//  TestDataSave.h
+//  LoadData.h
 //  ProjectDrumroll
 //
 //  Created by Alexander Kinlin on 8/15/13.
 //
 //
 
-#ifndef __ProjectDrumroll__TestDataSave__
-#define __ProjectDrumroll__TestDataSave__
+#ifndef __ProjectDrumroll__LoadData__
+#define __ProjectDrumroll__LoadData__
 
 // When you import this file, you import all the cocos2d classes
 #include "cocos2d.h"
 USING_NS_CC;
+using namespace std;
 
-class TestDataSave : public CCLayer
+class LoadData : public CCLayer
 {
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -22,15 +23,23 @@ public:
     // there's no 'id' in cpp, so we recommand to return the exactly class pointer
     static CCScene* scene();
     
+    // touch functions
+	virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
+    
     // implement the "static node()" method manually
-	CREATE_FUNC(TestDataSave);
+	CREATE_FUNC(LoadData);
     
 private:
-	// CCLabelTTF object for high score display
-	CCLabelTTF* m_highScoreDisplayString;
-
-	// loads a plist file
-	void loadPlist(const char* plistFile);
-	void popScene();
+	// loads game data
+	void loadData();
+    
+    // file directory load
+	string loadAppDirectory();
+    
+    // high score load
+	string loadHighscores();
+    
+    // level load
+	string loadLevel();
 };
-#endif /* defined(__ProjectDrumroll__TestDataSave__) */
+#endif /* defined(__ProjectDrumroll__LoadData__) */

@@ -25,7 +25,9 @@ public:
 	static Store* sharedStore(void);
     
 private:
+	Store();
 	void loadPlist(const char* plistFile);
+	static Store* s_SharedStore;
 	
 };
 #endif /* defined(__ProjectDrumroll__Store__) */

@@ -11,7 +11,6 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "ScreenHelper.h"
-#include "Store.h"
 
 using namespace CocosDenshion;
 
@@ -151,13 +150,21 @@ bool GameScene::init()
 	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_ADD_SCORE, 0);
 	CCUserDefault::sharedUserDefault()->setIntegerForKey(KEY_CURRENT_SUB_SCORE, 0);
     
+    
+    // save the score to the high score list
+    // need to create a general save class and send the score
+    Store::sharedStore()->finalScoreUpdate(
+                                           CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_SCORE),
+                                           CCUserDefault::sharedUserDefault()->getIntegerForKey(KEY_CURRENT_LEVEL));
+
+    
     // init combo
     m_highestCombo = 0;
     // init interaction count
     m_interactionCount = 0;
 
     // add background for the main screen"
-    m_backgroundReference = CCSprite::create("win32/MainScreen.png");
+    m_backgroundReference = CCSprite::create("MainScreen.png");
     m_backgroundReference->setScale(VisibleRect::getScale());
     // position the sprite on the center of the screen
     m_backgroundReference->setPosition( ccp(VisibleRect::getVisibleRect().size.width/2, VisibleRect::getVisibleRect().size.height/2) );

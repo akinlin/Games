@@ -15,7 +15,12 @@ USING_NS_CC;
 // Store methods
 
 // singleton stuff
-static Store *s_SharedStore = NULL;
+Store* Store::s_SharedStore = 0;
+
+Store::Store()
+{
+	s_SharedStore = NULL;
+}
 
 Store* Store::sharedStore(void)
 {
@@ -41,7 +46,7 @@ bool Store::init()
 void Store::finalScoreUpdate(int score, int level)
 {
 	// open the highscores file and add them to a CCArray
-	std::string highScoreFile = FileOperation::getFilePath() + "test.plist";
+	std::string highScoreFile = FileOperation::getAppFilePath() + "/test.plist";//FileOperation::getFilePath() + "test.plist";
 	CCArray* scores = CCArray::createWithContentsOfFile(highScoreFile.c_str());
 
 	CCObject* arrayElement;
@@ -60,10 +65,11 @@ void Store::finalScoreUpdate(int score, int level)
 		{
 			// add the score to the high score list 
 			CCDictionary* newHighScore = CCDictionary::create();
-			newHighScore->setObject(ccs(std::to_string(index + 1)), "RANK");
-			newHighScore->setObject(ccs(std::to_string(score)), "SCORE");
-			newHighScore->setObject(ccs(std::to_string(level)), "LEVEL");
-			scores->insertObject(newHighScore, index);
+            
+			newHighScore->setObject(CCString::createWithFormat("%d", index + 1), "RANK");
+			newHighScore->setObject(CCString::createWithFormat("%d", score), "SCORE");
+			newHighScore->setObject(CCString::createWithFormat("%d", level), "LEVEL");
+            scores->insertObject(newHighScore, index);
 			CCLog("Got High Score");
 
 			break;

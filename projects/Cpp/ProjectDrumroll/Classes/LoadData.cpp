@@ -1,33 +1,29 @@
 //
-//  TitleScene.cpp
+//  LoadData.cpp
 //  ProjectDrumroll
 //
 //  Created by Alexander Kinlin on 8/15/13.
 //
 //
 
-#include "TestDataSave.h"
-#include "GameScene.h"
-#include "HelloWorldScene.h"
-#include "SimpleAudioEngine.h"
+#include "LoadData.h"
 #include "ScreenHelper.h"
 #include "FileOperation.h"
-#include "ScreenHelper.h"
+#include "LogoScene.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 
 USING_NS_CC;
-using namespace CocosDenshion;
 
 /////////////////////////
 // TestDataSave methods
-CCScene* TestDataSave::scene()
+CCScene* LoadData::scene()
 {
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
     // 'layer' is an autorelease object
-	TestDataSave *layer = TestDataSave::create();
+	LoadData *layer = LoadData::create();
     
     // add layer as a child to scene
     scene->addChild(layer);
@@ -37,174 +33,149 @@ CCScene* TestDataSave::scene()
 }
 
 // on "init" you need to initialize your instance
-bool TestDataSave::init()
+bool LoadData::init()
 {
     // super init
     if ( !CCLayer::init() )
     {
         return false;
     }
-
-    // Test file paths
-//    string utilsFilePath = CCFileUtils::sharedFileUtils()->getWritablePath();
-//    CCString* utilsFileDisplay = CCString::createWithFormat("Shared File Utils Path: %s", utilsFilePath.c_str());
-//    CCLog(utilsFileDisplay->getCString());
-//
-//    CCLabelTTF* fileUtilsPathLabel = CCLabelTTF::create(utilsFileDisplay->getCString(), "Arial", VisibleRect::getScaledFont(10));
-//    fileUtilsPathLabel->setAnchorPoint(CCPointZero);
-//    fileUtilsPathLabel->setPosition(ccp(0, VisibleRect::getScaledFont(420)));
-//	addChild(fileUtilsPathLabel, 1);
-//
-//    // Resource File reading
-//    
-//    // Clean up the instance
-//    CCFileUtils::sharedFileUtils()->purgeCachedEntries();
-//    // check if a file exists
-//    string fileExistsPath = CCFileUtils::sharedFileUtils()->fullPathForFilename("levelA.plist");
-//    bool fileExists = CCFileUtils::sharedFileUtils()->isFileExist(fileExistsPath);
-//    CCString* fileExistsPathDisplay;
-//    if (fileExists)
-//    {
-//        fileExistsPathDisplay = CCString::createWithFormat("Exists at path: %s", fileExistsPath.c_str());
-//        CCLog(fileExistsPath.c_str());
-//    }
-//    else
-//    {
-//        fileExistsPathDisplay = CCString::createWithFormat("File does not exist");
-//    }
-//    CCLabelTTF* fileExistLabel = CCLabelTTF::create(fileExistsPathDisplay->getCString(), "Arial", VisibleRect::getScaledFont(10));
-//    fileExistLabel->setAnchorPoint(CCPointZero);
-//    fileExistLabel->setPosition(ccp(0, VisibleRect::getScaledFont(390)));
-//	addChild(fileExistLabel, 2);
-//
-//    // File saving and access
-//    
-//    // Clean up the instance
-//    CCFileUtils::sharedFileUtils()->purgeCachedEntries();
-//    // check if a file exists
-//    string storedFilePath = FileOperation::getAppFilePath() + "/levelA.plist";
-//    bool storedFileExists = CCFileUtils::sharedFileUtils()->isFileExist(storedFilePath);
-//    CCString* StoredFileExistsPathDisplay;
-//    if (storedFileExists)
-//    {
-//        StoredFileExistsPathDisplay = CCString::createWithFormat("Exists at path: %s", storedFilePath.c_str());
-//        CCLog(storedFilePath.c_str());
-//    }
-//    else
-//    {
-//        StoredFileExistsPathDisplay = CCString::createWithFormat("File does not exist");
-//        FileOperation::saveAppFile(storedFilePath);
-//    }
-//    CCLabelTTF* StoredFileExistLabel = CCLabelTTF::create(StoredFileExistsPathDisplay->getCString(), "Arial", VisibleRect::getScaledFont(10));
-//    StoredFileExistLabel->setAnchorPoint(CCPointZero);
-//    StoredFileExistLabel->setPosition(ccp(0, VisibleRect::getScaledFont(360)));
-//	addChild(StoredFileExistLabel, 3);
-
-    // high score display
-	CCLabelTTF* highscoretitle = CCLabelTTF::create("Rank      Score      Level", "Arial", VisibleRect::getScaledFont(15));
-	highscoretitle->setAnchorPoint(CCPointZero);
-	// yeah yeah its hardcoded, i just didn't want to do that math right now
-	highscoretitle->setPosition(ccp(50, VisibleRect::getScaledFont(450)));
-	addChild(highscoretitle, 0);
-
-	loadPlist("test.plist");
-
-	// set an action to pop scene
-	CCDelayTime* timeToLive = CCDelayTime::create(7.0f);
-	CCCallFunc* CCCallFuncpopScene = CCCallFunc::create(this, callfunc_selector(TestDataSave::popScene));
-	CCSequence* newSeq = (CCSequence*)CCSequence::create(timeToLive, CCCallFuncpopScene, NULL);
-	this->runAction(newSeq);
-
+    
+    // turn on touch events
+	setTouchEnabled(true);
+    
+    // load the app data
+    loadData();
+    
     return true;
 }
 
-void TestDataSave::loadPlist(const char* plistFile)
+void LoadData::loadData()
 {
-	std::string highScoreFile = FileOperation::getAppFilePath() + "/" + plistFile;//CCFileUtils::sharedFileUtils()->fullPathForFilename(plistFile);
-	CCArray* scores = NULL;
-    if (CCFileUtils::sharedFileUtils()->isFileExist(highScoreFile))
+    // load the directory
+    string directoryLoadResult = loadAppDirectory();
+    CCLabelTTF* StoredFileExistLabel = CCLabelTTF::create(directoryLoadResult.c_str(), "Arial", VisibleRect::getScaledFont(8));
+    StoredFileExistLabel->setAnchorPoint(CCPointZero);
+    StoredFileExistLabel->setPosition(ccp(10, VisibleRect::getScreenHeight() - 40));
+    addChild(StoredFileExistLabel, 0);
+    
+    // Load the default high scores
+    string highScoreLoadResults = loadHighscores();
+    CCLabelTTF* StoredHighScoreFileExistLabel = CCLabelTTF::create(highScoreLoadResults.c_str(), "Arial", VisibleRect::getScaledFont(8));
+    StoredHighScoreFileExistLabel->setAnchorPoint(CCPointZero);
+    StoredHighScoreFileExistLabel->setPosition(ccp(10, StoredFileExistLabel->getPositionY() - 40));
+    addChild(StoredHighScoreFileExistLabel, 1);
+    
+    // load the level files
+    string levelLoadResults = loadLevel();
+    CCLabelTTF* levelFileExistLabel = CCLabelTTF::create(levelLoadResults.c_str(), "Arial", VisibleRect::getScaledFont(8));
+    levelFileExistLabel->setAnchorPoint(CCPointZero);
+    levelFileExistLabel->setPosition(ccp(10, StoredHighScoreFileExistLabel->getPositionY() - 40));
+    addChild(levelFileExistLabel, 2);
+}
+
+// file directory load
+string LoadData::loadAppDirectory()
+{
+    // Check if directory exists
+    // if not create it
+    
+    // Clean up the instance
+    CCFileUtils::sharedFileUtils()->purgeCachedEntries();
+    
+    // check if the project store directory exists
+    string storedFilePath = FileOperation::getAppFilePath();
+    CCString* StoredFileExistsPathDisplay;
+    if (CCFileUtils::sharedFileUtils()->isFileExist(storedFilePath))
     {
-        scores = CCArray::createWithContentsOfFile(highScoreFile.c_str());
+        StoredFileExistsPathDisplay = CCString::createWithFormat("Exists: %s", storedFilePath.c_str());
     }
     else
     {
-        // copy the file to the app storage if it does not exist
-        string copyPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(plistFile);
-        FILE *fp = fopen(copyPath.c_str(), "r");
-        char buf[5000] = { 0 };
-        
-        if (!fp)
+        // create the directory
+        // SYSTEM LEVEL METHOD
+        mkdir(storedFilePath.c_str(), 0777);
+        StoredFileExistsPathDisplay = CCString::createWithFormat("Created directory at path: %s", storedFilePath.c_str());
+    }
+    
+    return StoredFileExistsPathDisplay->getCString();
+}
+
+// high score load
+string LoadData::loadHighscores()
+{
+    string defaultHighScoreFilePath = FileOperation::getFilePath() + "test.plist";
+    string storedHighScoreFilePath = FileOperation::getAppFilePath() + "/test.plist";
+    bool storedHighScoreFileExists = CCFileUtils::sharedFileUtils()->isFileExist(storedHighScoreFilePath);
+    CCString* HighScoreFileExistsPathDisplay;
+    if (storedHighScoreFileExists)
+    {
+        HighScoreFileExistsPathDisplay = CCString::createWithFormat("Exists %s", storedHighScoreFilePath.c_str());
+        CCLog(storedHighScoreFilePath.c_str());
+    }
+    else
+    {
+        if (FileOperation::fileCopy(defaultHighScoreFilePath, storedHighScoreFilePath))
         {
-            CCLOG("can not open file %s", copyPath.c_str());
-            return;
-        }
-        
-        fgets(buf, 5000, fp);
-        
-        FILE *wfp = fopen(copyPath.c_str(), "w");
-        
-        if (wfp)
-        {
-            cocos2d::CCUserDefault::sharedUserDefault()->flush();
-            fputs(buf, wfp);
-            fclose(wfp);
-            CCLog("%s file created", copyPath.c_str());
+            HighScoreFileExistsPathDisplay = CCString::createWithFormat("Created file: %s", storedHighScoreFilePath.c_str());
         }
         else
         {
-            CCLog("can not create file %s", copyPath.c_str());
+            HighScoreFileExistsPathDisplay = CCString::createWithFormat("File was not created");
         }
         
-        CCLOG("read content %s", buf);
-        
-        fclose(fp);
-
     }
-    CCLog("highScoreFile %s", highScoreFile.c_str());
-	
-
-	if (scores != NULL)
-	{
-		// try writing to the data array and saving it back
-		/*CCDictionary* newScore = CCDictionary::create();
-		newScore->setObject(ccs("4"), "RANK");
-		newScore->setObject(ccs("750"), "SCORE");
-		newScore->setObject(ccs("1"), "LEVEL");
-		scores->addObject(newScore);*/
-
-		CCObject* arrayElement;
-		int index = 0;
-		CCARRAY_FOREACH(scores, arrayElement)
-		{
-			CCDictionary* scoreDict = (CCDictionary *)arrayElement;
-			int rank, score, level;
-
-			// Get data for the given key. As you can see below, you can get this data within the format you expect (string, int, float....)
-			rank = scoreDict->valueForKey("RANK")->intValue();
-			score = scoreDict->valueForKey("SCORE")->intValue();
-			level = scoreDict->valueForKey("LEVEL")->intValue();
-
-			CCLog("rank: %d score: %d level: %d", rank, score, level);
-
-			char highScoreString[100];
-			sprintf(highScoreString, "%d      %d      %d", rank, score, level);
-			m_highScoreDisplayString = CCLabelTTF::create(highScoreString, "Arial", VisibleRect::getScaledFont(15));
-			m_highScoreDisplayString->setAnchorPoint(CCPointZero);
-			// yeah yeah its hardcoded, i just didn't want to do that math right now
-			m_highScoreDisplayString->setPosition(ccp(50, VisibleRect::getScaledFont(400) - (50 * index)));
-			addChild(m_highScoreDisplayString, index+1);
-
-			index++;
-		}
-	}
-	else
-	{
-		CCLog("scores NULL");
-	}
-
+    return HighScoreFileExistsPathDisplay->getCString();
 }
 
-void TestDataSave::popScene()
+// level load
+string LoadData::loadLevel()
 {
-	CCDirector::sharedDirector()->popScene();
+    string levelFilePath = FileOperation::getFilePath() + "levelA.plist";
+    string destLevelFilePath = FileOperation::getAppFilePath() + "/levelA.plist";
+    bool destLevelFileExists = CCFileUtils::sharedFileUtils()->isFileExist(destLevelFilePath);
+    CCString* destLevelFileExistsPathDisplay;
+    if (destLevelFileExists)
+    {
+        destLevelFileExistsPathDisplay = CCString::createWithFormat("Exists %s", destLevelFilePath.c_str());
+    }
+    else
+    {
+        if (FileOperation::fileCopy(levelFilePath, destLevelFilePath))
+        {
+            destLevelFileExistsPathDisplay = CCString::createWithFormat("Created file: %s", levelFilePath.c_str());
+        }
+        else
+        {
+            destLevelFileExistsPathDisplay = CCString::createWithFormat("File was not created");
+        }
+        
+    }
+    
+    // load levelB
+    levelFilePath = FileOperation::getFilePath() + "levelB.plist";
+    destLevelFilePath = FileOperation::getAppFilePath() + "/levelB.plist";
+    destLevelFileExists = CCFileUtils::sharedFileUtils()->isFileExist(destLevelFilePath);
+    if (destLevelFileExists)
+    {
+        destLevelFileExistsPathDisplay = CCString::createWithFormat("Exists %s", destLevelFilePath.c_str());
+    }
+    else
+    {
+        if (FileOperation::fileCopy(levelFilePath, destLevelFilePath))
+        {
+            destLevelFileExistsPathDisplay = CCString::createWithFormat("Created file: %s", levelFilePath.c_str());
+        }
+        else
+        {
+            destLevelFileExistsPathDisplay = CCString::createWithFormat("File was not created");
+        }
+        
+    }
+    return destLevelFileExistsPathDisplay->getCString();
+}
+
+void LoadData::ccTouchesEnded(CCSet* touches, CCEvent* event)
+{
+	CCDirector::sharedDirector()->replaceScene(LogoScene::scene());
 }

@@ -1,50 +1,50 @@
 obj/local/armeabi/objs/box2d_static/Dynamics/Contacts/b2PolygonAndCircleContact.o: \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.cpp \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.h \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/Contacts/b2Contact.h \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2Math.h \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2Settings.h \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cassert \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cmath \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cfloat \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstddef \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/limits \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Collision/b2Collision.h \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/climits \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Collision/Shapes/b2Shape.h \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2BlockAllocator.h \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/b2Fixture.h \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/b2Body.h \
- /cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/memory
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.cpp \
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.h \
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/Contacts/b2Contact.h \
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2Math.h \
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2Settings.h \
+ /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/cassert \
+ /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/cmath \
+ /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/cfloat \
+ /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/cstddef \
+ /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/limits \
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Collision/b2Collision.h \
+ /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/climits \
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Collision/Shapes/b2Shape.h \
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2BlockAllocator.h \
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/b2Fixture.h \
+ /Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/b2Body.h \
+ /Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/memory
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.h:
+/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.h:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/Contacts/b2Contact.h:
+/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/Contacts/b2Contact.h:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2Math.h:
+/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2Math.h:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2Settings.h:
+/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2Settings.h:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cassert:
+/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/cassert:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cmath:
+/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/cmath:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cfloat:
+/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/cfloat:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/cstddef:
+/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/cstddef:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/limits:
+/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/limits:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Collision/b2Collision.h:
+/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Collision/b2Collision.h:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/climits:
+/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/climits:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Collision/Shapes/b2Shape.h:
+/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Collision/Shapes/b2Shape.h:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2BlockAllocator.h:
+/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Common/b2BlockAllocator.h:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/b2Fixture.h:
+/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/b2Fixture.h:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/b2Body.h:
+/Users/akinlin/Desktop/TBDEntertainment/Games/projects/Cpp/ProjectDrumroll/proj.android/../../../../external/Box2D/../Box2D/Dynamics/b2Body.h:
 
-/cygdrive/c/Users/user/Desktop/TBDEntertainment/Android/NDK/android-ndk-r9/sources/cxx-stl/gnu-libstdc++/4.8/include/memory:
+/Users/akinlin/Desktop/TBDEntertainment/Android/AndroidNDK/android-ndk-r8d-mac/sources/cxx-stl/gnu-libstdc++/4.7/include/memory:
