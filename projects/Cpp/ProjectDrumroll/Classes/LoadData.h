@@ -41,5 +41,11 @@ private:
     
     // level load
 	string loadLevel();
+    
+    // test image loads
+	void imageLoadTest();
+
+    // exit  button callback
+	void exitCallback();
 };
 #endif /* defined(__ProjectDrumroll__LoadData__) */

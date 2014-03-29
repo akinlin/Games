@@ -44,6 +44,9 @@ bool LoadData::init()
     // turn on touch events
 	setTouchEnabled(true);
     
+    // test the image load
+    imageLoadTest();
+    
     // load the app data
     loadData();
     
@@ -72,6 +75,14 @@ void LoadData::loadData()
     levelFileExistLabel->setAnchorPoint(CCPointZero);
     levelFileExistLabel->setPosition(ccp(10, StoredHighScoreFileExistLabel->getPositionY() - 40));
     addChild(levelFileExistLabel, 2);
+    
+    // display the quit button
+    CCMenuItemImage* quitButton = CCMenuItemImage::create("CloseNormal.png", "CloseSelected.png", this, menu_selector(LoadData::exitCallback));
+    quitButton->setPosition(ccp(VisibleRect::getScreenWidth() - 70, 70));
+    // create menu, it's an autorelease object
+    CCMenu* pMenu = CCMenu::create(quitButton, NULL);
+    pMenu->setPosition( CCPointZero );
+    addChild(pMenu);
 }
 
 // file directory load
@@ -104,7 +115,7 @@ string LoadData::loadAppDirectory()
 // high score load
 string LoadData::loadHighscores()
 {
-    string defaultHighScoreFilePath = FileOperation::getFilePath() + "test.plist";
+    string defaultHighScoreFilePath = CCFileUtils::sharedFileUtils()->fullPathForFilename("test.plist");//FileOperation::getFilePath() + "test.plist";
     string storedHighScoreFilePath = FileOperation::getAppFilePath() + "/test.plist";
     bool storedHighScoreFileExists = CCFileUtils::sharedFileUtils()->isFileExist(storedHighScoreFilePath);
     CCString* HighScoreFileExistsPathDisplay;
@@ -131,7 +142,7 @@ string LoadData::loadHighscores()
 // level load
 string LoadData::loadLevel()
 {
-    string levelFilePath = FileOperation::getFilePath() + "levelA.plist";
+    string levelFilePath = CCFileUtils::sharedFileUtils()->fullPathForFilename("levelA.plist");//FileOperation::getFilePath() + "levelA.plist";
     string destLevelFilePath = FileOperation::getAppFilePath() + "/levelA.plist";
     bool destLevelFileExists = CCFileUtils::sharedFileUtils()->isFileExist(destLevelFilePath);
     CCString* destLevelFileExistsPathDisplay;
@@ -153,7 +164,7 @@ string LoadData::loadLevel()
     }
     
     // load levelB
-    levelFilePath = FileOperation::getFilePath() + "levelB.plist";
+    levelFilePath = CCFileUtils::sharedFileUtils()->fullPathForFilename("levelB.plist");//FileOperation::getFilePath() + "levelB.plist";
     destLevelFilePath = FileOperation::getAppFilePath() + "/levelB.plist";
     destLevelFileExists = CCFileUtils::sharedFileUtils()->isFileExist(destLevelFilePath);
     if (destLevelFileExists)
@@ -175,7 +186,78 @@ string LoadData::loadLevel()
     return destLevelFileExistsPathDisplay->getCString();
 }
 
+void LoadData::imageLoadTest()
+{
+    CCFileUtils *sharedFileUtils = CCFileUtils::sharedFileUtils();
+    
+    string ret;
+    
+    sharedFileUtils->purgeCachedEntries();
+    vector<string> searchPaths = sharedFileUtils->getSearchPaths();
+    searchPaths.insert(searchPaths.begin(),   "Images");
+    searchPaths.insert(searchPaths.begin()+1,   "Audio");
+    sharedFileUtils->setSearchPaths(searchPaths);
+    
+    vector<string> resolutionsOrder = sharedFileUtils->getSearchResolutionsOrder();
+    
+    CCLog("CC_TARGET_PLATFORM: %d", CC_TARGET_PLATFORM);
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+	// Android platfrom add the Android resolution directories
+    resolutionsOrder.insert(resolutionsOrder.begin(), "Android");
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    // Windows applcation load the Win32 directory
+    resolutionsOrder.insert(resolutionsOrder.begin(), "win32");
+#else
+    // Test code
+    resolutionsOrder.insert(resolutionsOrder.begin(), "assetTest2");
+    resolutionsOrder.insert(resolutionsOrder.begin()+1, "assetTest1");
+#endif
+    
+    sharedFileUtils->setSearchResolutionsOrder(resolutionsOrder);
+    
+    CCString *filename = CCString::createWithFormat("sample.png");
+    ret = sharedFileUtils->fullPathForFilename(filename->getCString());
+    CCLog("%s -> %s", filename->getCString(), ret.c_str());
+    
+    filename = CCString::createWithFormat("sample2.png");
+    ret = sharedFileUtils->fullPathForFilename(filename->getCString());
+    CCLog("%s -> %s", filename->getCString(), ret.c_str());
+    
+    filename = CCString::createWithFormat("printer.mp3");
+    ret = sharedFileUtils->fullPathForFilename(filename->getCString());
+    CCLog("%s -> %s", filename->getCString(), ret.c_str());
+    
+    filename = CCString::createWithFormat("levelA.plist");
+    ret = sharedFileUtils->fullPathForFilename(filename->getCString());
+    CCLog("%s -> %s", filename->getCString(), ret.c_str());
+    
+    filename = CCString::createWithFormat("fire.png");
+    ret = sharedFileUtils->fullPathForFilename(filename->getCString());
+    CCLog("%s -> %s", filename->getCString(), ret.c_str());
+    
+    filename = CCString::createWithFormat("color_key.png");
+    ret = sharedFileUtils->fullPathForFilename(filename->getCString());
+    CCLog("%s -> %s", filename->getCString(), ret.c_str());
+    
+    // display the sample image
+//    CCSprite* sampleImage = CCSprite::create("sample.png");
+//    sampleImage->setPosition(ccp((VisibleRect::getScreenWidth()/2)-200, VisibleRect::getScreenHeight()/2));
+//    addChild(sampleImage);
+//    
+//    // display the sample2 image
+//    CCSprite* sample2Image = CCSprite::create("sample2.png");
+//    sample2Image->setPosition(ccp(VisibleRect::getScreenWidth()/2, VisibleRect::getScreenHeight()/2));
+//    addChild(sample2Image);
+}
+
 void LoadData::ccTouchesEnded(CCSet* touches, CCEvent* event)
 {
 	CCDirector::sharedDirector()->replaceScene(LogoScene::scene());
+}
+
+void LoadData::exitCallback()
+{
+	CCDirector::sharedDirector()->end();
 }

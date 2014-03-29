@@ -79,7 +79,7 @@ fi
 mkdir "$APP_ANDROID_ROOT"/assets
 
 # copy resources
-for file in "$APP_ROOT"/Resources/*
+for file in "$APP_ROOT"/Resources/Android/*
 do
 if [ -d "$file" ]; then
     cp -rf "$file" "$APP_ANDROID_ROOT"/assets

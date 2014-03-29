@@ -79,7 +79,7 @@ bool TitleScene::init()
 	createTitleBG();
 
 	// play bg music
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("bg_music.wav", true);
+	//CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("bg_music.wav", true);
 
 	// schedule a high score scene push
 	//CCScheduler::scheduleSelector(schedule_selector(TitleScene::pushHighScoreScene), this, 3.0f, false);
@@ -113,7 +113,7 @@ void TitleScene::createTitleMenu()
 	//m_TitleMenu->alignItemsVertically();
 
 
-	CCLabelTTF* label = CCLabelTTF::create("Click To Start", "Arial", 150);
+	CCLabelTTF* label = CCLabelTTF::create("Click To Start", "Arial", VisibleRect::getScaledFont(35));
 	CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(TitleScene::menuCallback));
 	// pulse action
 	CCScaleTo* scaleUp = CCScaleTo::create(.75f, 1.1);
@@ -122,21 +122,26 @@ void TitleScene::createTitleMenu()
 	CCRepeatForever* repeat = CCRepeatForever::create(pulseSequence);
 	pMenuItem->runAction(repeat);
 
-	CCLabelTTF* labelLevelEditor = CCLabelTTF::create("Level Editor", "Arial", 100);
+	CCLabelTTF* labelLevelEditor = CCLabelTTF::create("Level Editor", "Arial", VisibleRect::getScaledFont(27));
 	CCMenuItemLabel* pEditorMenuItem = CCMenuItemLabel::create(labelLevelEditor, this, menu_selector(TitleScene::menuLevelEditorCallback));
-	pEditorMenuItem->setPosition(ccp(0, -150));
+	pEditorMenuItem->setPosition(ccp(0, -75));
+    
+    CCLabelTTF* labelExit = CCLabelTTF::create("Exit", "Arial", VisibleRect::getScaledFont(27));
+	CCMenuItemLabel* pExitMenuItem = CCMenuItemLabel::create(labelExit, this, menu_selector(TitleScene::menuExitCallback));
+	pExitMenuItem->setPosition(ccp(0, -150));
 
 	m_TitleMenu = CCMenu::create();
 	m_TitleMenu->setAnchorPoint(CCPointZero);
 	m_TitleMenu->addChild(pMenuItem, kMenuTagStartGame);
-	m_TitleMenu->addChild(pEditorMenuItem, kMenuTagStartGame);
+	m_TitleMenu->addChild(pEditorMenuItem, kMenuTagLevelEditor);
+    m_TitleMenu->addChild(pExitMenuItem, kMenuTagExit);
 	m_TitleMenu->setContentSize(VisibleRect::getScreenSize());
 	m_TitleMenu->setPosition(ccp((VisibleRect::getScreenWidth() / 2) + 50, VisibleRect::getScreenHeight() / 2));
 	// add the m_TitleMenu initalized by createTitleMenu
 	addChild(m_TitleMenu, kTitleLayerChildTagTitleMenu, kTitleLayerChildTagTitleMenu);
 
 	// create the label
-	m_TitleLabel = CCLabelTTF::create("Project Drumroll", "Arial", 200);
+	m_TitleLabel = CCLabelTTF::create("Project Drumroll", "Arial", VisibleRect::getScaledFont(55));
 	m_TitleLabel->setAnchorPoint(CCPointZero);
 	m_TitleLabel->setPosition(ccp(VisibleRect::getScreenWidth() - m_TitleLabel->getContentSize().width, VisibleRect::getScreenHeight() - m_TitleLabel->getContentSize().height));
 	addChild(m_TitleLabel, kTitleLayerChildTagTitleLabel, kTitleLayerChildTagTitleLabel);
@@ -213,6 +218,11 @@ void TitleScene::menuLevelEditorCallback(CCObject* pSender)
 	{
 		CCDirector::sharedDirector()->replaceScene(pScene);
 	}
+}
+
+void TitleScene::menuExitCallback(CCObject* pSender)
+{
+    CCDirector::sharedDirector()->end();
 }
 
 void TitleScene::createTitleBG()

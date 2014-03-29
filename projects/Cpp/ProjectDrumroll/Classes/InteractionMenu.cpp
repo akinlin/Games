@@ -171,6 +171,9 @@ GameInteractionMenu::GameInteractionMenu()
 GameInteractionMenu::~GameInteractionMenu()
 {
 	CC_SAFE_DELETE(flipButtonClipper);
+    CC_SAFE_DELETE(switchButtonClipper);
+    CC_SAFE_DELETE(dpadButtonClipper);
+    CC_SAFE_DELETE(slideButtonClipper);
 }
 
 void GameInteractionMenu::interactionComplete()

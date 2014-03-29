@@ -25,6 +25,7 @@ public:
     // a selector callback
     void menuCallback(CCObject* pSender);
 	void menuLevelEditorCallback(CCObject* pSender);
+    void menuExitCallback(CCObject* pSender);
 	void callback1(CCNode* pTarget);
     
     // implement the "static node()" method manually

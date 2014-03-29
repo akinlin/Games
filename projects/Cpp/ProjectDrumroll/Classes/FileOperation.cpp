@@ -288,13 +288,14 @@ bool FileOperation::fileCopy(string sourceFilePath, string destFilePath)
     // buffer from source file
     unsigned char* buf;
     // buffer size
-    size_t size;
+    unsigned long size;
     
     // get the source file data
     buf = CCFileUtils::sharedFileUtils()->getFileData(sourceFilePath.c_str(), "r", &size);
     if (!buf)
     {
         // source file could not be copied
+        CCLog("FileOperation::fileCopy - source file could not be copied: %s", buf);
         return false;
     }
     
@@ -303,6 +304,7 @@ bool FileOperation::fileCopy(string sourceFilePath, string destFilePath)
     if (!dest)
     {
         // dest file could not be opened
+        CCLog("FileOperation::fileCopy - dest file could not be opened: %s", destFilePath.c_str());
         return false;
     }
 
